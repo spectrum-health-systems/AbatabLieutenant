@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 
 namespace AbatabLieutenant
@@ -7,13 +8,13 @@ namespace AbatabLieutenant
     {
         static void Main(string[] args)
         {
-            //var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\";
+            var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\";
 
-            //if (Directory.Exists(abatabWebServiceDir))
-            //{
-            //    Directory.Delete(abatabWebServiceDir, true);
-            //    Directory.CreateDirectory(abatabWebServiceDir);
-            //}
+            if (Directory.Exists(abatabWebServiceDir))
+            {
+                Directory.Delete(abatabWebServiceDir, true);
+                Directory.CreateDirectory(abatabWebServiceDir);
+            }
 
             var abatabTempDir = @"C:\AvatoolWebService\Abatab_Temp\";
 
@@ -34,23 +35,23 @@ namespace AbatabLieutenant
 
             CopyDir(@"C:\AvatoolWebService\Abatab_Temp\Abatab-development\src\bin\", @"C:\AvatoolWebService\Abatab\bin\");
 
-            //var filesToCopy = new List<string>
-            //{
-            //    "Abatab.asmx",
-            //    "Abatab.asmx.cs",
-            //    "packages.config",
-            //    "Web.config",
-            //    "Web.Debug.config",
-            //    "Web.Release.config"
-            //};
+            var filesToCopy = new List<string>
+            {
+                "Abatab.asmx",
+                "Abatab.asmx.cs",
+                "packages.config",
+                "Web.config",
+                "Web.Debug.config",
+                "Web.Release.config"
+            };
 
-            //string sourceFilePath = @"C:\AvatoolWebService\abatab\";
-            //string targetFilePath = @"C:\AvatoolWebService\abatab\";
+            string sourceFilePath = @"C:\AvatoolWebService\abatab\";
+            string targetFilePath = @"C:\AvatoolWebService\abatab\";
 
-            //foreach (var file in filesToCopy)
-            //{
-            //    File.Copy($"{sourceFilePath}{file}", $"{targetFilePath}{file}");
-            //}
+            foreach (var file in filesToCopy)
+            {
+                File.Copy($"{sourceFilePath}{file}", $"{targetFilePath}{file}");
+            }
 
         }
 
