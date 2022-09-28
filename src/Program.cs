@@ -6,13 +6,13 @@ namespace AbatabLieutenant
     {
         static void Main(string[] args)
         {
-            var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\";
+            //var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\";
 
-            if (Directory.Exists(abatabWebServiceDir))
-            {
-                Directory.Delete(abatabWebServiceDir, true);
-                Directory.CreateDirectory(abatabWebServiceDir);
-            }
+            //if (Directory.Exists(abatabWebServiceDir))
+            //{
+            //    Directory.Delete(abatabWebServiceDir, true);
+            //    Directory.CreateDirectory(abatabWebServiceDir);
+            //}
 
             var abatabTempDir = @"C:\AvatoolWebService\Abatab_Temp\";
             if (Directory.Exists(abatabTempDir))
