@@ -1,4 +1,17 @@
-﻿using System.Collections.Generic;
+﻿/* ========================================================================================================
+ * AbatabLieutenant v1.0.0
+ * https://github.com/spectrum-health-systems/AbatabLieutenant
+ * (c) 2021-2022 A Pretty Cool Program (see LICENSE file for more information)
+ * --------------------------------------------------------------------------------------------------------
+ * AbatabLieutenant.csproj v1.0.0
+ * Program.cs b220928.164707
+ * ===================================================================================================== */
+
+/* AbatabLieutenant is a simple command line application that fetches the current development branch of
+ * Abatab, and copies it to the web server where it is hosted.
+ */
+
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -6,34 +19,22 @@ namespace AbatabLieutenant
 {
     internal class Program
     {
+        public static string AbatabUatRoot = @"C:\AvatoolWebService\Abatab_UAT";
+        public static string RepoUrl       = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/development.zip";
+
         static void Main(string[] args)
         {
-            var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\bin";
+            var webServiceDir = $@"{AbatabUatRoot}\Webservice";
+            RefreshDirectory(webServiceDir);
 
-            if (Directory.Exists(abatabWebServiceDir))
-            {
-                Directory.Delete(abatabWebServiceDir, true);
-                Directory.CreateDirectory(abatabWebServiceDir);
-            }
+            var tempDir = $@"{AbatabUatRoot}\Temp";
+            RefreshDirectory(tempDir);
 
-            var abatabTempDir = @"C:\AvatoolWebService\Abatab_Temp\";
+            var repoZipName = $@"{AbatabUatRoot}\Abatab-repo.zip";
+            DownloadZipFromUrl(RepoUrl, repoZipName);
+            ZipFile.ExtractToDirectory(repoZipName, tempDir);
 
-            if (Directory.Exists(abatabTempDir))
-            {
-                Directory.Delete(abatabTempDir, true);
-            }
-
-            Directory.CreateDirectory(abatabTempDir);
-
-            var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/development.zip";
-            var repoZipfile = @"C:\AvatoolWebService\Abatab_Temp\Abatab-repo.zip";
-            //var repoZipfile = $@"{abatabTempDir}abatab-repo.zip";
-
-            DownloadZipFromUrl(repoUrl, repoZipfile);
-
-            ZipFile.ExtractToDirectory(repoZipfile, abatabTempDir);
-
-            CopyDir(@"C:\AvatoolWebService\Abatab_Temp\Abatab-development\src\bin\", @"C:\AvatoolWebService\Abatab\bin\");
+            CopyDir($@"{tempDir}\Abatab-development\src\bin\", $@"{webServiceDir}\bin");
 
             var filesToCopy = new List<string>
             {
@@ -45,14 +46,23 @@ namespace AbatabLieutenant
                 "Web.Release.config"
             };
 
-            string sourceFilePath = @"C:\AvatoolWebService\Abatab_Temp\Abatab-development\src\";
-            string targetFilePath = @"C:\AvatoolWebService\Abatab\";
+            string sourcePath = $@"{tempDir}\Abatab-development\src";
+            string targetPath = $@"{webServiceDir}";
 
             foreach (var file in filesToCopy)
             {
-                File.Copy($"{sourceFilePath}{file}", $"{targetFilePath}{file}");
+                File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
+            }
+        }
+
+        private static void RefreshDirectory(string dir)
+        {
+            if (Directory.Exists(dir))
+            {
+                Directory.Delete(dir, true);
             }
 
+            Directory.CreateDirectory(dir);
         }
 
         public static void DownloadZipFromUrl(string sourceUrl, string targetFilePath)
@@ -63,22 +73,10 @@ namespace AbatabLieutenant
 
         public static void CopyDir(string sourceDir, string targetDir)
         {
-            //if (Directory.Exists(sourceDir))
-            //{
-            //    Directory.Delete(sourceDir, true);
-            //    Directory.CreateDirectory(sourceDir);
-            //}
-
-            if (Directory.Exists(targetDir))
-            {
-                Directory.Delete(targetDir, true);
-            }
-
-            Directory.CreateDirectory(targetDir);
+            RefreshDirectory(targetDir);
 
             var dirToCopy                 = new DirectoryInfo(sourceDir);
             DirectoryInfo[] subDirsToCopy = GetSubDirs(sourceDir, targetDir);
-
 
             foreach (FileInfo file in dirToCopy.GetFiles())
             {
@@ -105,6 +103,5 @@ namespace AbatabLieutenant
 
             return dirs;
         }
-
     }
 }
