@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -9,21 +8,7 @@ namespace AbatabLieutenant
     {
         static void Main(string[] args)
         {
-            var passedArgs = args;
-
-            if (passedArgs.Length == 0)
-            {
-                Console.WriteLine("No arguments passed");
-            }
-            else
-            {
-                UpdateSourceCode();
-            }
-        }
-
-        private static void UpdateSourceCode()
-        {
-            var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\";
+            var abatabWebServiceDir = @"C:\test";
 
             if (Directory.Exists(abatabWebServiceDir))
             {
@@ -65,6 +50,7 @@ namespace AbatabLieutenant
             {
                 File.Copy($"{sourceFilePath}{file}", $"{targetFilePath}{file}");
             }
+
         }
 
         public static void DownloadZipFromUrl(string sourceUrl, string targetFilePath)
