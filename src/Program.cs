@@ -45,7 +45,7 @@ namespace AbatabLieutenant
                 "Web.Release.config"
             };
 
-            string sourceFilePath = @"C:\AvatoolWebService\Abatab\";
+            string sourceFilePath = @"C:\AvatoolWebService\Abatab_Temp\Abatab-development\src\";
             string targetFilePath = @"C:\AvatoolWebService\Abatab\";
 
             foreach (var file in filesToCopy)
