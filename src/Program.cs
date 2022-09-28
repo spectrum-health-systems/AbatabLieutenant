@@ -15,11 +15,14 @@ namespace AbatabLieutenant
             //}
 
             var abatabTempDir = @"C:\AvatoolWebService\Abatab_Temp\";
+
             if (Directory.Exists(abatabTempDir))
             {
                 Directory.Delete(abatabTempDir, true);
                 Directory.CreateDirectory(abatabTempDir);
             }
+
+            Directory.CreateDirectory(abatabTempDir);
 
             //var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/tree/development";
             //var repoZipfile = @"C:\AvatoolWebService\Abatar_Temp\Abatar-repo.zip";
