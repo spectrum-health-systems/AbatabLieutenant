@@ -25,7 +25,8 @@ namespace AbatabLieutenant
 
 
             var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/tree/development";
-            var repoZipfile = @"C:\AvatoolWebService\Abatar_Temp\Abatar-repo.zip";
+            //var repoZipfile = @"C:\AvatoolWebService\Abatar_Temp\Abatar-repo.zip";
+            var repoZipfile = @"C:\test\Abatar-repo.zip";
 
             DownloadZipFromUrl(repoUrl, repoZipfile);
 
