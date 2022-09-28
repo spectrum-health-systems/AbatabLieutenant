@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.IO.Compression;
 
 namespace AbatabLieutenant
 {
@@ -22,14 +23,13 @@ namespace AbatabLieutenant
                 Directory.CreateDirectory(abatabTempDir);
             }
 
-            ////Directory.CreateDirectory(@"C:\AvatoolWebService\Abatab_Temp\");
 
-            //var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/tree/development";
-            //var repoZipfile = @"C:\AvatoolWebService\Abatar_Temp\Abatar-repo.zip";
+            var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/tree/development";
+            var repoZipfile = @"C:\AvatoolWebService\Abatar_Temp\Abatar-repo.zip";
 
-            //DownloadZipFromUrl(repoUrl, repoZipfile);
+            DownloadZipFromUrl(repoUrl, repoZipfile);
 
-            //ZipFile.ExtractToDirectory(repoZipfile, abatabTempDir);
+            ZipFile.ExtractToDirectory(repoZipfile, abatabTempDir);
 
             //CopyDir(@"C:\AvatoolWebService\Abatar_Temp\bin\", @"C:\AvatoolWebService\Abatar\bin\");
 
