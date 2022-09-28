@@ -25,14 +25,14 @@ namespace AbatabLieutenant
 
 
             var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/tree/development";
-            //var repoZipfile = @"C:\AvatoolWebService\Abatar_Temp\Abatar-repo.zip";
-            var repoZipfile = $@"{abatabTempDir}Abatar-repo.zip";
+            var repoZipfile = @"C:\AvatoolWebService\Abatab_Temp\Abatab-repo.zip";
+            //var repoZipfile = $@"{abatabTempDir}abatab-repo.zip";
 
             DownloadZipFromUrl(repoUrl, repoZipfile);
 
             ZipFile.ExtractToDirectory(repoZipfile, abatabTempDir);
 
-            //CopyDir(@"C:\AvatoolWebService\Abatar_Temp\bin\", @"C:\AvatoolWebService\Abatar\bin\");
+            //CopyDir(@"C:\AvatoolWebService\abatab_Temp\bin\", @"C:\AvatoolWebService\abatab\bin\");
 
             //var filesToCopy = new List<string>
             //{
@@ -44,8 +44,8 @@ namespace AbatabLieutenant
             //    "Web.Release.config"
             //};
 
-            //string sourceFilePath = @"C:\AvatoolWebService\Abatar\";
-            //string targetFilePath = @"C:\AvatoolWebService\Abatar\";
+            //string sourceFilePath = @"C:\AvatoolWebService\abatab\";
+            //string targetFilePath = @"C:\AvatoolWebService\abatab\";
 
             //foreach (var file in filesToCopy)
             //{
