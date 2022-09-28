@@ -19,7 +19,7 @@ namespace AbatabLieutenant
             if (Directory.Exists(abatabTempDir))
             {
                 Directory.Delete(abatabTempDir, true);
-                Directory.CreateDirectory(abatabTempDir);
+                //Directory.CreateDirectory(abatabTempDir);
             }
 
             //var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/tree/development";
