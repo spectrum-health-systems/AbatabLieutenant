@@ -23,8 +23,7 @@ namespace AbatabLieutenant
                 Directory.CreateDirectory(abatabTempDir);
             }
 
-
-            var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/tree/development";
+            var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/development.zip";
             var repoZipfile = @"C:\AvatoolWebService\Abatab_Temp\Abatab-repo.zip";
             //var repoZipfile = $@"{abatabTempDir}abatab-repo.zip";
 
