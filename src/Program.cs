@@ -65,12 +65,12 @@ namespace AbatabLieutenant
 
             foreach (var file in filesToCopy)
             {
-                File.AppendAllText(logFileName, $@"Checking file: {sourcePath}\{file}...{Environment.NewLine}");
+                File.AppendAllText(logFileName, $@"Checking file: {targetPath}\{file}...{Environment.NewLine}");
 
-                if (File.Exists($@"{sourcePath}\{file}"))
+                if (File.Exists($@"{targetPath}\{file}"))
                 {
-                    File.Delete($@"{sourcePath}\{file}");
-                    File.AppendAllText(logFileName, $@"File: {sourcePath}\{file} exists...deleted.{Environment.NewLine}");
+                    File.Delete($@"{targetPath}\{file}");
+                    File.AppendAllText(logFileName, $@"File: {targetPath}\{file} exists...deleted.{Environment.NewLine}");
                 }
 
                 File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
