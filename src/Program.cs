@@ -9,8 +9,12 @@
 
 /* AbatabLieutenant is a simple command line application that fetches the current development branch of
  * Abatab, and copies it to the web server where it is hosted.
+ * 
+ * For more information:
+ *   https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/README.md
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -24,17 +28,27 @@ namespace AbatabLieutenant
 
         static void Main(string[] args)
         {
-            var webServiceDir = $@"{AbatabUatRoot}\Webservice";
-            RefreshDirectory(webServiceDir);
+
+            var logFileName = $@"{AbatabUatRoot}\Logs\AbatabLieutenant.{DateTime.Now.ToString("yy-MM-dd_HH-mm-ss")}";
+            File.WriteAllText(logFileName, "Log file start...");
 
             var tempDir = $@"{AbatabUatRoot}\Temp";
             RefreshDirectory(tempDir);
+            File.AppendAllText(logFileName, $@"{AbatabUatRoot}\Temp refreshed.");
 
             var repoZipName = $@"{tempDir}\Abatab-repo.zip";
             DownloadZipFromUrl(RepoUrl, repoZipName);
-            ZipFile.ExtractToDirectory(repoZipName, tempDir);
+            File.AppendAllText(logFileName, $@"{repoZipName} downloaded.");
 
-            CopyDir($@"{tempDir}\Abatab-development\src\bin\", $@"{webServiceDir}\bin");
+            ZipFile.ExtractToDirectory(repoZipName, tempDir);
+            File.AppendAllText(logFileName, $@"{repoZipName} extracted.");
+
+            var webServiceBinDir = $@"{AbatabUatRoot}\bin";
+            RefreshDirectory(webServiceBinDir);
+            File.AppendAllText(logFileName, $@"{AbatabUatRoot}\bin refreshed.");
+
+            CopyDir($@"{tempDir}\Abatab-development\src\bin\", $@"{webServiceBinDir}", logFileName);
+            File.AppendAllText(logFileName, $@"{tempDir}\Abatab-development\src\bin\ copied.");
 
             var filesToCopy = new List<string>
             {
@@ -47,12 +61,13 @@ namespace AbatabLieutenant
             };
 
             string sourcePath = $@"{tempDir}\Abatab-development\src";
-            string targetPath = $@"{webServiceDir}";
+            string targetPath = $@"{AbatabUatRoot}";
 
             foreach (var file in filesToCopy)
             {
                 File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
             }
+            File.AppendAllText(logFileName, "Web service files copied.");
         }
 
         private static void RefreshDirectory(string dir)
@@ -65,38 +80,43 @@ namespace AbatabLieutenant
             Directory.CreateDirectory(dir);
         }
 
-        public static void DownloadZipFromUrl(string sourceUrl, string targetFilePath)
+        public static void DownloadZipFromUrl(string sourceUrl, string targetPath)
         {
             var webClient = new System.Net.WebClient();
-            webClient.DownloadFile(sourceUrl, targetFilePath);
+            webClient.DownloadFile(sourceUrl, targetPath);
         }
 
-        public static void CopyDir(string sourceDir, string targetDir)
+        public static void CopyDir(string sourceDir, string targetDir, string logFileName)
         {
             RefreshDirectory(targetDir);
+            File.AppendAllText(logFileName, $@"{targetDir} refreshed.");
 
             var dirToCopy                 = new DirectoryInfo(sourceDir);
-            DirectoryInfo[] subDirsToCopy = GetSubDirs(sourceDir, targetDir);
+            DirectoryInfo[] subDirsToCopy = GetSubDirs(sourceDir, targetDir, logFileName);
 
             foreach (FileInfo file in dirToCopy.GetFiles())
             {
                 string targetFilePath = Path.Combine(targetDir, file.Name);
                 file.CopyTo(targetFilePath);
+
+                File.AppendAllText(logFileName, $@"File: {targetFilePath} copied.");
             }
 
             foreach (DirectoryInfo subDir in subDirsToCopy)
             {
                 string newTargetDir = Path.Combine(targetDir, subDir.Name);
+                File.AppendAllText(logFileName, $@"Subdirectory: {newTargetDir} found.");
             }
         }
 
-        private static DirectoryInfo[] GetSubDirs(string sourceDir, string targetDir)
+        private static DirectoryInfo[] GetSubDirs(string sourceDir, string targetDir, string logFileName)
         {
             var dir = new DirectoryInfo(sourceDir);
 
             if (!dir.Exists)
             {
                 Directory.CreateDirectory(targetDir);
+                File.AppendAllText(logFileName, $@"Directory: {targetDir} created.");
             }
 
             DirectoryInfo[] dirs = dir.GetDirectories();
