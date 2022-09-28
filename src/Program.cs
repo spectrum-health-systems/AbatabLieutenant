@@ -11,7 +11,7 @@ namespace AbatabLieutenant
             if (Directory.Exists(abatabWebServiceDir))
             {
                 Directory.Delete(abatabWebServiceDir, true);
-                Directory.CreateDirectory(abatabWebServiceDir);
+                //Directory.CreateDirectory(abatabWebServiceDir);
             }
 
             var abatabTempDir = @"C:\AvatoolWebService\Abatar_Temp\";
