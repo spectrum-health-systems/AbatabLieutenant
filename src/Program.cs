@@ -30,7 +30,7 @@ namespace AbatabLieutenant
             var tempDir = $@"{AbatabUatRoot}\Temp";
             RefreshDirectory(tempDir);
 
-            var repoZipName = $@"{AbatabUatRoot}\Abatab-repo.zip";
+            var repoZipName = $@"{tempDir}\Abatab-repo.zip";
             DownloadZipFromUrl(RepoUrl, repoZipName);
             ZipFile.ExtractToDirectory(repoZipName, tempDir);
 
