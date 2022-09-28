@@ -65,6 +65,7 @@ namespace AbatabLieutenant
 
             foreach (var file in filesToCopy)
             {
+                File.AppendAllText(logFileName, $"Checking file: {file}...{Environment.NewLine}");
                 if (File.Exists(file))
                 {
                     File.Delete(file);
