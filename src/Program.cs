@@ -8,7 +8,7 @@ namespace AbatabLieutenant
     {
         static void Main(string[] args)
         {
-            var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\";
+            var abatabWebServiceDir = @"C:\AvatoolWebService\Abatab\bin";
 
             if (Directory.Exists(abatabWebServiceDir))
             {
