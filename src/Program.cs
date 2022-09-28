@@ -20,8 +20,9 @@ namespace AbatabLieutenant
             if (Directory.Exists(abatabTempDir))
             {
                 Directory.Delete(abatabTempDir, true);
-                Directory.CreateDirectory(abatabTempDir);
             }
+
+            Directory.CreateDirectory(abatabTempDir);
 
             var repoUrl     = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/development.zip";
             var repoZipfile = @"C:\AvatoolWebService\Abatab_Temp\Abatab-repo.zip";
@@ -70,8 +71,9 @@ namespace AbatabLieutenant
             if (Directory.Exists(targetDir))
             {
                 Directory.Delete(targetDir, true);
-                Directory.CreateDirectory(targetDir);
             }
+
+            Directory.CreateDirectory(targetDir);
 
             var dirToCopy                 = new DirectoryInfo(sourceDir);
             DirectoryInfo[] subDirsToCopy = GetSubDirs(sourceDir, targetDir);
