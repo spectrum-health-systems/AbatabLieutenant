@@ -61,11 +61,11 @@ namespace AbatabLieutenant
 
         public static void CopyDir(string sourceDir, string targetDir)
         {
-            if (Directory.Exists(sourceDir))
-            {
-                Directory.Delete(sourceDir, true);
-                Directory.CreateDirectory(sourceDir);
-            }
+            //if (Directory.Exists(sourceDir))
+            //{
+            //    Directory.Delete(sourceDir, true);
+            //    Directory.CreateDirectory(sourceDir);
+            //}
 
             if (Directory.Exists(targetDir))
             {
