@@ -65,15 +65,16 @@ namespace AbatabLieutenant
 
             foreach (var file in filesToCopy)
             {
-                File.AppendAllText(logFileName, $"Checking file: {file}...{Environment.NewLine}");
-                if (File.Exists(file))
+                File.AppendAllText(logFileName, $@"Checking file: {sourcePath}\{file}...{Environment.NewLine}");
+
+                if (File.Exists($@"{sourcePath}\{file}"))
                 {
-                    File.Delete(file);
-                    File.AppendAllText(logFileName, $"File: {file} exists...deleted.{Environment.NewLine}");
+                    File.Delete($@"{sourcePath}\{file}");
+                    File.AppendAllText(logFileName, $@"File: {sourcePath}\{file} exists...deleted.{Environment.NewLine}");
                 }
 
                 File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
-                File.AppendAllText(logFileName, $"File: {file} copied.{Environment.NewLine}");
+                File.AppendAllText(logFileName, $@"File: {sourcePath}\{file} copied.{Environment.NewLine}");
             }
             File.AppendAllText(logFileName, $"Web service files copied.{Environment.NewLine}");
         }
