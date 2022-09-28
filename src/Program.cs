@@ -68,6 +68,7 @@ namespace AbatabLieutenant
                 if (File.Exists(file))
                 {
                     File.Delete(file);
+                    File.AppendAllText(logFileName, $"File: {file} exists...deleted.{Environment.NewLine}");
                 }
 
                 File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
