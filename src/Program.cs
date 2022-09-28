@@ -107,6 +107,7 @@ namespace AbatabLieutenant
             {
                 string newTargetDir = Path.Combine(targetDir, subDir.Name);
                 File.AppendAllText(logFileName, $@"Subdirectory: {newTargetDir} found.{Environment.NewLine}");
+                CopyDir(subDir.FullName, newTargetDir, logFileName);
             }
         }
 
