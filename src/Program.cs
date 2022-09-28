@@ -31,7 +31,7 @@ namespace AbatabLieutenant
 
             ZipFile.ExtractToDirectory(repoZipfile, abatabTempDir);
 
-            CopyDir(@"C:\AvatoolWebService\abatab_Temp\Abatab-development\src\bin\", @"C:\AvatoolWebService\abatab\bin\");
+            CopyDir(@"C:\AvatoolWebService\Abatab_Temp\Abatab-development\src\bin\", @"C:\AvatoolWebService\Abatab\bin\");
 
             //var filesToCopy = new List<string>
             //{
