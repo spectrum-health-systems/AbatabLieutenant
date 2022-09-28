@@ -9,7 +9,7 @@
 
 /* AbatabLieutenant is a simple command line application that fetches the current development branch of
  * Abatab, and copies it to the web server where it is hosted.
- * 
+ *
  * For more information:
  *   https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/README.md
  */
@@ -28,27 +28,25 @@ namespace AbatabLieutenant
 
         static void Main(string[] args)
         {
-
             var logFileName = $@"{AbatabUatRoot}\Logs\AbatabLieutenant.{DateTime.Now.ToString("yy-MM-dd_HH-mm-ss")}";
             File.WriteAllText(logFileName, $"Log file start...{Environment.NewLine}");
 
             var tempDir = $@"{AbatabUatRoot}\Temp";
-            RefreshDirectory(tempDir);
-            File.AppendAllText(logFileName, $@"{AbatabUatRoot}\Temp refreshed.{Environment.NewLine}");
+            RefreshDirectory(tempDir, logFileName);
 
             var repoZipName = $@"{tempDir}\Abatab-repo.zip";
-            DownloadZipFromUrl(RepoUrl, repoZipName);
-            File.AppendAllText(logFileName, $@"{repoZipName} downloaded.{Environment.NewLine}");
+            DownloadZipFromUrl(RepoUrl, repoZipName, logFileName);
 
+            File.AppendAllText(logFileName, $@"Extracting {repoZipName}...{Environment.NewLine}");
             ZipFile.ExtractToDirectory(repoZipName, tempDir);
             File.AppendAllText(logFileName, $@"{repoZipName} extracted.{Environment.NewLine}");
 
             var webServiceBinDir = $@"{AbatabUatRoot}\bin";
-            RefreshDirectory(webServiceBinDir);
-            File.AppendAllText(logFileName, $@"{AbatabUatRoot}\bin refreshed.{Environment.NewLine}");
+            RefreshDirectory(webServiceBinDir, logFileName);
 
+            File.AppendAllText(logFileName, $@"Copying {tempDir}\Abatab-development\src\bin\ to {webServiceBinDir}...{Environment.NewLine}");
             CopyDir($@"{tempDir}\Abatab-development\src\bin\", $@"{webServiceBinDir}", logFileName);
-            File.AppendAllText(logFileName, $@"{tempDir}\Abatab-development\src\bin\ copied.{Environment.NewLine}");
+            File.AppendAllText(logFileName, $@"{tempDir}\Abatab-development\src\bin\ copied to {webServiceBinDir}.{Environment.NewLine}");
 
             var filesToCopy = new List<string>
             {
@@ -69,35 +67,46 @@ namespace AbatabLieutenant
 
                 if (File.Exists($@"{targetPath}\{file}"))
                 {
+                    File.AppendAllText(logFileName, $@"File: {targetPath}\{file} exists...{Environment.NewLine}");
                     File.Delete($@"{targetPath}\{file}");
-                    File.AppendAllText(logFileName, $@"File: {targetPath}\{file} exists...deleted.{Environment.NewLine}");
+                    File.AppendAllText(logFileName, $@"File: {targetPath}\{file} deleted.{Environment.NewLine}");
                 }
 
+                File.AppendAllText(logFileName, $@"Copying {sourcePath}\{file}...{Environment.NewLine}");
                 File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
                 File.AppendAllText(logFileName, $@"File: {sourcePath}\{file} copied.{Environment.NewLine}");
             }
             File.AppendAllText(logFileName, $"Web service files copied.{Environment.NewLine}");
         }
 
-        private static void RefreshDirectory(string dir)
+        private static void RefreshDirectory(string dir, string logFileName)
         {
+            File.AppendAllText(logFileName, $"Checking to see if {dir}/ exists...{Environment.NewLine}");
+
             if (Directory.Exists(dir))
             {
                 Directory.Delete(dir, true);
+                File.AppendAllText(logFileName, $"{dir}/ exists...{Environment.NewLine}");
             }
 
             Directory.CreateDirectory(dir);
+
+            File.AppendAllText(logFileName, $"{dir}/ refreshed.{Environment.NewLine}");
         }
 
-        public static void DownloadZipFromUrl(string sourceUrl, string targetPath)
+        public static void DownloadZipFromUrl(string sourceUrl, string targetPath, string logFileName)
         {
+            File.AppendAllText(logFileName, $@"Downloading Abatab repository from {sourceUrl}...{Environment.NewLine}");
+
             var webClient = new System.Net.WebClient();
             webClient.DownloadFile(sourceUrl, targetPath);
+
+            File.AppendAllText(logFileName, $@"Abatab repository downloaded.{Environment.NewLine}");
         }
 
         public static void CopyDir(string sourceDir, string targetDir, string logFileName)
         {
-            RefreshDirectory(targetDir);
+            RefreshDirectory(targetDir, logFileName);
             File.AppendAllText(logFileName, $@"{targetDir} refreshed.{Environment.NewLine}");
 
             var dirToCopy                 = new DirectoryInfo(sourceDir);
@@ -125,6 +134,7 @@ namespace AbatabLieutenant
 
             if (!dir.Exists)
             {
+                File.AppendAllText(logFileName, $@"Directory {targetDir} does not exist...{Environment.NewLine}");
                 Directory.CreateDirectory(targetDir);
                 File.AppendAllText(logFileName, $@"Directory: {targetDir} created.{Environment.NewLine}");
             }
