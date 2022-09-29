@@ -31,7 +31,7 @@ namespace AbatabLieutenant
 
         private static void Main(string[] args)
         {
-            var logName = $@"{AbatabUatRoot}\Logs\AbatabLieutenant\{Timestamp}.log";
+            var logName = $@"{AbatabUatRoot}\logs\lieutenant\{Timestamp}.log";
 
             WriteAndDisplayLog($"Starting Abatab Lieutenant (v{LieutenantVer})...", logName, true);
 
@@ -72,25 +72,25 @@ namespace AbatabLieutenant
         private static string FormatMsg(string msg, bool newLine)
         {
             return newLine
-                ? $"{Environment.NewLine}{msg}{Environment.NewLine}"
-                : $"{msg}{Environment.NewLine}";
+                ? $"{Environment.NewLine}{msg}"
+                : $"{msg}";
         }
 
         private static void VerifyRequiredDirectories(Dictionary<string, string> dirs, string logName)
         {
-            foreach (var dir in dirs.Values)
-            {
-                Console.WriteLine(dir);
+            WriteAndDisplayLog($"Verifying directories...", logName, true);
 
-                if (Directory.Exists(dir))
+            foreach (var dir in dirs)
+            {
+                if (Directory.Exists(dir.Value))
                 {
-                    WriteAndDisplayLog($"Directory {dir} exists.", logName);
+                    WriteAndDisplayLog($"Directory {dir.Value} exists.", logName);
                 }
                 else
                 {
-                    _=Directory.CreateDirectory(dir);
+                    _=Directory.CreateDirectory(dir.Value);
 
-                    if (dir == @"C:\AvatoolWebService\Abatab_UAT\logs\lieutenant")
+                    if (dir.Key == "logDir")
                     {
                         _=File.Create(logName);
                         WriteAndDisplayLog($"Logfile created.", logName);
