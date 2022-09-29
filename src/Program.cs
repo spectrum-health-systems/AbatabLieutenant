@@ -90,12 +90,12 @@ namespace AbatabLieutenant
                 {
                     _=Directory.CreateDirectory(dir.Value);
 
-                    if (dir.Key == "logDir")
-                    {
-                        File.WriteAllText(logName, "Logfile created");
-                    }
-
                     WriteAndDisplayLog($"Directory {dir}  did not exist, and was created.", logName);
+                }
+
+                if (dir.Key == "logDir")
+                {
+                    File.WriteAllText(logName, "Logfile created");
                 }
             }
         }
