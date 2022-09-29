@@ -41,6 +41,6 @@ If logging stops working, delete this folder:
 
 ## Running Abatab Lieutenant
 
-Run `AbatabLieutenant.exe`
+Run `AbatabLieutenant.exe` as Administrator.
 
 That's, uh, it.
