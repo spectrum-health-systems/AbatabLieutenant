@@ -33,7 +33,7 @@ namespace AbatabLieutenant
         {
             var logName = $@"{AbatabUatRoot}\Logs\AbatabLieutenant\{Timestamp}.log";
 
-            WriteAndDisplayLog($"Starting Abatab Lieutenant (v{LieutenantVer})...", logName);
+            WriteAndDisplayLog($"Starting Abatab Lieutenant (v{LieutenantVer})...", logName, true);
 
             var requiredDirs = new Dictionary<string, string>
             {
@@ -78,20 +78,21 @@ namespace AbatabLieutenant
 
         private static void VerifyRequiredDirectories(Dictionary<string, string> dirs, string logName)
         {
-            foreach (var dir in dirs)
+            foreach (var dir in dirs.Values)
             {
-                Console.WriteLine(dir.Value);
+                Console.WriteLine(dir);
 
-                if (Directory.Exists(dir.Value))
+                if (Directory.Exists(dir))
                 {
                     WriteAndDisplayLog($"Directory {dir} exists.", logName);
                 }
                 else
                 {
-                    _=Directory.CreateDirectory(dir.Value);
+                    _=Directory.CreateDirectory(dir);
 
-                    if (dir.Value == @"C:\AvatoolWebService\Abatab_UAT\logs\lieutenant")
+                    if (dir == @"C:\AvatoolWebService\Abatab_UAT\logs\lieutenant")
                     {
+                        _=File.Create(logName);
                         WriteAndDisplayLog($"Logfile created.", logName);
                     }
 
