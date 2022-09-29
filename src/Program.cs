@@ -26,7 +26,7 @@ namespace AbatabLieutenant
         public static string LieutenantVer = "1.0.0";
         public static string AbatabUatRoot = @"C:\AvatoolWebService\Abatab_UAT";
         public static string RepoUrl       = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/development.zip";
-        public static string Timestamp     = DateTime.Now.ToString("yy-MM-dd_HH-mm-ss");
+        public static string Timestamp     = DateTime.Now.ToString("yyMMddHHmmss");
         public static string RepoZip       = "Abatab-repo.zip";
 
         private static void Main(string[] args)
@@ -62,11 +62,10 @@ namespace AbatabLieutenant
         {
             var formattedMsg = FormatMsg(msg, newLine);
             Console.WriteLine(formattedMsg);
-            Console.WriteLine($">>>>>>>>>>>>>>>>>>>>> {logName}");
 
             if (File.Exists(logName))
             {
-                File.WriteAllText(logName, formattedMsg);
+                File.AppendAllText(logName, formattedMsg);
             }
         }
 
