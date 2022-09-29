@@ -73,7 +73,7 @@ namespace AbatabLieutenant
         {
             return newLine
                 ? $"{Environment.NewLine}{msg}"
-                : $"{msg}";
+                : $"{msg}{Environment.NewLine}";
         }
 
         private static void VerifyRequiredDirectories(Dictionary<string, string> dirs, string logName)
