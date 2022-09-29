@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AbatabLieutenant")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Spectrum Health Systems, Inc")]
+[assembly: AssemblyCompany("A Pretty Cool Program")]
 [assembly: AssemblyProduct("AbatabLieutenant")]
-[assembly: AssemblyCopyright("Copyright © Spectrum Health Systems, Inc 2022")]
+[assembly: AssemblyCopyright("Copyright © A Pretty Cool Program 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

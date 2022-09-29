@@ -4,7 +4,7 @@
  * (c) 2021-2022 A Pretty Cool Program (see LICENSE file for more information)
  * --------------------------------------------------------------------------------------------------------
  * AbatabLieutenant.csproj v1.0.0
- * Program.cs b220929.093352
+ * Program.cs b220929.103358
  * ===================================================================================================== */
 
 /* AbatabLieutenant is a simple command line application that fetches the current development branch of
@@ -33,7 +33,7 @@ namespace AbatabLieutenant
         {
             var logName = $@"{AbatabUatRoot}\logs\lieutenant\{Timestamp}.log";
 
-            WriteAndDisplayLog($"Starting Abatab Lieutenant (v{LieutenantVer}) - logfile: {logName}", logName, true);
+            WriteAndDisplayLog($"{Environment.NewLine}Starting Abatab Lieutenant (v{LieutenantVer}) - logfile: {logName}", logName, true);
 
             var requiredDirs = new Dictionary<string, string>
             {
