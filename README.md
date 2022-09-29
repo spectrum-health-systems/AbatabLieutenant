@@ -21,7 +21,7 @@ In addition, I don't think there will need to be any updates/modifications, so v
 ## Logging
 
 If you run into problems, the Abatab Lieutenant logs can be found here:  
-`C:\AvatoolWebService\Abatab_UAT\Logs\AbatabLieutenant`
+`C:\AvatoolWebService\Abatab_UAT\logs\lieutenant\`
 
 If logging stops working, delete this folder:  
 `C:\AvatoolWebService\Abatab_UAT\logs\lieutenant\`
