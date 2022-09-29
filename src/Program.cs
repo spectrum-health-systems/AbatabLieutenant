@@ -79,6 +79,8 @@ namespace AbatabLieutenant
         {
             foreach (var dir in dirs)
             {
+                Console.WriteLine(dir.Value);
+
                 if (Directory.Exists(dir.Value))
                 {
                     WriteAndDisplayLog($"Directory {dir} exists.", logName);
