@@ -23,6 +23,7 @@ namespace AbatabLieutenant
 {
     internal static class Program
     {
+        public static string LieutenantVer = "1.0.0";
         public static string AbatabUatRoot = @"C:\AvatoolWebService\Abatab_UAT";
         public static string RepoUrl       = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/development.zip";
         public static string Timestamp     = DateTime.Now.ToString("yy-MM-dd_HH-mm-ss");
@@ -32,7 +33,7 @@ namespace AbatabLieutenant
         {
             var logName = $@"{AbatabUatRoot}\Logs\AbatabLieutenant\{Timestamp}.log";
 
-            WriteAndDisplayLog("Starting Abatab Lieutenant...", logName);
+            WriteAndDisplayLog($"Starting Abatab Lieutenant (v{LieutenantVer})...", logName);
 
             var requiredDirs = new Dictionary<string, string>
             {
@@ -88,6 +89,11 @@ namespace AbatabLieutenant
                 else
                 {
                     _=Directory.CreateDirectory(dir.Value);
+
+                    if (dir.Value == @"C:\AvatoolWebService\Abatab_UAT\logs\lieutenant")
+                    {
+                        WriteAndDisplayLog($"Logfile created.", logName);
+                    }
 
                     WriteAndDisplayLog($"Directory {dir}  did not exist, and was created.", logName);
                 }
