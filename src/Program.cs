@@ -62,6 +62,7 @@ namespace AbatabLieutenant
         {
             var formattedMsg = FormatMsg(msg, newLine);
             Console.WriteLine(formattedMsg);
+            Console.WriteLine(logName);
 
             if (File.Exists(logName))
             {
