@@ -61,7 +61,7 @@ namespace AbatabLieutenant
         private static void WriteAndDisplayLog(string msg, string logName, bool newLine = false)
         {
             var formattedMsg = FormatMsg(msg, newLine);
-            Console.WriteLine(formattedMsg);
+            Console.WriteLine(msg);
 
             if (File.Exists(logName))
             {
