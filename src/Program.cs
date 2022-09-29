@@ -33,13 +33,13 @@ namespace AbatabLieutenant
         {
             var logName = $@"{AbatabUatRoot}\logs\lieutenant\{Timestamp}.log";
 
-            WriteAndDisplayLog($"Starting Abatab Lieutenant (v{LieutenantVer})...", logName, true);
+            WriteAndDisplayLog($"Starting Abatab Lieutenant (v{LieutenantVer}) - logfile: {logName}", logName, true);
 
             var requiredDirs = new Dictionary<string, string>
             {
+                { "logDir",  $@"{AbatabUatRoot}\logs\lieutenant" },
                 { "tempDir", $@"{AbatabUatRoot}\temp" },
-                { "binDir",  $@"{AbatabUatRoot}\bin" },
-                { "logDir",  $@"{AbatabUatRoot}\logs\lieutenant" }
+                { "binDir",  $@"{AbatabUatRoot}\bin" }
             };
 
             VerifyRequiredDirectories(requiredDirs, logName);
@@ -78,7 +78,7 @@ namespace AbatabLieutenant
 
         private static void VerifyRequiredDirectories(Dictionary<string, string> dirs, string logName)
         {
-            WriteAndDisplayLog($"Verifying directories...", logName, true);
+            WriteAndDisplayLog("Verifying directories...", logName, true);
 
             foreach (var dir in dirs)
             {
