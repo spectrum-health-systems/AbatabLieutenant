@@ -32,7 +32,7 @@ namespace AbatabLieutenant
             Console.WriteLine("Starting Abatab Lieutenant...");
 
             var logFileName = $@"{AbatabUatRoot}\Logs\AbatabLieutenant\{Timestamp}.log";
-            File.WriteAllText(logFileName, $"Log file start...{Environment.NewLine}");
+            File.WriteAllText(logFileName, $"Log file start...{Environment.NewLine}{Environment.NewLine}");
 
             var tempDir = $@"{AbatabUatRoot}\Temp";
             RefreshDirectory(tempDir, logFileName);
@@ -49,20 +49,20 @@ namespace AbatabLieutenant
 
             CopyWebServiceFiles(tempDir, logFileName);
 
-            File.AppendAllText(logFileName, $"Process complete!{Environment.NewLine}");
+            File.AppendAllText(logFileName, $"{Environment.NewLine}Process complete!{Environment.NewLine}");
             Console.WriteLine("Abatab Lieutenant process complete!");
         }
 
         private static void ExtractArchive(string repoZipName, string tempDir, string logFileName)
         {
-            File.AppendAllText(logFileName, $"Extracting {repoZipName}...{Environment.NewLine}");
+            File.AppendAllText(logFileName, $"{Environment.NewLine}Extracting {repoZipName}...{Environment.NewLine}");
             ZipFile.ExtractToDirectory(repoZipName, tempDir);
             File.AppendAllText(logFileName, $@"{repoZipName} extracted.{Environment.NewLine}");
         }
 
         private static void CopyBinDirectory(string tempDir, string webServiceBinDir, string logFileName)
         {
-            File.AppendAllText(logFileName, $@"Copying {tempDir}\Abatab-development\src\bin\ to {webServiceBinDir}...{Environment.NewLine}");
+            File.AppendAllText(logFileName, $@"{Environment.NewLine}Copying {tempDir}\Abatab-development\src\bin\ to {webServiceBinDir}...{Environment.NewLine}");
             CopyDir($@"{tempDir}\Abatab-development\src\bin\", $"{webServiceBinDir}", logFileName);
             File.AppendAllText(logFileName, $@"{tempDir}\Abatab-development\src\bin\ copied to {webServiceBinDir}.{Environment.NewLine}");
         }
@@ -84,7 +84,7 @@ namespace AbatabLieutenant
 
             foreach (string file in filesToCopy)
             {
-                File.AppendAllText(logFileName, $@"Checking file: {targetPath}\{file}...{Environment.NewLine}");
+                File.AppendAllText(logFileName, $@"{Environment.NewLine}Checking file: {targetPath}\{file}...{Environment.NewLine}");
 
                 if (File.Exists($@"{targetPath}\{file}"))
                 {
@@ -103,7 +103,7 @@ namespace AbatabLieutenant
 
         private static void RefreshDirectory(string dir, string logFileName)
         {
-            File.AppendAllText(logFileName, $"Checking to see if {dir}/ exists...{Environment.NewLine}");
+            File.AppendAllText(logFileName, $"{Environment.NewLine}Checking to see if {dir}/ exists...{Environment.NewLine}");
 
             if (Directory.Exists(dir))
             {
@@ -118,7 +118,7 @@ namespace AbatabLieutenant
 
         public static void DownloadZipFromUrl(string sourceUrl, string targetPath, string logFileName)
         {
-            File.AppendAllText(logFileName, $"Downloading Abatab repository from {sourceUrl}...{Environment.NewLine}");
+            File.AppendAllText(logFileName, $"{Environment.NewLine}Downloading Abatab repository from {sourceUrl}...{Environment.NewLine}");
 
             System.Net.WebClient webClient = new System.Net.WebClient();
             webClient.DownloadFile(sourceUrl, targetPath);
@@ -129,23 +129,22 @@ namespace AbatabLieutenant
         public static void CopyDir(string sourceDir, string targetDir, string logFileName)
         {
             RefreshDirectory(targetDir, logFileName);
-            File.AppendAllText(logFileName, $"{targetDir} refreshed.{Environment.NewLine}");
 
-            DirectoryInfo dirToCopy                 = new DirectoryInfo(sourceDir);
+            DirectoryInfo dirToCopy       = new DirectoryInfo(sourceDir);
             DirectoryInfo[] subDirsToCopy = GetSubDirs(sourceDir, targetDir, logFileName);
 
             foreach (FileInfo file in dirToCopy.GetFiles())
             {
                 string targetFilePath = Path.Combine(targetDir, file.Name);
+                File.AppendAllText(logFileName, $"{Environment.NewLine}Copying file: {targetFilePath}...{Environment.NewLine}");
                 _=file.CopyTo(targetFilePath);
-
                 File.AppendAllText(logFileName, $"File: {targetFilePath} copied.{Environment.NewLine}");
             }
 
             foreach (DirectoryInfo subDir in subDirsToCopy)
             {
                 string newTargetDir = Path.Combine(targetDir, subDir.Name);
-                File.AppendAllText(logFileName, $"Subdirectory: {newTargetDir} found.{Environment.NewLine}");
+                File.AppendAllText(logFileName, $"{Environment.NewLine}Subdirectory: {newTargetDir} found.{Environment.NewLine}");
                 CopyDir(subDir.FullName, newTargetDir, logFileName);
             }
         }
@@ -156,7 +155,7 @@ namespace AbatabLieutenant
 
             if (!dir.Exists)
             {
-                File.AppendAllText(logFileName, $"Directory {targetDir} does not exist...{Environment.NewLine}");
+                File.AppendAllText(logFileName, $"{Environment.NewLine}Directory {targetDir} does not exist...{Environment.NewLine}");
                 _=Directory.CreateDirectory(targetDir);
                 File.AppendAllText(logFileName, $"Directory: {targetDir} created.{Environment.NewLine}");
             }
