@@ -95,7 +95,7 @@ namespace AbatabLieutenant
 
                 if (dir.Key == "logDir")
                 {
-                    WriteAndDisplayLog($"{logName} created.", logName);
+                    File.AppendAllText($"{logName} created.", logName);
                     //File.WriteAllText(logName, "Logfile created");
                 }
             }
