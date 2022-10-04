@@ -1,9 +1,9 @@
 ﻿/* ========================================================================================================
- * AbatabLieutenant v1.0.0
+ * AbatabLieutenant v1.0.1
  * https://github.com/spectrum-health-systems/AbatabLieutenant
  * (c) 2021-2022 A Pretty Cool Program (see LICENSE file for more information)
  * --------------------------------------------------------------------------------------------------------
- * AbatabLieutenant.csproj v1.0.0
+ * AbatabLieutenant.csproj v1.0.1
  * Program.cs b220929.103358
  * ===================================================================================================== */
 
@@ -23,7 +23,7 @@ namespace AbatabLieutenant
 {
     internal static class Program
     {
-        public static string LieutenantVer = "1.0.0";
+        public static string LieutenantVer = "1.0.1";
         public static string AbatabUatRoot = @"C:\AvatoolWebService\Abatab_UAT";
         public static string RepoUrl       = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/development.zip";
         public static string Timestamp     = DateTime.Now.ToString("yyMMddHHmmss");
@@ -31,7 +31,7 @@ namespace AbatabLieutenant
 
         private static void Main(string[] args)
         {
-            var logName = $@"{AbatabUatRoot}\logs\lieutenant\{Timestamp}.log";
+            var logName = $@"{AbatabUatRoot}\logs\lieutenant\{Timestamp}.lieutenant";
 
             WriteAndDisplayLog($"{Environment.NewLine}Starting Abatab Lieutenant (v{LieutenantVer}) - logfile: {logName}", logName, true);
 
