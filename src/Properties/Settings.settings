@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AbatabLieutenant.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RepoZipBaseUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/</Value>
+    </Setting>
+    <Setting Name="AbatabUatRoot" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\AvatoolWebService\Abatab_UAT</Value>
+    </Setting>
+    <Setting Name="DefaultBranch" Type="System.String" Scope="User">
+      <Value Profile="(Default)">testbuild</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

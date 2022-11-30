@@ -1,8 +1,8 @@
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\bin\Debug\AbatabLieutenant.exe.config
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\bin\Debug\AbatabLieutenant.exe
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\bin\Debug\AbatabLieutenant.pdb
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.csproj.AssemblyReference.cache
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.csproj.SuggestedBindingRedirects.cache
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.csproj.CoreCompileInputs.cache
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.exe
-C:\Users\Chris.Banwarth\GitHub\Repositories\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.pdb
+C:\IT\GitHub\SHS\AbatabLieutenant\src\bin\Debug\AbatabLieutenant.exe.config
+C:\IT\GitHub\SHS\AbatabLieutenant\src\bin\Debug\AbatabLieutenant.exe
+C:\IT\GitHub\SHS\AbatabLieutenant\src\bin\Debug\AbatabLieutenant.pdb
+C:\IT\GitHub\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.csproj.AssemblyReference.cache
+C:\IT\GitHub\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.csproj.SuggestedBindingRedirects.cache
+C:\IT\GitHub\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.csproj.CoreCompileInputs.cache
+C:\IT\GitHub\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.exe
+C:\IT\GitHub\SHS\AbatabLieutenant\src\obj\Debug\AbatabLieutenant.pdb
