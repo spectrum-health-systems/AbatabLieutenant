@@ -1,7 +1,7 @@
 ﻿// Abatab Lieutenant 2.0.0
 // Copyright (c) A Pretty Cool Program
 // See the LICENSE file for more information.
-// b221130.1252
+// b221201.0852
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace AbatabLieutenant
 {
     internal static class Program
     {
-        public static string Ver = "1.0.0";
+        public static string Ver = "2.0.0";
 
         internal static void Main(string[] args)
         {
