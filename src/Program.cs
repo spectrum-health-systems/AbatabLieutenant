@@ -3,6 +3,10 @@
 // See the LICENSE file for more information.
 // b221201.0852
 
+/* This code is designed to do a very specific thing for Spectrum Health
+ * Systems, and is not intended for use at other organizations.
+ */
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,59 +16,73 @@ namespace AbatabLieutenant
 {
     internal static class Program
     {
-        public static string Ver = "2.0.0";
+        public static string Ver = "2.0";
+        private static List<string> serviceFiles;
 
         internal static void Main(string[] args)
         {
-            Dictionary<string,string> localSettings = GetLocalSettings();
-            string branch                           = SetBranch(args, localSettings["DefaultBranch"]);
-            string logfile                          = SetLogfile(localSettings["AbatabUatRoot"]);
-            Dictionary<string, string> requiredDirs = SetRequiredDirs(localSettings["AbatabUatRoot"]);
+            Console.Clear();
 
-            WriteAndDisplayLog($"{Environment.NewLine}Starting Abatab Lieutenant (v{Ver}) - logfile: {logfile}", logfile, true);
+            Dictionary<string,string> config = SetConfig();
+            string arg                       = SetArg(args, config["DefaultBranch"]);
+            string logfile                   = SetLogfile(config["AbatabUatRoot"]);
 
-            VerifyRequiredDirectories(requiredDirs, logfile);
+            if (arg == "help")
+            {
+                DisplayHelp(Ver);
+            }
 
-            RefreshDirectory(requiredDirs["tempDir"], logfile);
-            RefreshDirectory(requiredDirs["binDir"], logfile);
+            LogEvent(SetLogHeader(Ver, arg, logfile), logfile);
 
-            var repoZipName = $@"{requiredDirs["tempDir"]}\{branch}.zip";
-            var repoZipUrl = SetRepoZipUrl(localSettings["RepoZipBaseUrl"], branch);
+            Dictionary<string, string> requiredDirs = SetRequiredDirs(config["AbatabUatRoot"]);
 
-            DownloadZipFromUrl(repoZipUrl, repoZipName, logfile);
+            VerifyDirs(requiredDirs, logfile);
 
-            ExtractArchive(repoZipName, requiredDirs["tempDir"], logfile);
+            var repoZipName = $@"{requiredDirs["temp"]}\{arg}.zip";
+            var repoZipUrl = SetRepoZipUrl(config["RepoZipBaseUrl"], arg);
 
-            CopyBinDir(requiredDirs["tempDir"], requiredDirs["binDir"], branch, logfile);
+            DownloadZip(repoZipUrl, repoZipName, logfile);
+            ExtractArchive(repoZipName, requiredDirs["temp"], logfile);
+            CopyBin(requiredDirs["temp"], requiredDirs["bin"], arg, logfile);
+            CopyWebService(requiredDirs["temp"], config["AbatabUatRoot"], arg, logfile);
 
-            CopyWebServiceFiles(requiredDirs["tempDir"], localSettings["AbatabUatRoot"], branch, logfile);
-
-            WriteAndDisplayLog("Process complete!", logfile, true);
-
-        }
-
-        private static void ExtractArchive(string repoZipName, string tempDir, string logName)
-        {
-            WriteAndDisplayLog($"Extracting {repoZipName}...", logName, true);
-
-            ZipFile.ExtractToDirectory(repoZipName, tempDir);
-
-            WriteAndDisplayLog($"{repoZipName} extracted.", logName);
+            LogEvent(MsgLogFooter(), logfile, true);
         }
 
 
-        private static void CopyBinDir(string tempDir, string binDir, string branch, string logName)
+        /* EXTRACT
+         */
+
+        private static void ExtractArchive(string repoZipName, string temp, string logName)
         {
-            WriteAndDisplayLog($@"Copying {tempDir}\Abatab-{branch}\src\bin\ to {binDir}...", logName, true);
+            LogEvent(SetExtractMsg(repoZipName), logName, true);
+            ZipFile.ExtractToDirectory(repoZipName, temp);
 
-            CopyDir($@"{tempDir}\Abatab-{branch}\src\bin\", $"{binDir}", logName);
+        }
 
-            WriteAndDisplayLog($@"{tempDir}\Abatab-{branch}\src\bin\ copied to {binDir}.", logName);
+        private static string MsgLogFooter()
+        {
+            return $"{Environment.NewLine}" +
+                   $"Process complete!{Environment.NewLine}" +
+                   $"{Environment.NewLine}";
+        }
+
+
+
+
+
+        /* COPY
+         */
+
+        private static void CopyBin(string temp, string bin, string branch, string logName)
+        {
+            LogEvent($"Copying bin/...", logName);
+            CopyDir($@"{temp}\Abatab-{branch}\src\bin\", $"{bin}", logName);
         }
 
         public static void CopyDir(string sourceDir, string targetDir, string logName)
         {
-            RefreshDirectory(targetDir, logName);
+            RefreshDir(targetDir, logName);
 
             DirectoryInfo dirToCopy       = new DirectoryInfo(sourceDir);
             DirectoryInfo[] subDirsToCopy = GetSubDirs(sourceDir, targetDir, logName);
@@ -73,24 +91,157 @@ namespace AbatabLieutenant
             {
                 string targetFilePath = Path.Combine(targetDir, file.Name);
 
-                WriteAndDisplayLog($"Copying file: {targetFilePath}...", logName);
-
                 _=file.CopyTo(targetFilePath);
-
-                WriteAndDisplayLog($"File copied.", logName);
+                LogEvent($"  {targetFilePath} copied.", logName);
             }
 
             foreach (DirectoryInfo subDir in subDirsToCopy)
             {
                 string newTargetDir = Path.Combine(targetDir, subDir.Name);
-                WriteAndDisplayLog($"Subdirectory: {newTargetDir} found...", logName);
                 CopyDir(subDir.FullName, newTargetDir, logName);
             }
         }
 
-        private static void CopyWebServiceFiles(string tempDir, string abatabUatRoot, string branch, string logName)
+        private static void CopyWebService(string temp, string abatabUatRoot, string branch, string logName)
         {
-            List<string> filesToCopy = new List<string>
+            serviceFiles = SetServiceFiles();
+
+            string sourcePath = $@"{temp}\Abatab-{branch}\src";
+            string targetPath = $@"{abatabUatRoot}";
+
+            LogEvent($"{Environment.NewLine}Copying web service files...", logName);
+
+            foreach (string file in serviceFiles)
+            {
+                if (File.Exists($@"{targetPath}\{file}"))
+                {
+                    File.Delete($@"{targetPath}\{file}");
+                }
+
+                File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
+                LogEvent($@"  {sourcePath}\{file} copied.", logName);
+            }
+        }
+
+
+        /* GET
+         */
+
+        private static DirectoryInfo[] GetSubDirs(string sourceDir, string targetDir, string logName)
+        {
+            DirectoryInfo dir = new DirectoryInfo(sourceDir);
+
+            if (!dir.Exists)
+            {
+                _=Directory.CreateDirectory(targetDir);
+                LogEvent($"Directory {targetDir} created.", logName, true);
+            }
+
+            return dir.GetDirectories();
+        }
+
+
+        /* DISPLAY
+         */
+
+        private static void DisplayHelp(string ver)
+        {
+            Console.WriteLine(SetHelpMsg(ver));
+            Environment.Exit(0);
+        }
+
+
+        /* REMOVE
+         */
+
+        private static void RemoveFiles(string root, List<string> files)
+        {
+            foreach (var file in files)
+            {
+                if (File.Exists($@"{root}/{file}"))
+                {
+                    File.Delete($@"{root}/{file}");
+                }
+            }
+        }
+
+
+        /* REFRESH
+ */
+
+        internal static void VerifyDirs(Dictionary<string, string> dirs, string logfile)
+        {
+            LogEvent("Verifying directories...", logfile, true);
+
+            foreach (var dir in dirs)
+            {
+                if (dir.Key == "logs")
+                {
+                    //File.AppendAllText(logfile, $"{logfile} created.");
+                    continue;
+                }
+
+                if (dir.Key == "root")
+                {
+                    LogEvent($@"  {dir.Value}\", logfile, true);
+                    RemoveFiles(dir.Value, SetServiceFiles());
+                    continue;
+                }
+
+                RefreshDir(dir.Value, logfile);
+
+                //if (Directory.Exists(dir.Value))
+                //{
+                //    Directory.Delete(dir.Value, true);
+                //}
+
+                //_=Directory.CreateDirectory(dir.Value);
+                //LogEvent($"  {dir.Value}", logfile, true);
+            }
+
+
+        }
+
+        internal static bool VerifyArg(string arg) => SetValidArgs().Contains(arg);
+
+
+
+        /* VERIFY
+         */
+
+        private static void RefreshDir(string dir, string logfile)
+        {
+            if (Directory.Exists(dir))
+            {
+                Directory.Delete(dir, true);
+            }
+
+            _=Directory.CreateDirectory(dir);
+            LogEvent($"  {dir}", logfile, true);
+        }
+
+
+        /* SET
+        */
+
+        internal static Dictionary<string, string> SetRequiredDirs(string abatabRoot) => new Dictionary<string, string>
+            {
+                { "root", abatabRoot },
+                { "logs", $@"{abatabRoot}\logs\lieutenant" },
+                { "temp", $@"{abatabRoot}\temp" },
+                { "bin",  $@"{abatabRoot}\bin" }
+            };
+
+        internal static Dictionary<string, string> SetConfig() => new Dictionary<string, string>
+            {
+                { "RepoZipBaseUrl", Properties.Settings.Default.RepoZipBaseUrl},
+                { "AbatabUatRoot",  Properties.Settings.Default.AbatabUatRoot},
+                { "DefaultBranch",  Properties.Settings.Default.DefaultBranch}
+            };
+
+        internal static string SetLogfile(string abatabRoot) => $@"{abatabRoot}\logs\lieutenant\{DateTime.Now.ToString("yyMMddHHmmss")}.ltnt";
+
+        private static List<string> SetServiceFiles() => new List<string>
             {
                 "Abatab.asmx",
                 "Abatab.asmx.cs",
@@ -100,187 +251,98 @@ namespace AbatabLieutenant
                 "Web.Release.config"
             };
 
-            string sourcePath = $@"{tempDir}\Abatab-{branch}\src";
-            string targetPath = $@"{abatabUatRoot}";
+        private static List<string> SetValidArgs() => new List<string>
+                                                      {
+                                                          "development",
+                                                          "experimental",
+                                                          "help",
+                                                          "main",
+                                                          "testbuild"
+                                                      };
 
-            WriteAndDisplayLog($"Copying web service files...", logName, true);
+        private static string SetHelpMsg(string ver) => $"{Environment.NewLine}" +
+                                                        $"==========================={Environment.NewLine}" +
+                                                        $"Abatab Lieutenant v{ver} Help{Environment.NewLine}" +
+                                                        $"===========================" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"Syntax:{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"    $ AbatabLieutenant <command>{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"Valid commands:{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"            help - Abatab Lieutenant help (this screen){Environment.NewLine}" +
+                                                        $"     development - Deploy the Abatab development branch{Environment.NewLine}" +
+                                                        $"    experimental - Deploy the Abatab experimental branch{Environment.NewLine}" +
+                                                        $"            main - Deploy the Abatab main branch{Environment.NewLine}" +
+                                                        $"       testbuild - Deploy the Abatab tesbuild branch (default){Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"Example:{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"{Environment.NewLine}" +
+                                                        $"    AbatabLieutenant.exe help" +
+                                                        $"{Environment.NewLine}";
 
-            foreach (string file in filesToCopy)
-            {
-                WriteAndDisplayLog($@"Web service file: {targetPath}\{file}...", logName);
+        internal static string SetArg(string[] args, string defaultBranch) => args.Length == 1 && VerifyArg(args[0])
+            ? args[0]
+            : defaultBranch;
 
-                if (File.Exists($@"{targetPath}\{file}"))
-                {
-                    WriteAndDisplayLog($@"{targetPath}\{file} exists, removing...", logName);
+        internal static string SetRepoZipUrl(string repoZipBaseUrl, string branch) => $"{repoZipBaseUrl}{branch}.zip";
 
-                    File.Delete($@"{targetPath}\{file}");
 
-                    WriteAndDisplayLog($@"{targetPath}\{file} removed.", logName);
-                }
+        private static string SetLogHeader(string ver, string branch, string logfile) => $"{Environment.NewLine}" +
+                                                                                         $"{Environment.NewLine}===============================" +
+                                                                                         $"{Environment.NewLine}Starting Abatab Lieutenant v{ver}{Environment.NewLine}" +
+                                                                                         $"==============================={Environment.NewLine}" +
+                                                                                         $"{Environment.NewLine}" +
+                                                                                         $"Deploying branch: {branch}{Environment.NewLine}";
 
-                WriteAndDisplayLog($@"Copying {sourcePath}\{file}...", logName);
 
-                File.Copy($@"{sourcePath}\{file}", $@"{targetPath}\{file}");
 
-                WriteAndDisplayLog($@"{sourcePath}\{file} copied.", logName);
-            }
 
-            WriteAndDisplayLog($"Web service files copied.", logName);
+        private static string SetDownloadMsg(string src)
+        {
+            return $"{Environment.NewLine}" +
+                   $"Downloading Abatab repository from:{Environment.NewLine}" +
+                   $"  {src}";
         }
 
-        private static DirectoryInfo[] GetSubDirs(string sourceDir, string targetDir, string logName)
+        private static string SetExtractMsg(string repoZip)
         {
-            DirectoryInfo dir = new DirectoryInfo(sourceDir);
-
-            if (!dir.Exists)
-            {
-                WriteAndDisplayLog($"Directory {targetDir} does not exist, creating...", logName, true);
-
-                _=Directory.CreateDirectory(targetDir);
-
-                WriteAndDisplayLog($"Directory {targetDir} created.", logName, true);
-            }
-
-            DirectoryInfo[] dirs = dir.GetDirectories();
-
-            return dirs;
+            return $"{Environment.NewLine}" +
+                   $"Extracting {repoZip}...{Environment.NewLine}";
         }
 
 
-        internal static string SetRepoZipUrl(string repoZipBaseUrl, string branch)
+
+
+
+
+
+
+
+
+
+        internal static void DownloadZip(string src, string target, string logfile)
         {
-
-
-            return $"{repoZipBaseUrl}{branch}.zip";
-        }
-
-
-        internal static void DownloadZipFromUrl(string source, string target, string logfile)
-        {
-            WriteAndDisplayLog($"Downloading Abatab repository from {source}...", logfile, true);
+            LogEvent(SetDownloadMsg(src), logfile, true);
 
             System.Net.WebClient webClient = new System.Net.WebClient();
-            webClient.DownloadFile(source, target);
-
-            WriteAndDisplayLog($"Abatab repository downloaded.", logfile);
+            webClient.DownloadFile(src, target);
         }
 
-        internal static Dictionary<string, string> SetRequiredDirs(string abatabRoot)
-        {
-            return new Dictionary<string, string>
-            {
-                { "logDir",  $@"{abatabRoot}\logs\lieutenant" },
-                { "tempDir", $@"{abatabRoot}\temp" },
-                { "binDir",  $@"{abatabRoot}\bin" }
-            };
-        }
-
-        internal static Dictionary<string, string> GetLocalSettings()
-        {
-            return new Dictionary<string, string>
-            {
-                { "RepoZipBaseUrl", Properties.Settings.Default.RepoZipBaseUrl},
-                { "AbatabUatRoot",  Properties.Settings.Default.AbatabUatRoot},
-                { "DefaultBranch",  Properties.Settings.Default.DefaultBranch}
-            };
-        }
-
-        internal static string SetLogfile(string abatabRoot) => $@"{abatabRoot}\logs\lieutenant\{DateTime.Now.ToString("yyMMddHHmmss")}.ltnt";
-
-        internal static void VerifyRequiredDirectories(Dictionary<string, string> dirs, string logfile)
-        {
-            WriteAndDisplayLog("Verifying directories...", logfile, true);
-
-            foreach (var dir in dirs)
-            {
-                if (Directory.Exists(dir.Value))
-                {
-                    WriteAndDisplayLog($"Directory {dir.Value} exists.", logfile);
-                }
-                else
-                {
-                    _=Directory.CreateDirectory(dir.Value);
-
-                    WriteAndDisplayLog($"Directory {dir}  did not exist, and was created.", logfile);
-                }
-
-                if (dir.Key == "logDir")
-                {
-                    File.AppendAllText(logfile, $"{logfile} created.");
-                }
-            }
-        }
-
-        internal static void RefreshDirectory(string dir, string logfile)
-        {
-            WriteAndDisplayLog($"Refreshing {dir} directory....", logfile, true);
-
-            if (Directory.Exists(dir))
-            {
-                WriteAndDisplayLog($"{dir} exists, removing...", logfile);
-
-                Directory.Delete(dir, true);
-            }
-
-            WriteAndDisplayLog($"Creating {dir} directory...", logfile);
-
-            _=Directory.CreateDirectory(dir);
-
-            WriteAndDisplayLog($"Directory {dir} refreshed.", logfile);
-        }
-
-        internal static void WriteAndDisplayLog(string msg, string logfile, bool newline = false)
+        internal static void LogEvent(string msg, string logfile, bool newline = false)
         {
             Console.WriteLine(msg);
-
-            if (File.Exists(logfile))
-            {
-                File.AppendAllText(logfile, FormatMsg(msg, newline));
-            }
+            File.AppendAllText(logfile, FormatLogMsg(msg, newline));
         }
 
-        internal static string FormatMsg(string msg, bool newline)
-        {
-            return newline
-                ? $"{Environment.NewLine}{msg}"
-                : $"{msg}{Environment.NewLine}";
-        }
-
-        //internal static string SetBranch(string[] passedArgs)
-        //{
-        //    var requestedBranch = "";
-
-        //    if (passedArgs.Length == 1)
-        //    {
-        //        requestedBranch = GetRequestedBranch(passedArgs[0]);
-        //    }
-
-        //    return requestedBranch;
-        //}
-
-        internal static string SetBranch(string[] passedArgs, string defaultBranch)
-        {
-            if (passedArgs.Length == 1 && VerifyRequestedBranch(passedArgs[0]))
-            {
-                return passedArgs[0];
-            }
-            else
-            {
-                return defaultBranch;
-            }
-        }
-
-        internal static bool VerifyRequestedBranch(string requestedBranch)
-        {
-            var validBranches = new List<string>
-            {
-                "development",
-                "main",
-                "testbuild",
-                "experimental"
-            };
-
-            return validBranches.Contains(requestedBranch);
-        }
+        internal static string FormatLogMsg(string msg, bool newline) => newline
+            ? $"{Environment.NewLine}{msg}"
+            : $"{msg}{Environment.NewLine}";
     }
 }
