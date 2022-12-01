@@ -1,7 +1,7 @@
 ﻿// Abatab Lieutenant 2.0.0
 // Copyright (c) A Pretty Cool Program
 // See the LICENSE file for more information.
-// b221201.0852
+// b221201.1224
 
 /* This code is designed to do a very specific thing for Spectrum Health
  * Systems, and is not intended for use at other organizations.
@@ -17,32 +17,37 @@ namespace AbatabLieutenant
     internal static class Program
     {
         public static string Ver = "2.0";
-        private static List<string> serviceFiles;
 
         internal static void Main(string[] args)
         {
             Console.Clear();
 
+
+
             Dictionary<string,string> config = SetConfig();
             string arg                       = SetArg(args, config["DefaultBranch"]);
-            string logfile                   = SetLogfile(config["AbatabUatRoot"]);
 
             if (arg == "help")
             {
                 DisplayHelp(Ver);
             }
 
-            LogEvent(SetLogHeader(Ver, arg, logfile), logfile);
-
+            string logfile                          = SetLogfile(config["AbatabUatRoot"]);
             Dictionary<string, string> requiredDirs = SetRequiredDirs(config["AbatabUatRoot"]);
+
+            //File.AppendAllText(logfile, $"{logfile} created.");
+            VerifyDirs(requiredDirs, logfile);
+            LogEvent(SetLogHeader(Ver, arg, logfile), logfile);
 
             VerifyDirs(requiredDirs, logfile);
 
-            var repoZipName = $@"{requiredDirs["temp"]}\{arg}.zip";
-            var repoZipUrl = SetRepoZipUrl(config["RepoZipBaseUrl"], arg);
+            //var repoZipName = SetRepoZipName(requiredDirs["temp"], arg);
+            //var repoZipUrl  = SetRepoZipUrl(config["RepoZipBaseUrl"], arg);
 
-            DownloadZip(repoZipUrl, repoZipName, logfile);
-            ExtractArchive(repoZipName, requiredDirs["temp"], logfile);
+            Dictionary<string, string> repoInfo = SetRepoInfo(requiredDirs["temp"],config["RepoZipBaseUrl"], arg);
+
+            DownloadZip(repoInfo, logfile);
+            ExtractArchive(repoInfo["name"], requiredDirs["temp"], logfile);
             CopyBin(requiredDirs["temp"], requiredDirs["bin"], arg, logfile);
             CopyWebService(requiredDirs["temp"], config["AbatabUatRoot"], arg, logfile);
 
@@ -59,6 +64,19 @@ namespace AbatabLieutenant
             ZipFile.ExtractToDirectory(repoZipName, temp);
 
         }
+
+        internal static Dictionary<string, string> SetRepoInfo(string dir, string baseUrl, string name)
+        {
+            return new Dictionary<string, string>
+           {
+               { "name", $"{name}.zip" },
+               { "path", $@"{dir}\{name}.zip" },
+               { "url",  $@"{baseUrl}{name}.zip" }
+           };
+
+
+        }
+
 
         private static string MsgLogFooter()
         {
@@ -104,7 +122,7 @@ namespace AbatabLieutenant
 
         private static void CopyWebService(string temp, string abatabUatRoot, string branch, string logName)
         {
-            serviceFiles = SetServiceFiles();
+            var serviceFiles = SetServiceFiles();
 
             string sourcePath = $@"{temp}\Abatab-{branch}\src";
             string targetPath = $@"{abatabUatRoot}";
@@ -239,7 +257,14 @@ namespace AbatabLieutenant
                 { "DefaultBranch",  Properties.Settings.Default.DefaultBranch}
             };
 
-        internal static string SetLogfile(string abatabRoot) => $@"{abatabRoot}\logs\lieutenant\{DateTime.Now.ToString("yyMMddHHmmss")}.ltnt";
+        internal static string SetLogfile(string abatabRoot)
+        {
+            var logfile = $@"{abatabRoot}\logs\lieutenant\{DateTime.Now.ToString("yyMMdd.HHmmss")}.ltnt";
+
+            File.AppendAllText(logfile, $"{logfile} created.");
+
+            return logfile;
+        }
 
         private static List<string> SetServiceFiles() => new List<string>
             {
@@ -327,12 +352,12 @@ namespace AbatabLieutenant
 
 
 
-        internal static void DownloadZip(string src, string target, string logfile)
+        internal static void DownloadZip(Dictionary<string, string> repoInfo, string logfile)
         {
-            LogEvent(SetDownloadMsg(src), logfile, true);
+            LogEvent(SetDownloadMsg(repoInfo["url"]), logfile, true);
 
             System.Net.WebClient webClient = new System.Net.WebClient();
-            webClient.DownloadFile(src, target);
+            webClient.DownloadFile(repoInfo["url"], repoInfo["path"]);
         }
 
         internal static void LogEvent(string msg, string logfile, bool newline = false)
