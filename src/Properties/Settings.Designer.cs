@@ -25,25 +25,49 @@ namespace AbatabLieutenant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/")]
-        public string RepoZipBaseUrl {
+        [global::System.Configuration.DefaultSettingValueAttribute("disabled")]
+        public string DebugMode {
             get {
-                return ((string)(this["RepoZipBaseUrl"]));
+                return ((string)(this["DebugMode"]));
             }
             set {
-                this["RepoZipBaseUrl"] = value;
+                this["DebugMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.0.0")]
+        public string LtntVersion {
+            get {
+                return ((string)(this["LtntVersion"]));
+            }
+            set {
+                this["LtntVersion"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\AvatoolWebService\\Abatab_UAT")]
-        public string AbatabUatRoot {
+        public string LtntRoot {
             get {
-                return ((string)(this["AbatabUatRoot"]));
+                return ((string)(this["LtntRoot"]));
             }
             set {
-                this["AbatabUatRoot"] = value;
+                this["LtntRoot"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/")]
+        public string RepoUrl {
+            get {
+                return ((string)(this["RepoUrl"]));
+            }
+            set {
+                this["RepoUrl"] = value;
             }
         }
         
