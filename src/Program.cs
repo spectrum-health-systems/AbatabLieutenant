@@ -1,16 +1,13 @@
-﻿// Abatab Lieutenant 2.0.0
+﻿// Abatab Lieutenant 2.0
 // Copyright (c) A Pretty Cool Program
 // See the LICENSE file for more information.
-// b221205.1145
-
-/* This code is designed to do a very specific thing for Spectrum Health
- * Systems, and is not intended for use at other organizations.
- */
+// b221206.1214
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 
 namespace AbatabLieutenant
 {
@@ -30,17 +27,14 @@ namespace AbatabLieutenant
         internal static void Main(string[] args)
         {
             Startuper(args);
-
-            DeployWebService();
-
+            DeployService();
             Finisher(1);
         }
 
         internal static void Startuper(string[] passedArgs)
         {
             Console.Clear();
-
-            PassedArgument = VerifyArg(passedArgs);
+            PassedArgument = SetBranch(passedArgs);
 
             if (PassedArgument == "help")
             {
@@ -50,7 +44,7 @@ namespace AbatabLieutenant
             else
             {
                 BuildConfig();
-                LogEvent(LogHeaderMsg());
+                LogEvent(LogHeader());
                 VerifyDirs();
             }
         }
@@ -63,7 +57,7 @@ namespace AbatabLieutenant
             RepoUrl        = Properties.Settings.Default.RepoUrl;
             DefaultBranch  = Properties.Settings.Default.DefaultBranch;
             TargetBranch   = PassedArgument;
-            LogFile        = SetLogfile($@"{Properties.Settings.Default.LtntRoot}\Logs\Lieutenant");
+            LogFile        = VerifyLogfile($@"{Properties.Settings.Default.LtntRoot}\Logs\Lieutenant");
 
             LtntDirs = new Dictionary<string, string>
             {
@@ -81,9 +75,7 @@ namespace AbatabLieutenant
             };
 
             if (string.Equals(DebugMode, "enabled", StringComparison.OrdinalIgnoreCase))
-            {
                 Console.WriteLine(DebugMsg());
-            }
         }
 
         internal static void VerifyDirs()
@@ -93,9 +85,7 @@ namespace AbatabLieutenant
             foreach (var dir in LtntDirs)
             {
                 if (string.Equals(dir.Key, "logs", StringComparison.OrdinalIgnoreCase))
-                {
                     continue;
-                }
 
                 if (string.Equals(dir.Key, "root", StringComparison.OrdinalIgnoreCase))
                 {
@@ -108,12 +98,12 @@ namespace AbatabLieutenant
             }
         }
 
-        internal static void DeployWebService()
+        internal static void DeployService()
         {
             DownloadArchive();
             ExtractArchive();
             CopyBin();
-            CopyWebService();
+            CopyService();
         }
 
         internal static void DownloadArchive()
@@ -132,7 +122,7 @@ namespace AbatabLieutenant
 
         internal static void CopyBin()
         {
-            LogEvent($"Copying bin/...");
+            LogEvent("Copying bin/...");
             CopyDir($@"{LtntDirs["Temp"]}\Abatab-{PassedArgument}\src\bin\", $"{LtntDirs["bin"]}");
         }
 
@@ -151,29 +141,25 @@ namespace AbatabLieutenant
                 LogEvent($"  {targetFilePath} copied.");
             }
 
-            foreach (DirectoryInfo subDir in subDirsToCopy)
+            foreach (var (subDir, newTargetDir) in from DirectoryInfo subDir in subDirsToCopy
+                                                   let newTargetDir = Path.Combine(target, subDir.Name)
+                                                   select (subDir, newTargetDir))
             {
-                string newTargetDir = Path.Combine(target, subDir.Name);
                 CopyDir(subDir.FullName, newTargetDir);
             }
         }
 
-        internal static void CopyWebService()
+        internal static void CopyService()
         {
-            //var serviceFiles = ServiceFiles();
-
             string source = $@"{LtntDirs["Temp"]}\Abatab-{TargetBranch}\src";
-            string target = $@"{LtntDirs["Root"]}";
+            string target = $"{LtntDirs["Root"]}";
 
             LogEvent($"{Environment.NewLine}Copying web service files...");
 
-            //foreach (string file in serviceFiles)
             foreach (string file in ServiceFiles())
             {
                 if (File.Exists($@"{target}\{file}"))
-                {
                     File.Delete($@"{target}\{file}");
-                }
 
                 File.Copy($@"{source}\{file}", $@"{target}\{file}");
                 LogEvent($@"  {source}\{file} copied.");
@@ -183,39 +169,39 @@ namespace AbatabLieutenant
         internal static void LogEvent(string msg, bool newline = false)
         {
             Console.WriteLine(msg);
-            File.AppendAllText(LogFile, FormatLogMsg(msg, newline));
+            File.AppendAllText(LogFile, FormatLogContent(msg, newline));
         }
 
-        internal static void Finisher(int exitCode, string exitMsg = "Exiting Abatab Lieutenant.")
+        internal static void Finisher(int code, string msg = "Exiting Abatab Lieutenant.")
         {
-            switch (exitCode)
+            switch (code)
             {
                 case 1:
-                    LogEvent(LogFooterMsg(), true);
+                    LogEvent(LogFooter(), true);
                     Environment.Exit(1);
                     break;
 
                 case 2:
-                    Console.WriteLine(exitMsg);
+                    Console.WriteLine(msg);
                     Environment.Exit(2);
                     break;
 
                 case 0:
                 default:
-                    Console.WriteLine(exitMsg);
+                    Console.WriteLine(msg);
                     Environment.Exit(0);
                     break;
             }
         }
 
-        private static DirectoryInfo[] GetSubDirs(string sourceDir, string targetDir)
+        private static DirectoryInfo[] GetSubDirs(string source, string target)
         {
-            DirectoryInfo dir = new DirectoryInfo(sourceDir);
+            DirectoryInfo dir = new DirectoryInfo(source);
 
             if (!dir.Exists)
             {
-                _=Directory.CreateDirectory(targetDir);
-                LogEvent($"Directory {targetDir} created.", true);
+                _=Directory.CreateDirectory(target);
+                LogEvent($"Directory {target} created.", true);
             }
 
             return dir.GetDirectories();
@@ -223,50 +209,35 @@ namespace AbatabLieutenant
 
         private static void RemoveFiles(string root, List<string> files)
         {
-            foreach (var file in files)
+            foreach (var file in from file in files
+                                 where File.Exists($"{root}/{file}")
+                                 select file)
             {
-                if (File.Exists($@"{root}/{file}"))
-                {
-                    File.Delete($@"{root}/{file}");
-                }
+                File.Delete($"{root}/{file}");
             }
         }
 
-        internal static string VerifyArg(string[] passedArgs)
-        {
-            var passedArg = "";
+        internal static string SetBranch(string[] args) =>
+            args.Length == 0
+                ? Properties.Settings.Default.DefaultBranch
+                : VerifyArg(args[0])
+                    ? Properties.Settings.Default.DefaultBranch
+                    : null;
 
-            if (passedArgs.Length == 0)
-            {
-                passedArg = Properties.Settings.Default.DefaultBranch;
-            }
-            else
-            {
-                if (ValidArgs().Contains($"{passedArgs[0]}"))
-                {
-                    passedArg = $"{passedArgs[0]}";
-                }
-                else
-                {
-                    Finisher(0);
-                }
-            }
-
-            return passedArg;
-        }
+        internal static bool VerifyArg(string arg) =>
+            ValidArgs().Contains($"{arg}");
 
         private static void RefreshDir(string dir)
         {
             if (Directory.Exists(dir))
-            {
                 Directory.Delete(dir, true);
-            }
 
             _=Directory.CreateDirectory(dir);
             LogEvent($"  {dir}", true);
         }
 
-        private static List<string> ServiceFiles() => new List<string>
+        private static List<string> ServiceFiles() =>
+            new List<string>
             {
                 "Abatab.asmx",
                 "Abatab.asmx.cs",
@@ -276,7 +247,8 @@ namespace AbatabLieutenant
                 "Web.Release.config"
             };
 
-        private static List<string> ValidArgs() => new List<string>
+        private static List<string> ValidArgs() =>
+            new List<string>
             {
                 "development",
                 "experimental",
@@ -285,81 +257,88 @@ namespace AbatabLieutenant
                 "testbuild"
             };
 
-        internal static string ArchiveUrl(string repoZipBaseUrl, string branch) => $"{repoZipBaseUrl}{branch}.zip";
+        internal static string BuildUrl(string baseUrl, string branch) =>
+            $"{baseUrl}{branch}.zip";
 
-        internal static string SetLogfile(string Logs)
+        internal static string VerifyLogfile(string dir)
         {
-            if (!Directory.Exists(Logs))
-            {
-                _=Directory.CreateDirectory(Logs);
-            }
+            if (!Directory.Exists(dir))
+                _=Directory.CreateDirectory(dir);
 
-            return $@"{Logs}\{DateTime.Now.ToString("yyMMdd.HHmmss")}.ltnt";
+            return $@"{dir}\{DateTime.Now.ToString("yyMMdd.HHmmss")}.ltnt";
         }
 
-        internal static string FormatLogMsg(string msg, bool newline) => newline
-            ? $"{Environment.NewLine}{msg}"
-            : $"{msg}{Environment.NewLine}";
+        private static string LogHeader() =>
+            $"{Environment.NewLine}" +
+            $"{Environment.NewLine}==========================" +
+            $"{Environment.NewLine}Starting Abatab Lieutenant v{LtntVersion}{Environment.NewLine}" +
+            $"=========================={Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"Deploying branch: {TargetBranch}{Environment.NewLine}";
 
-        private static string LogHeaderMsg() => $"{Environment.NewLine}" +
-                                                $"{Environment.NewLine}==========================" +
-                                                $"{Environment.NewLine}Starting Abatab Lieutenant v{LtntVersion}{Environment.NewLine}" +
-                                                $"=========================={Environment.NewLine}" +
-                                                $"{Environment.NewLine}" +
-                                                $"Deploying branch: {TargetBranch}{Environment.NewLine}";
+        private static string LogFooter() =>
+            $"{Environment.NewLine}" +
+            $"Process complete!{Environment.NewLine}" +
+            $"{Environment.NewLine}";
 
-        private static string LogFooterMsg() => $"{Environment.NewLine}" +
-                                                $"Process complete!{Environment.NewLine}" +
-                                                $"{Environment.NewLine}";
+        private static string DownloadMsg(string url) =>
+            $"{Environment.NewLine}" +
+            $"Downloading Abatab repository from:{Environment.NewLine}" +
+            $"  {url}";
 
-        private static string HelpMsg(string version) => $"{Environment.NewLine}" +
-                                                         $"==========================={Environment.NewLine}" +
-                                                         $"Abatab Lieutenant v{version} Help{Environment.NewLine}" +
-                                                         $"===========================" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"Syntax:{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"    $ AbatabLieutenant <command>{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"Valid commands:{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"            help - Abatab Lieutenant help (this screen){Environment.NewLine}" +
-                                                         $"     development - Deploy the Abatab development branch{Environment.NewLine}" +
-                                                         $"    experimental - Deploy the Abatab experimental branch{Environment.NewLine}" +
-                                                         $"            main - Deploy the Abatab main branch{Environment.NewLine}" +
-                                                         $"       testbuild - Deploy the Abatab tesbuild branch (default){Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"Example:{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"{Environment.NewLine}" +
-                                                         $"    AbatabLieutenant.exe help" +
-                                                         $"{Environment.NewLine}";
+        private static string ExtractMsg(string source, string target) =>
+            $"{Environment.NewLine}" +
+            $"Extracting {source} to {target}...{Environment.NewLine}";
 
-        private static string DownloadMsg(string src) => $"{Environment.NewLine}" +
-                                                         $"Downloading Abatab repository from:{Environment.NewLine}" +
-                                                         $"  {src}";
+        internal static string FormatLogContent(string msg, bool newline) =>
+            newline
+                ? $"{Environment.NewLine}{msg}"
+                : $"{msg}{Environment.NewLine}";
 
-        private static string ExtractMsg(string repoZip, string dir) => $"{Environment.NewLine}" +
-                                                                        $"Extracting {repoZip} to {dir}...{Environment.NewLine}";
-        internal static string DebugMsg() => $"**************{Environment.NewLine}" +
-                                             $"  DEBUG INFO{Environment.NewLine}" +
-                                             $"**************{Environment.NewLine}" +
-                                             $"      Version: {LtntVersion}{Environment.NewLine}" +
-                                             $"         Root: {LtntRoot}{Environment.NewLine}" +
-                                             $"      BaseUrl: {RepoUrl}{Environment.NewLine}" +
-                                             $"DefaultBranch: {DefaultBranch}{Environment.NewLine}" +
-                                             $" TargetBranch: {TargetBranch}{Environment.NewLine}" +
-                                             $"      LogFile: {LogFile}{Environment.NewLine}" +
-                                             $"         Root: {LtntDirs["Root"]}{Environment.NewLine}" +
-                                             $"         Logs: {LtntDirs["Logs"]}{Environment.NewLine}" +
-                                             $"         Temp: {LtntDirs["Temp"]}{Environment.NewLine}" +
-                                             $"          Bin: {LtntDirs["bin"]}{Environment.NewLine}" +
-                                             $"       Branch: {RepoInfo["Branch"]}{Environment.NewLine}" +
-                                             $"       Source: {RepoInfo["Source"]}{Environment.NewLine}" +
-                                             $"          Url: {RepoInfo["Url"]}{Environment.NewLine}";
+        private static string HelpMsg(string ver) =>
+            $"{Environment.NewLine}" +
+            $"==========================={Environment.NewLine}" +
+            $"Abatab Lieutenant v{ver} Help{Environment.NewLine}" +
+            $"===========================" +
+            $"{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"Syntax:{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"    $ AbatabLieutenant <command>{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"Valid commands:{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"            help - Abatab Lieutenant help (this screen){Environment.NewLine}" +
+            $"     development - Deploy the Abatab development branch{Environment.NewLine}" +
+            $"    experimental - Deploy the Abatab experimental branch{Environment.NewLine}" +
+            $"            main - Deploy the Abatab main branch{Environment.NewLine}" +
+            $"       testbuild - Deploy the Abatab testbuild branch (default){Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"Example:{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"{Environment.NewLine}" +
+            $"    AbatabLieutenant.exe help" +
+            $"{Environment.NewLine}";
+
+        internal static string DebugMsg() =>
+            $"**************{Environment.NewLine}" +
+            $"  DEBUG INFO{Environment.NewLine}" +
+            $"**************{Environment.NewLine}" +
+            $"      Version: {LtntVersion}{Environment.NewLine}" +
+            $"         Root: {LtntRoot}{Environment.NewLine}" +
+            $"      BaseUrl: {RepoUrl}{Environment.NewLine}" +
+            $"DefaultBranch: {DefaultBranch}{Environment.NewLine}" +
+            $" TargetBranch: {TargetBranch}{Environment.NewLine}" +
+            $"      LogFile: {LogFile}{Environment.NewLine}" +
+            $"         Root: {LtntDirs["Root"]}{Environment.NewLine}" +
+            $"         Logs: {LtntDirs["Logs"]}{Environment.NewLine}" +
+            $"         Temp: {LtntDirs["Temp"]}{Environment.NewLine}" +
+            $"          Bin: {LtntDirs["bin"]}{Environment.NewLine}" +
+            $"       Branch: {RepoInfo["Branch"]}{Environment.NewLine}" +
+            $"       Source: {RepoInfo["Source"]}{Environment.NewLine}" +
+            $"          Url: {RepoInfo["Url"]}{Environment.NewLine}";
     }
 }

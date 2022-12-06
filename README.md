@@ -12,35 +12,90 @@
 
 # About
 
-Abatab Lieutenant is a *very* simple utility that deploys the development branch of Abatab to Abatab_UAT/ on the IIS server where Abatab is hosted.
-
-I needed something to streamline the deployment while developing Abatab, and I needed it quick. So this code isn't particularly well written or organized.
-
-In addition, I don't think there will need to be any updates/modifications, so v1.0.0 will be the first version, and the last.
-
-## Logging
-
-If you run into problems, the Abatab Lieutenant logs can be found here:  
-`C:\AvatoolWebService\Abatab_UAT\logs\lieutenant\`
-
-If logging stops working, delete this folder:  
-`C:\AvatoolWebService\Abatab_UAT\logs\lieutenant\`
+Abatab Lieutenant is a simple utility that deploys branches of Abatab to the server where where Abatab is hosted.
 
 # Using
 
-## Before you do anything
+To use Abatab Lieutenant:
 
-* Make sure that the Abatab development branch is located here:  
-`https://github.com/spectrum-health-systems/AbatabLieutenant/tree/development`
+1. Download the latest [release](https://github.com/spectrum-health-systems/AbatabLieutenant/releases)
 
-* Make sure that the deployment location on the IIS server is located here:  
-`C:\AvatoolWebService\Abatab_UAT\`
+2. Uncompress the .zip file to the server where Abatab is hosted
 
-* If this is your first time running Abatab Lieutenant, make sure the following directory *does not* exist:  
-`C:\AvatoolWebService\Abatab_UAT\logs\lieutenant\`
+3. Verify that the configuration settings in `AbatabLieutenant.exe.config` are correct
 
-## Running Abatab Lieutenant
+4. Run `AbatabLieutenant.exe`
 
-Run `AbatabLieutenant.exe` as Administrator.
+## Default behavior
 
-That's, uh, it.
+The default Abatab Lieutenant behavior is to deploy the `testbuild` branch of Abatab to to `C:\Abatab\UAT`.
+
+## Runtime behavior
+
+You can display the help screen, or specify another branch to deploy, at runtime by using the following syntax:
+
+``` bash
+AbatabLieutenant.exe <command>
+```
+
+For example:
+
+``` bash
+AbatabLieutenant.exe help
+```
+
+The following are valid Abatab Lieutenant commands:
+
+* `help`  
+Abatab Lieutenant help (this screen)
+
+* `development`  
+Deploy the Abatab development branch
+
+* `experimental`  
+Deploy the Abatab experimental branch
+
+* `main`  
+Deploy the Abatab main branch
+
+* `testbuild`  
+Deploy the Abatab tesbuild branch (default)
+
+# Configuring
+
+You can also change the default behavior of Abatab Lieutenant by modifying the values in `AbatabLieutenant.exe.config`.
+
+> DebugMode = disabled
+
+Specifies if debugging information will be displayed on the screen when you run Abatab Lieutenant.
+
+DebugMode can either be `enabled` or `disabled`.
+
+> LtntVersion = 2.0
+
+The version of Abatab Lieutenant.
+
+> LtntRoot = C:\Abatab\UAT
+
+The root directory where Abatab will be deployed.
+
+> RepoUrl = https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/
+
+The base URL for the Abatab branches.
+
+> DefaultBranch = testbuild  
+
+The Abatab branch to deploy when typing `AbatabLieutenant.exe`.  This can be one of the following branches:
+
+* `development`
+
+* `main`
+
+* `testbuild`
+
+* `experimental`
+
+# Logging
+
+Abatab Lieutenant logs can be found here:  
+`C:\Abatab\UAT\logs\lieutenant\`
