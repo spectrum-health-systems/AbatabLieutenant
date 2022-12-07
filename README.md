@@ -7,7 +7,7 @@
 
 ## Command line management utility for Abatab
 
-![Status][Status]&nbsp;&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;&nbsp;![.NET][DotNet]&nbsp;&nbsp;&nbsp;![Release][Release]
+![Status][Status]&nbsp;&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;&nbsp;![.NET][DotNet]&nbsp;&nbsp;&nbsp;![Release][Release]&nbsp;&nbsp;&nbsp;![Issues][Issues]&nbsp;&nbsp;&nbsp;![PullRequests][PullRequests]
 
 </div>
 
@@ -141,22 +141,9 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 
 ***
 
-![Issues][Issues]
-![PullRequests][PullRequests]
-![AllReleases][AllReleases] • 
-![LastCommitDevelopment][LastCommitDevelopment]
-![LastCommitMain][LastCommitMain]
-![CodeSize][CodeSize] ⦿
-![LinesOfCode][LinesOfCode]
-![RepoFileCount][RepoFileCount]
-![RepoSize][RepoSize]
+<br>
 
-
-
-
-•
-
-***
+![LastCommit][LastCommit]&nbsp;&nbsp;&nbsp;![CodeSize][CodeSize]&nbsp;&nbsp;&nbsp;![LinesOfCode][LinesOfCode]&nbsp;&nbsp;&nbsp;![RepoFileCount][RepoFileCount]&nbsp;&nbsp;&nbsp;![RepoSize][RepoSize]
 
 <!-- REFERENCE LINKS -->
 
@@ -187,29 +174,4 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 [AllReleases]: https://img.shields.io/github/downloads/spectrum-health-systems/AbatabLieutenant/total
 [Issues]: https://img.shields.io/github/issues/spectrum-health-systems/AbatabLieutenant
 [PullRequests]: https://img.shields.io/github/issues-pr/spectrum-health-systems/AbatabLieutenant
-[LastCommitMain]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/main?label=main%20committed
-[LastCommitDevelopment]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/development?label=development%20committed
-
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/main?label=main%20committed)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[LastCommit]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant
