@@ -123,8 +123,8 @@ Abatab Lieutenant logs can be found here:
 [AbatabRepoUrl]: https://github.com/spectrum-health-systems/Abatab
 [MainBranchUrl]: README.md
 [Logo]: /.github/res/img/logo/RepositoryLogo.png
-[Status]: https://img.shields.io/badge/Active-brightgreen?style=flat-square
-[License]: https://img.shields.io/badge/Apache%202.0-brightgreen?style=flat-square
+[Status]: https://img.shields.io/badge/status-active-brightgreen?style=flat-square
+[License]: https://img.shields.io/badge/license-apache%202.0-brightgreen?style=flat-square
 [LicenseUrl]: https://www.apache.org/licenses/LICENSE-2.0
 [CurrentRelease]: https://img.shields.io/github/v/release/spectrum-health-systems/AbatabLieutenant?style=flat-square
 [CurrentReleaseUrl]: https://github.com/spectrum-health-systems/AbatabLieutenant/releases
