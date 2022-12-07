@@ -173,8 +173,8 @@ Abatab Lieutenant is developed by [A Pretty Cool Program](APrettyCoolProgramUrl)
 [ReleaseUrl]: https://github.com/spectrum-health-systems/AbatabLieutenant/releases
 
 [AbatabCommanderUrl]: https://github.com/spectrum-health-systems/AbatabCommander
-[Changelog]: /docs/CHANGELOG.md
-[Roadmap]: /docs/ROADMAP.md
+[Changelog]: https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/docs/CHANGELOG.md
+[Roadmap]: https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/docs/ROADMAP.md
 [APrettyCoolProgramUrl]: https://github.com/APrettyCoolProgram
 
 [CodeSize]: (https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant)
