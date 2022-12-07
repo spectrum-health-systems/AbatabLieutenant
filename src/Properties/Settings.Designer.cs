@@ -49,7 +49,7 @@ namespace AbatabLieutenant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\AvatoolWebService\\Abatab_UAT")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Abatab\\UAT")]
         public string LtntRoot {
             get {
                 return ((string)(this["LtntRoot"]));
