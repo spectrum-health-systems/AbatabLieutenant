@@ -11,17 +11,24 @@
 
 </div>
 
-## Contents
-### About
+<!-- The HTML indentations have to stay this way to work. -->
+<table>
+<tr>
+<td img src="RepositoryData/Asset/Image/Document/README/spacer.png" alt="blank-spacer" width="1000" height="1">
 
+  ## CONTENTS
+  [ABOUT](#about)<br>
+  [GETTING STARTED](#getting-started)<br>
+  [INSTALLING](#installing)<br>
+  [USING](#using)<br>
+  [UPDATING](#updating)<br>
+  [UNINSTALLING](#uninstalling)<br>
+  [DEVELOPMENT](#development)<br>
+  [ADDITIONAL INFORMATION](#additional-information)<br>
 
-### [Changelog][Changelog]  
-### [Roadmap][Roadmap]  
-#### [ManHome][ManHome]&nbsp;&bull;&nbsp;[Sourcecode documentation][SrcDocHome]
-
-<br>
-
-
+</td>
+</tr>
+</table>
 
 
 <div align="center">
