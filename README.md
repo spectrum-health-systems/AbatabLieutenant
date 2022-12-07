@@ -28,13 +28,15 @@
 
 # About
 
-Abatab Lieutenant is a simple utility that deploys branches of Abatab to the server where where Abatab is hosted.
+Abatab Lieutenant is a simple utility that deploys branches of [Abatab][AbatabUrl] to the server where where Abatab is hosted.
 
 By default, Abatab Lieutenant is intended to be used with non-production installations of Abatab. It's recommended that you deploy Abatab to your production environments manually.
 
+Please see the [changelog](Changelog) for a history of changes, and the [roadmap](Roadmap) for any upcoming features/fixes.
+
 ## A note about the source code
 
-I doubt Abatab Lieutenant will be used outside Abatab development (the better choice would be [Abatab Commander](https://github.com/spectrum-health-systems/AbatabCommander), so I had a little fun with the source code - I definately didn't use best practices. If statements without brackets, short (but still descriptive!) variable names, zero comments, oh my!
+I doubt Abatab Lieutenant will be used outside Abatab development (the better choice would be [Abatab Commander][AbatabCommanderUrl], so I had a little fun with the source code - I definately didn't use best practices. If statements without brackets, short (but still descriptive!) variable names, zero comments, oh my!
 
 ## Features
 
@@ -48,7 +50,7 @@ I doubt Abatab Lieutenant will be used outside Abatab development (the better ch
 
 Abatab Lieutenant is a portable application, so it doesn't need to be installed. All you need to do is:
 
-1. Download the latest [release](https://github.com/spectrum-health-systems/AbatabLieutenant/releases), then
+1. Download the latest [release](ReleaseUrl), then
 2. Uncompress the .zip file to a location on the server where Abatab is hosted
 
 # Using
@@ -135,9 +137,33 @@ Debug information is not written to log files.
 
 # Additional information
 
-Abatab Lieutenant is developed by [A Pretty Cool Program](https://github.com/APrettyCoolProgram).
+Abatab Lieutenant is developed by [A Pretty Cool Program](APrettyCoolProgramUrl).
 
 ***
+
+
+
+<!-- REFERENCE LINKS -->
+
+[GitHubFollowers]: https://img.shields.io/github/followers/spectrum-health-systems?style=social
+[GitHubForks]: https://img.shields.io/github/forks/spectrum-health-systems/AbatabLieutenant?style=social
+[GitHubStars]: https://img.shields.io/github/stars/spectrum-health-systems/AbatabLieutenant?style=social
+[GitHubWatchers]: https://img.shields.io/github/watchers/spectrum-health-systems/AbatabLieutenant?style=social
+[DotNet]: https://img.shields.io/badge/.NET-6.0-blueviolet
+
+[AbatabUrl]: https://github.com/spectrum-health-systems/Abatab
+[MainBranchUrl]: README.md
+[Logo]: /.github/res/img/logo/RepositoryLogo.png
+[Status]: https://img.shields.io/badge/status-active-brightgreen?style=flat
+[License]: https://img.shields.io/badge/license-apache%202.0-brightgreen?style=flat
+[LicenseUrl]: https://www.apache.org/licenses/LICENSE-2.0
+[Release]: https://img.shields.io/github/v/release/spectrum-health-systems/AbatabLieutenant?style=flat
+[ReleaseUrl]: https://github.com/spectrum-health-systems/AbatabLieutenant/releases
+
+[AbatabCommanderUrl]: https://github.com/spectrum-health-systems/AbatabCommander
+[Changelog]: /docs/CHANGELOG.md
+[Roadmap]: /docs/ROADMAP.md
+[APrettyCoolProgramUrl]: https://github.com/APrettyCoolProgram
 
 
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant)
@@ -165,14 +191,6 @@ Abatab Lieutenant is developed by [A Pretty Cool Program](https://github.com/APr
 
 
 
-<!-- REFERENCE LINKS -->
-
-[GitHubFollowers]: https://img.shields.io/github/followers/spectrum-health-systems?style=social
-[GitHubForks]: https://img.shields.io/github/forks/spectrum-health-systems/AbatabLieutenant?style=social
-[GitHubStars]: https://img.shields.io/github/stars/spectrum-health-systems/AbatabLieutenant?style=social
-[GitHubWatchers]: https://img.shields.io/github/watchers/spectrum-health-systems/AbatabLieutenant?style=social
-
-[DotNet]: https://img.shields.io/badge/.NET-6.0-blueviolet
 
 
 
@@ -186,15 +204,3 @@ Abatab Lieutenant is developed by [A Pretty Cool Program](https://github.com/APr
 
 
 
-[AbatabRepoUrl]: https://github.com/spectrum-health-systems/Abatab
-[MainBranchUrl]: README.md
-[Logo]: /.github/res/img/logo/RepositoryLogo.png
-[Status]: https://img.shields.io/badge/status-active-brightgreen?style=flat
-[License]: https://img.shields.io/badge/license-apache%202.0-brightgreen?style=flat
-[LicenseUrl]: https://www.apache.org/licenses/LICENSE-2.0
-[CurrentRelease]: https://img.shields.io/github/v/release/spectrum-health-systems/AbatabLieutenant?style=flat
-[CurrentReleaseUrl]: https://github.com/spectrum-health-systems/AbatabLieutenant/releases
-[Changelog]: /doc/CHANGELOG.md
-[Roadmap]: /doc/ROADMAP.md
-[ManHome]: /doc/man/ManHome.md
-[SrcDocHome]: /doc/srcdoc/SrcDocHome.md
