@@ -74,12 +74,12 @@ To use the Abatab Lieutenant, open a terminal and type `AbatabLieutenant.exe`.
 
 Abatab Lieutenant will then:
 
-1. Download the latest *testbuild* branch of Abatab
-2. Deploy the *testbuild* branch to *C:\Abatab\UAT*
+1. Download the latest **testbuild** branch of Abatab
+2. Deploy the **testbuild** branch to **C:\Abatab\UAT**
 
 ## Customizing the deployed branch via the command line
 
-To deploy a specific branch, open a terminal and type "`AbatabLieutenant.exe %BranchName%`", where `%BranchName%` is one of the following:
+To deploy a specific branch, open a terminal and type `AbatabLieutenant.exe %BranchName%`, where **%BranchName%** is one of the following:
 
 * development
 
@@ -89,17 +89,19 @@ To deploy a specific branch, open a terminal and type "`AbatabLieutenant.exe %Br
 
 * experimental
 
-For example, to deploy the `main` branch, you would type `AbatabLieutenant.exe main`
+For example, to deploy the **main** branch, you would type `AbatabLieutenant.exe main`
 
 ## Customizing via the configuration file
 
-You can also change the default behavior of Abatab Lieutenant by modifying the values in `AbatabLieutenant.exe.config`.
+You can also change the default behavior of Abatab Lieutenant by modifying the values in **AbatabLieutenant.exe.config**.
 
-### DebugMode = disabled
+### DebugMode
+
+> **enabled** or **disabled**
 
 Specifies if debugging information will be displayed on the screen when you run Abatab Lieutenant.
 
-DebugMode can either be `enabled` or `disabled`.
+By default, DebugMode is *disabled*.
 
 ### LtntVersion = 2.0
 
