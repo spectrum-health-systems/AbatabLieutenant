@@ -82,11 +82,8 @@ Abatab Lieutenant will then:
 To deploy a specific branch, open a terminal and type `AbatabLieutenant.exe %BranchName%`, where **%BranchName%** is one of the following:
 
 * development
-
 * main
-
 * testbuild
-
 * experimental
 
 For example, to deploy the **main** branch, you would type `AbatabLieutenant.exe main`
