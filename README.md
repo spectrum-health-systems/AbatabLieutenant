@@ -5,7 +5,7 @@
 
 [![Logo][Logo]][MainBranchUrl]
 
-## Command line management utility for Abatab
+### Command line management utility for Abatab
 
 <br>
 
