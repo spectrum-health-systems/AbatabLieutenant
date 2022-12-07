@@ -16,7 +16,7 @@
 <tr>
 <td img src="RepositoryData/Asset/Image/Document/README/spacer.png" alt="blank-spacer" width="1000" height="1">
 
-  ## CONTENTS
+  ### CONTENTS
   [ABOUT](#about)<br>
   [GETTING STARTED](#getting-started)<br>
   [INSTALLING](#installing)<br>
@@ -30,16 +30,7 @@
 </tr>
 </table>
 
-
-<div align="center">
-  <h2>
-    For Spectrum Health Systems use only
-  </h2>
-</div>
-
 ***
-
-<br>
 
 # About
 
