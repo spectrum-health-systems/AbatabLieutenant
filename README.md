@@ -74,20 +74,20 @@ To use the Abatab Lieutenant, open a terminal and type `AbatabLieutenant.exe`.
 
 Abatab Lieutenant will then:
 
-1. Download the latest `testbuild` branch of Abatab
-2. Deploy the `testbuild` branch to `C:\Abatab\UAT`
+1. Download the latest *testbuild* branch of Abatab
+2. Deploy the *testbuild* branch to *C:\Abatab\UAT*
 
 ## Customizing the deployed branch via the command line
 
 To deploy a specific branch, open a terminal and type "`AbatabLieutenant.exe %BranchName%`", where `%BranchName%` is one of the following:
 
-* `development`
+* development
 
-* `main`
+* main
 
-* `testbuild`
+* testbuild
 
-* `experimental`
+* experimental
 
 For example, to deploy the `main` branch, you would type `AbatabLieutenant.exe main`
 
