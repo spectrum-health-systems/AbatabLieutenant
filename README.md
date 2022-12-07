@@ -4,7 +4,7 @@
 
 # A custom web service for Netsmart's myAvatar™ EHR
 
-  ![Status][StatusActive]&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;[![CurrentRelease][CurrentRelease]][CurrentReleaseUrl]
+  ![Status][Status]&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;[![CurrentRelease][CurrentRelease]][CurrentReleaseUrl]
 
   ***
   ### [Changelog][Changelog]&nbsp;&bull;&nbsp;[Roadmap][Roadmap]&nbsp;&bull;&nbsp;[ManHome][ManHome]&nbsp;&bull;&nbsp;[Sourcecode documentation][SrcDocHome]
