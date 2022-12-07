@@ -141,16 +141,20 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 
 ***
 
-![CodeSize][CodeSize]
+![Issues][Issues]
+![PullRequests][PullRequests]
+![AllReleases][AllReleases] • 
+![LastCommitDevelopment][LastCommitDevelopment]
+![LastCommitMain][LastCommitMain]
+![CodeSize][CodeSize] ⦿
 ![LinesOfCode][LinesOfCode]
 ![RepoFileCount][RepoFileCount]
 ![RepoSize][RepoSize]
-![AllReleases][AllReleases]
-![Issues][Issues]
-![PullRequests][PullRequests]
-![GitHub][GitHub]
-![LastCommit][LastCommit]
-![LastCommitDevelopment][LastCommitDevelopment]
+
+
+
+
+•
 
 ***
 
@@ -183,14 +187,10 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 [AllReleases]: https://img.shields.io/github/downloads/spectrum-health-systems/AbatabLieutenant/total
 [Issues]: https://img.shields.io/github/issues/spectrum-health-systems/AbatabLieutenant
 [PullRequests]: https://img.shields.io/github/issues-pr/spectrum-health-systems/AbatabLieutenant
-[GitHub]: https://img.shields.io/github/license/spectrum-health-systems/AbatabLieutenant
-[LastCommit]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant
-[LastCommitDevelopment]: (https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/development
+[LastCommitMain]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/main?label=main%20committed
+[LastCommitDevelopment]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/development?label=development%20committed
 
-
-
-
-
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/main?label=main%20committed)
 
 
 
