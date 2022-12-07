@@ -61,10 +61,10 @@ Abatab Lieutenant is a portable application, so it doesn't need to be installed.
 
 # Using
 
-Before you use Abatab Lieutenant, it is recommended that you confirm that the default settings in *AbatabLieutenant.exe.config* are correct for your organization:
+Before you use Abatab Lieutenant, it is recommended that you confirm that the default settings in AbatabLieutenant.exe.config are correct for your organization:
 
-* The location of your Abatab instance for your UAT environment is **C:\Abatab\UAT**
-* The Abatab branch you will be deploying is **testbuild**
+* The location of your Abatab instance for your UAT environment is "**C:\Abatab\UAT**"
+* The Abatab branch you will be deploying is "**testbuild**"
 
 If any of the default settings will not work at your organization, please make the required changes to the configuration file.
 
