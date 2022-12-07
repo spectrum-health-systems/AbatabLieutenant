@@ -4,7 +4,7 @@
 
 # Command line management utility for Abatab
 
-  ![Status][Status]&nbsp;&nbsp;![License][License]&nbsp;&nbsp;![CurrentRelease][CurrentRelease]
+  ![Status][Status]&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;![CurrentRelease][CurrentRelease]
 
   ***
   ### [Changelog][Changelog]&nbsp;&bull;&nbsp;[Roadmap][Roadmap]&nbsp;&bull;&nbsp;[ManHome][ManHome]&nbsp;&bull;&nbsp;[Sourcecode documentation][SrcDocHome]
@@ -125,6 +125,7 @@ Abatab Lieutenant logs can be found here:
 [Logo]: /.github/res/img/logo/RepositoryLogo.png
 [Status]: https://img.shields.io/badge/Active-brightgreen?style=flat-square
 [License]: https://img.shields.io/github/license/spectrum-health-systems/AbatabLieutenant?style=flat-square
+[LicenseUrl]: https://www.apache.org/licenses/LICENSE-2.0
 [CurrentRelease]: https://img.shields.io/github/v/release/spectrum-health-systems/AbatabLieutenant?style=flat-square
 [CurrentReleaseUrl]: https://github.com/spectrum-health-systems/AbatabLieutenant/releases
 [Changelog]: /doc/CHANGELOG.md
