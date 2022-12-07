@@ -139,6 +139,8 @@ Debug information is not written to log files.
 
 Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl].
 
+***
+
 <br>
 
 <div align="center">
