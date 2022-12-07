@@ -1,3 +1,22 @@
+<div align="center">
+
+  [![Logo][Logo]][MainBranchUrl]
+
+# A custom web service for Netsmart's myAvatar™ EHR
+
+  ![Status][StatusActive]&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;[![CurrentRelease][CurrentRelease]][CurrentReleaseUrl]
+
+  ***
+  ### [Changelog][Changelog]&nbsp;&bull;&nbsp;[Roadmap][Roadmap]&nbsp;&bull;&nbsp;[ManHome][ManHome]&nbsp;&bull;&nbsp;[Sourcecode documentation][SrcDocHome]
+
+  ***
+
+</div>
+
+<br>
+
+
+
 ***
 
 <div align="center">
@@ -99,3 +118,16 @@ The Abatab branch to deploy when typing `AbatabLieutenant.exe`.  This can be one
 
 Abatab Lieutenant logs can be found here:  
 `C:\Abatab\UAT\logs\lieutenant\`
+
+<!-- REFERENCE LINKS -->
+[AbatabRepoUrl]: https://github.com/spectrum-health-systems/Abatab
+[MainBranchUrl]: README.md
+[Logo]: /.github/res/img/logo/RepositoryLogo.png
+[Status]: https://img.shields.io/badge/StatusActiveRepo-brightgreen?style=flat-square
+[License]: https://img.shields.io/github/license/spectrum-health-systems/Abatab?style=flat-square
+[CurrentRelease]: https://img.shields.io/github/v/release/spectrum-health-systems/Abatab?style=flat-square
+[CurrentReleaseUrl]: https://github.com/spectrum-health-systems/Abatab/releases
+[Changelog]: /doc/CHANGELOG.md
+[Roadmap]: /doc/ROADMAP.md
+[ManHome]: /doc/man/ManHome.md
+[SrcDocHome]: /doc/srcdoc/SrcDocHome.md
