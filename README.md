@@ -7,8 +7,6 @@
 
 ### Command line management utility for Abatab
 
-<br>
-
 ![Status][Status]&nbsp;&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;&nbsp;![.NET][DotNet]&nbsp;&nbsp;&nbsp;![CurrentRelease][CurrentRelease]
 
 </div>
