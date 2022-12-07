@@ -3,8 +3,7 @@
 
 ![Followers][GitHubFollowers] ![Forks][GitHubForks] ![Stars][GitHubStars] ![Watchers][GitHubWatchers]
 
-[![Logo][Logo]][MainBranchUrl]
-
+[![Logo][Logo]][MainBranchUrl]  
 # Command line management utility for Abatab
 
 ![Status][Status]&nbsp;&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;&nbsp;![.NET][DotNet]&nbsp;&nbsp;&nbsp;![CurrentRelease][CurrentRelease]
