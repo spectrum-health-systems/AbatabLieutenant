@@ -19,22 +19,12 @@
   ### CONTENTS
   [About](#about)  
   [Getting started](#getting-started)  
-  &nbsp;&nbsp;&nbsp;&nbsp;[Installing](#installing)  
   [Using](#using)  
-  &nbsp;&nbsp;&nbsp;&nbsp;[Default usage](#default-usage)  
-  &nbsp;&nbsp;&nbsp;&nbsp;[Customizing](#customizing)  
-  [Additional information](#additional-information)
-  &nbsp;&nbsp;&nbsp;&nbsp;[Development](#development)  
+  [Logs](#logs)  
+  [Additional information](#additional-information)  
 </td>
 </tr>
 </table>
-
-debugging
-logs
-code
-
-
-
 
 # About
 
@@ -42,9 +32,13 @@ Abatab Lieutenant is a simple utility that deploys branches of Abatab to the ser
 
 By default, Abatab Lieutenant is intended to be used with non-production installations of Abatab. It's recommended that you deploy Abatab to your production environments manually.
 
+## A note about the source code
+
+I doubt Abatab Lieutenant will be used outside Abatab development (the better choice would be [Abatab Commander](https://github.com/spectrum-health-systems/AbatabCommander), so I had a little fun with the source code - I definately didn't use best practices. If statements without brackets, short (but still descriptive!) variable names, zero comments, oh my!
+
 ## Features
 
-* Cross-platform (written in .NET 6)
+* Cross-platform
 
 * Configurable via local configuration file
 
@@ -129,10 +123,21 @@ The Abatab branch to deploy, which can be one of the following:
 
 To display the Abatab Lieutenant help information, type `AbatabLieutenant.exe help`
 
-# Logging
+# Logs
 
-Abatab Lieutenant logs can be found here:  
-`C:\Abatab\UAT\logs\lieutenant\`
+Abatab Lieutenant logs can be found here in **%LtntRoot%\logs\lieutenant\\**, so by default that would be **C:\Abatab\UAT\logs\lieutenant\\**
+
+## Debug logs
+
+When **DebugMode = enabled**, debug information will be written to the console at the start of the log file.
+
+Debug information is not written to log files.
+
+# Additional information
+
+Abatab Lieutenant is developed by [A Pretty Cool Program](https://github.com/APrettyCoolProgram).
+
+***
 
 
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant)
