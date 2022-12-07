@@ -32,7 +32,7 @@ Abatab Lieutenant is a simple utility that deploys branches of [Abatab][AbatabUr
 
 By default, Abatab Lieutenant is intended to be used with non-production installations of Abatab. It's recommended that you deploy Abatab to your production environments manually.
 
-Please see the [changelog](Changelog) for a history of changes, and the [roadmap](Roadmap) for any upcoming features/fixes.
+Please see the [changelog][Changelog] for a history of changes, and the [roadmap][(]Roadmap] for any upcoming features/fixes.
 
 ## A note about the source code
 
@@ -50,7 +50,7 @@ I doubt Abatab Lieutenant will be used outside Abatab development (the better ch
 
 Abatab Lieutenant is a portable application, so it doesn't need to be installed. All you need to do is:
 
-1. Download the latest [release](ReleaseUrl), then
+1. Download the latest [release][ReleaseUrl], then
 2. Uncompress the .zip file to a location on the server where Abatab is hosted
 
 # Using
@@ -137,7 +137,7 @@ Debug information is not written to log files.
 
 # Additional information
 
-Abatab Lieutenant is developed by [A Pretty Cool Program](APrettyCoolProgramUrl).
+Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl].
 
 ***
 
@@ -153,7 +153,6 @@ Abatab Lieutenant is developed by [A Pretty Cool Program](APrettyCoolProgramUrl)
 ![LastCommitDevelopment][LastCommitDevelopment]
 
 ***
-
 
 <!-- REFERENCE LINKS -->
 
