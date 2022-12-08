@@ -1,10 +1,30 @@
-# Abatab Changelog
+<div align="center">
 
-## 22.11.0 (November XX 2022)
+![Logo][Logo]
 
-* `NEW` Core functionality
-* `NEW` Modules
-* `NEW` Module functionality
-* `NEW` Documentation
+# CHANGELOG
 
-Please see the [release notes](https://spectrum-health-systems.github.io/Abatab/release-notes/22-11-0.html) for more information.
+</div>
+
+# Version 2.x
+
+## v2.0.0 (December 8, 2022)
+
+* `INFO` Initial v2.x release
+* `NEW` Settings are now stored in a local configuration file
+* `NEW` Option to deploy mulitple branches
+* `NEW` Help information
+
+<br>
+
+# Version 1.x
+
+## v1.0.1 (October 4, 2022)
+
+* `CHANGE` Log files now have a **.lieutenant** extension
+
+## v1.0.0 (September 29, 2022)
+
+* `INFO`  Initial v1.x release
+
+[Logo]: /.github/res/img/logo/RepositoryLogo.png
