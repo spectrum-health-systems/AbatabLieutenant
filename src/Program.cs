@@ -1,7 +1,7 @@
 ﻿// Abatab Lieutenant 2.0
 // Copyright (c) A Pretty Cool Program
 // See the LICENSE file for more information.
-// b221206.1214
+// b221208.0828
 
 using System;
 using System.Collections.Generic;
@@ -26,26 +26,30 @@ namespace AbatabLieutenant
 
         internal static void Main(string[] args)
         {
-            Startuper(args);
+            Starter(args);
             DeployService();
             Finisher(1);
         }
 
-        internal static void Startuper(string[] passedArgs)
+        internal static void Starter(string[] args)
         {
             Console.Clear();
-            PassedArgument = SetBranch(passedArgs);
+            PassedArgument = SetBranch(args);
 
             if (PassedArgument == "help")
             {
                 Console.WriteLine(HelpMsg(Properties.Settings.Default.LtntVersion));
                 Finisher(0);
             }
-            else
+            else if (PassedArgument != "undefined")
             {
                 BuildConfig();
                 LogEvent(LogHeader());
                 VerifyDirs();
+            }
+            else
+            {
+                Finisher(2, $"Invalid command: \"{args[0]}\". Exiting...");
             }
         }
 
@@ -135,10 +139,10 @@ namespace AbatabLieutenant
 
             foreach (FileInfo file in dirToCopy.GetFiles())
             {
-                string targetFilePath = Path.Combine(target, file.Name);
+                string targetPath = Path.Combine(target, file.Name);
 
-                _=file.CopyTo(targetFilePath);
-                LogEvent($"  {targetFilePath} copied.");
+                _=file.CopyTo(targetPath);
+                LogEvent($"  {targetPath} copied.");
             }
 
             foreach (var (subDir, newTargetDir) in from DirectoryInfo subDir in subDirsToCopy
@@ -164,6 +168,46 @@ namespace AbatabLieutenant
                 File.Copy($@"{source}\{file}", $@"{target}\{file}");
                 LogEvent($@"  {source}\{file} copied.");
             }
+        }
+        private static DirectoryInfo[] GetSubDirs(string source, string target)
+        {
+            DirectoryInfo dir = new DirectoryInfo(source);
+
+            if (!dir.Exists)
+            {
+                _=Directory.CreateDirectory(target);
+                LogEvent($"Directory {target} created.", true);
+            }
+
+            return dir.GetDirectories();
+        }
+
+        private static void RemoveFiles(string root, List<string> files)
+        {
+            foreach (var file in from file in files
+                                 where File.Exists($"{root}/{file}")
+                                 select file)
+            {
+                File.Delete($"{root}/{file}");
+            }
+        }
+        internal static string SetBranch(string[] args) =>
+            args.Length == 0
+                ? Properties.Settings.Default.DefaultBranch
+                : VerifyArg(args[0])
+                    ? args[0]
+                    : "undefined";
+
+        internal static bool VerifyArg(string arg) =>
+            ValidArgs().Contains($"{arg}");
+
+        private static void RefreshDir(string dir)
+        {
+            if (Directory.Exists(dir))
+                Directory.Delete(dir, true);
+
+            _=Directory.CreateDirectory(dir);
+            LogEvent($"  {dir}", true);
         }
 
         internal static void LogEvent(string msg, bool newline = false)
@@ -192,48 +236,6 @@ namespace AbatabLieutenant
                     Environment.Exit(0);
                     break;
             }
-        }
-
-        private static DirectoryInfo[] GetSubDirs(string source, string target)
-        {
-            DirectoryInfo dir = new DirectoryInfo(source);
-
-            if (!dir.Exists)
-            {
-                _=Directory.CreateDirectory(target);
-                LogEvent($"Directory {target} created.", true);
-            }
-
-            return dir.GetDirectories();
-        }
-
-        private static void RemoveFiles(string root, List<string> files)
-        {
-            foreach (var file in from file in files
-                                 where File.Exists($"{root}/{file}")
-                                 select file)
-            {
-                File.Delete($"{root}/{file}");
-            }
-        }
-
-        internal static string SetBranch(string[] args) =>
-            args.Length == 0
-                ? Properties.Settings.Default.DefaultBranch
-                : VerifyArg(args[0])
-                    ? Properties.Settings.Default.DefaultBranch
-                    : null;
-
-        internal static bool VerifyArg(string arg) =>
-            ValidArgs().Contains($"{arg}");
-
-        private static void RefreshDir(string dir)
-        {
-            if (Directory.Exists(dir))
-                Directory.Delete(dir, true);
-
-            _=Directory.CreateDirectory(dir);
-            LogEvent($"  {dir}", true);
         }
 
         private static List<string> ServiceFiles() =>
