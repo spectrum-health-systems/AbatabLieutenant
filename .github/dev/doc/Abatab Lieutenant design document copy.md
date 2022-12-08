@@ -1,1 +1,0 @@
-Abatab Lieutenant design document
