@@ -7,7 +7,7 @@
 
 ## Command line management utility for Abatab
 
-![Status][Status]&nbsp;&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;&nbsp;![.NET][DotNet]&nbsp;&nbsp;&nbsp;![Release][Release]
+![Status][Status]&nbsp;&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;&nbsp;![.NET][DotNet]&nbsp;&nbsp;&nbsp;![Release][Release]&nbsp;&nbsp;&nbsp;![Issues][Issues]&nbsp;&nbsp;&nbsp;![PullRequests][PullRequests]
 
 </div>
 
@@ -32,7 +32,7 @@ Abatab Lieutenant is a simple utility that deploys branches of [Abatab][AbatabUr
 
 By default, Abatab Lieutenant is intended to be used with non-production installations of Abatab. It's recommended that you deploy Abatab to your production environments manually.
 
-Please see the [changelog](Changelog) for a history of changes, and the [roadmap](Roadmap) for any upcoming features/fixes.
+Please see the [changelog][Changelog] for a history of changes, and the [roadmap][Roadmap] for any upcoming features/fixes.
 
 ## A note about the source code
 
@@ -50,7 +50,7 @@ I doubt Abatab Lieutenant will be used outside Abatab development (the better ch
 
 Abatab Lieutenant is a portable application, so it doesn't need to be installed. All you need to do is:
 
-1. Download the latest [release](ReleaseUrl), then
+1. Download the latest [release][ReleaseUrl], then...
 2. Uncompress the .zip file to a location on the server where Abatab is hosted
 
 # Using
@@ -137,25 +137,17 @@ Debug information is not written to log files.
 
 # Additional information
 
-Abatab Lieutenant is developed by [A Pretty Cool Program](APrettyCoolProgramUrl).
+Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl].
 
 ***
 
-![CodeSize][CodeSize]
-![LinesOfCode][LinesOfCode]
-![RepoFileCount][RepoFileCount]
-![RepoSize][RepoSize]
-![AllReleases][AllReleases]
-![Issues][Issues]
-![PullRequests][PullRequests]
-![GitHub][GitHub]
-![LastCommit][LastCommit]
-![LastCommitDevelopment][LastCommitDevelopment]
+<br>
 
-***
+<div align="center">
 
+  ![LastCommit][LastCommit]&nbsp;&nbsp;&nbsp;![CodeSize][CodeSize]&nbsp;&nbsp;&nbsp;![LinesOfCode][LinesOfCode]&nbsp;&nbsp;&nbsp;![RepoFileCount][RepoFileCount]&nbsp;&nbsp;&nbsp;![RepoSize][RepoSize]
 
-<!-- REFERENCE LINKS -->
+</div>
 
 [GitHubFollowers]: https://img.shields.io/github/followers/spectrum-health-systems?style=social
 [GitHubForks]: https://img.shields.io/github/forks/spectrum-health-systems/AbatabLieutenant?style=social
@@ -177,40 +169,11 @@ Abatab Lieutenant is developed by [A Pretty Cool Program](APrettyCoolProgramUrl)
 [Roadmap]: https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/docs/ROADMAP.md
 [APrettyCoolProgramUrl]: https://github.com/APrettyCoolProgram
 
-[CodeSize]: (https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant)
-[LinesOfCode]: (https://img.shields.io/tokei/lines/github/spectrum-health-systems/AbatabLieutenant)
-[RepoFileCount]: (https://img.shields.io/github/directory-file-count/spectrum-health-systems/AbatabLieutenant)
-[RepoSize]: (https://img.shields.io/github/repo-size/spectrum-health-systems/AbatabLieutenant)
-[AllReleases]: (https://img.shields.io/github/downloads/spectrum-health-systems/AbatabLieutenant/total)
-[Issues]: (https://img.shields.io/github/issues/spectrum-health-systems/AbatabLieutenant)
-[PullRequests]: (https://img.shields.io/github/issues-pr/spectrum-health-systems/AbatabLieutenant)
-[GitHub]: (https://img.shields.io/github/license/spectrum-health-systems/AbatabLieutenant)
-[LastCommit]: (https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant)
-[LastCommitDevelopment]: (https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant/development)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[CodeSize]: https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant
+[LinesOfCode]: https://img.shields.io/tokei/lines/github/spectrum-health-systems/AbatabLieutenant
+[RepoFileCount]: https://img.shields.io/github/directory-file-count/spectrum-health-systems/AbatabLieutenant
+[RepoSize]: https://img.shields.io/github/repo-size/spectrum-health-systems/AbatabLieutenant
+[AllReleases]: https://img.shields.io/github/downloads/spectrum-health-systems/AbatabLieutenant/total
+[Issues]: https://img.shields.io/github/issues/spectrum-health-systems/AbatabLieutenant
+[PullRequests]: https://img.shields.io/github/issues-pr/spectrum-health-systems/AbatabLieutenant
+[LastCommit]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant
