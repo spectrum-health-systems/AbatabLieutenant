@@ -1,28 +1,19 @@
-﻿// Abatab Lieutenant 2.0
-// Copyright (c) A Pretty Cool Program
-// See the LICENSE file for more information.
-// b221208.0843
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
 
 namespace AbatabLieutenant
 {
     internal static class Program
     {
-        public static string DebugMode { get; set; }
-        public static string LtntVersion { get; set; }
-        public static string LtntRoot { get; set; }
-        public static string PassedArgument { get; set; }
-        public static string LogFile { get; set; }
-        public static string RepoUrl { get; set; }
-        public static string DefaultBranch { get; set; }
-        public static string TargetBranch { get; set; }
-        public static Dictionary<string, string> LtntDirs { get; set; }
-        public static Dictionary<string, string> RepoInfo { get; set; }
+        // public static string DebugMode { get; set; }
+        // public static string LtntVersion { get; set; }
+        // public static string LtntRoot { get; set; }
+        // public static string PassedArgument { get; set; }
+        // public static string LogFile { get; set; }
+        // public static string RepoUrl { get; set; }
+        // public static string DefaultBranch { get; set; }
+        // public static string TargetBranch { get; set; }
+        // public static Dictionary<string, string> LtntDirs { get; set; }
+        // public static Dictionary<string, string> RepoInfo { get; set; }
 
         internal static void Main(string[] args)
         {
@@ -55,28 +46,28 @@ namespace AbatabLieutenant
 
         internal static void BuildConfig()
         {
-            DebugMode      = Properties.Settings.Default.DebugMode;
-            LtntVersion    = Properties.Settings.Default.LtntVersion;
-            LtntRoot       = Properties.Settings.Default.LtntRoot;
-            RepoUrl        = Properties.Settings.Default.RepoUrl;
-            DefaultBranch  = Properties.Settings.Default.DefaultBranch;
-            TargetBranch   = PassedArgument;
-            LogFile        = VerifyLogfile($@"{Properties.Settings.Default.LtntRoot}\Logs\Lieutenant");
+            // DebugMode      = Properties.Settings.Default.DebugMode;
+            // LtntVersion    = Properties.Settings.Default.LtntVersion;
+            // LtntRoot       = Properties.Settings.Default.LtntRoot;
+            // RepoUrl        = Properties.Settings.Default.RepoUrl;
+            // DefaultBranch  = Properties.Settings.Default.DefaultBranch;
+            // TargetBranch   = PassedArgument;
+            // LogFile        = VerifyLogfile($@"{Properties.Settings.Default.LtntRoot}\Logs\Lieutenant");
 
-            LtntDirs = new Dictionary<string, string>
-            {
-                { "Root", Properties.Settings.Default.LtntRoot },
-                { "Logs", $@"{Properties.Settings.Default.LtntRoot}\Logs\Lieutenant" },
-                { "Temp", $@"{Properties.Settings.Default.LtntRoot}\Temp" },
-                { "bin",  $@"{Properties.Settings.Default.LtntRoot}\bin" },
-            };
+            // LtntDirs = new Dictionary<string, string>
+            // {
+            //     { "Root", Properties.Settings.Default.LtntRoot },
+            //     { "Logs", $@"{Properties.Settings.Default.LtntRoot}\Logs\Lieutenant" },
+            //     { "Temp", $@"{Properties.Settings.Default.LtntRoot}\Temp" },
+            //     { "bin",  $@"{Properties.Settings.Default.LtntRoot}\bin" },
+            // };
 
-            RepoInfo = new Dictionary<string, string>
-            {
-               { "Branch", $"{TargetBranch}.zip" },
-               { "Source", $@"{Properties.Settings.Default.LtntRoot}\temp\{TargetBranch}.zip" },
-               { "Url",    $"{Properties.Settings.Default.RepoUrl}{TargetBranch}.zip" }
-            };
+            // RepoInfo = new Dictionary<string, string>
+            // {
+            //    { "Branch", $"{TargetBranch}.zip" },
+            //    { "Source", $@"{Properties.Settings.Default.LtntRoot}\temp\{TargetBranch}.zip" },
+            //    { "Url",    $"{Properties.Settings.Default.RepoUrl}{TargetBranch}.zip" }
+            // };
 
             if (string.Equals(DebugMode, "enabled", StringComparison.OrdinalIgnoreCase))
                 Console.WriteLine(DebugMsg());
@@ -191,15 +182,9 @@ namespace AbatabLieutenant
                 File.Delete($"{root}/{file}");
             }
         }
-        internal static string SetBranch(string[] args) =>
-            args.Length == 0
-                ? Properties.Settings.Default.DefaultBranch
-                : VerifyArg(args[0])
-                    ? args[0]
-                    : "undefined";
 
-        internal static bool VerifyArg(string arg) =>
-            ValidArgs().Contains($"{arg}");
+
+
 
         private static void RefreshDir(string dir)
         {
@@ -238,26 +223,26 @@ namespace AbatabLieutenant
             }
         }
 
-        private static List<string> ServiceFiles() =>
-            new List<string>
-            {
-                "Abatab.asmx",
-                "Abatab.asmx.cs",
-                "packages.config",
-                "Web.config",
-                "Web.Debug.config",
-                "Web.Release.config"
-            };
+        // private static List<string> ServiceFiles() =>
+        //     new List<string>
+        //     {
+        //         "Abatab.asmx",
+        //         "Abatab.asmx.cs",
+        //         "packages.config",
+        //         "Web.config",
+        //         "Web.Debug.config",
+        //         "Web.Release.config"
+        //     };
 
-        private static List<string> ValidArgs() =>
-            new List<string>
-            {
-                "development",
-                "experimental",
-                "help",
-                "main",
-                "testbuild"
-            };
+        // private static List<string> ValidArgs() =>
+        //     new List<string>
+        //     {
+        //         "development",
+        //         "experimental",
+        //         "help",
+        //         "main",
+        //         "testbuild"
+        //     };
 
         internal static string BuildUrl(string baseUrl, string branch) =>
             $"{baseUrl}{branch}.zip";
@@ -297,33 +282,33 @@ namespace AbatabLieutenant
                 ? $"{Environment.NewLine}{msg}"
                 : $"{msg}{Environment.NewLine}";
 
-        private static string HelpMsg(string ver) =>
-            $"{Environment.NewLine}" +
-            $"==========================={Environment.NewLine}" +
-            $"Abatab Lieutenant v{ver} Help{Environment.NewLine}" +
-            $"===========================" +
-            $"{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"Syntax:{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"    $ AbatabLieutenant <command>{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"Valid commands:{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"            help - Abatab Lieutenant help (this screen){Environment.NewLine}" +
-            $"     development - Deploy the Abatab development branch{Environment.NewLine}" +
-            $"    experimental - Deploy the Abatab experimental branch{Environment.NewLine}" +
-            $"            main - Deploy the Abatab main branch{Environment.NewLine}" +
-            $"       testbuild - Deploy the Abatab testbuild branch (default){Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"Example:{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"{Environment.NewLine}" +
-            $"    AbatabLieutenant.exe help" +
-            $"{Environment.NewLine}";
+        // private static string HelpMsg(string ver) =>
+        //     $"{Environment.NewLine}" +
+        //     $"==========================={Environment.NewLine}" +
+        //     $"Abatab Lieutenant v{ver} Help{Environment.NewLine}" +
+        //     $"===========================" +
+        //     $"{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"Syntax:{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"    $ AbatabLieutenant <command>{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"Valid commands:{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"            help - Abatab Lieutenant help (this screen){Environment.NewLine}" +
+        //     $"     development - Deploy the Abatab development branch{Environment.NewLine}" +
+        //     $"    experimental - Deploy the Abatab experimental branch{Environment.NewLine}" +
+        //     $"            main - Deploy the Abatab main branch{Environment.NewLine}" +
+        //     $"       testbuild - Deploy the Abatab testbuild branch (default){Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"Example:{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"{Environment.NewLine}" +
+        //     $"    AbatabLieutenant.exe help" +
+        //     $"{Environment.NewLine}";
 
         internal static string DebugMsg() =>
             $"**************{Environment.NewLine}" +

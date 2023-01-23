@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.3.32901.215
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbatabLieutenant", "AbatabLieutenant.csproj", "{6E5FC8F9-9F9B-4D70-94F0-4986131AE9DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbatabLieutenant", "AbatabLieutenant\AbatabLieutenant.csproj", "{E56DD599-C05C-4084-99EF-122442314A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6E5FC8F9-9F9B-4D70-94F0-4986131AE9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E5FC8F9-9F9B-4D70-94F0-4986131AE9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E5FC8F9-9F9B-4D70-94F0-4986131AE9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E5FC8F9-9F9B-4D70-94F0-4986131AE9DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E56DD599-C05C-4084-99EF-122442314A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E56DD599-C05C-4084-99EF-122442314A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E56DD599-C05C-4084-99EF-122442314A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E56DD599-C05C-4084-99EF-122442314A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D8C230F2-6851-492C-9BB8-8E0F89231CB8}
+		SolutionGuid = {3E6346C5-39D2-43B6-9CB9-DABA357DCCC1}
 	EndGlobalSection
 EndGlobal

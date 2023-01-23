@@ -37,7 +37,7 @@ namespace AbatabLieutenant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.0.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.1.0")]
         public string LtntVersion {
             get {
                 return ((string)(this["LtntVersion"]));
@@ -49,7 +49,7 @@ namespace AbatabLieutenant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Abatab\\UAT")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\AbatabData\\Lieutenant")]
         public string LtntRoot {
             get {
                 return ((string)(this["LtntRoot"]));
@@ -73,7 +73,7 @@ namespace AbatabLieutenant.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("testbuild")]
+        [global::System.Configuration.DefaultSettingValueAttribute("testing")]
         public string DefaultBranch {
             get {
                 return ((string)(this["DefaultBranch"]));

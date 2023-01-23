@@ -6,16 +6,16 @@
       <Value Profile="(Default)">disabled</Value>
     </Setting>
     <Setting Name="LtntVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2.0.0</Value>
+      <Value Profile="(Default)">2.1.0</Value>
     </Setting>
     <Setting Name="LtntRoot" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Abatab\UAT</Value>
+      <Value Profile="(Default)">C:\AbatabData\Lieutenant</Value>
     </Setting>
     <Setting Name="RepoUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/</Value>
     </Setting>
     <Setting Name="DefaultBranch" Type="System.String" Scope="User">
-      <Value Profile="(Default)">testbuild</Value>
+      <Value Profile="(Default)">testing</Value>
     </Setting>
   </Settings>
 </SettingsFile>
