@@ -120,9 +120,6 @@
   <data name="DebugMode" xml:space="preserve">
     <value>disabled</value>
   </data>
-  <data name="DefaultBranch" xml:space="preserve">
-    <value>testing</value>
-  </data>
   <data name="LtntRoot" xml:space="preserve">
     <value>C:\AbatabData\Lieutenant\</value>
   </data>
@@ -131,8 +128,5 @@
   </data>
   <data name="RepositoryUrl" xml:space="preserve">
     <value>https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/</value>
-  </data>
-  <data name="RequestedBranch" xml:space="preserve">
-    <value>testing</value>
   </data>
 </root>

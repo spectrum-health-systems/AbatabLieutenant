@@ -70,15 +70,6 @@ namespace AbatabLieutenant.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to testing.
-        /// </summary>
-        internal static string DefaultBranch {
-            get {
-                return ResourceManager.GetString("DefaultBranch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to C:\AbatabData\Lieutenant\.
         /// </summary>
         internal static string LtntRoot {
@@ -102,15 +93,6 @@ namespace AbatabLieutenant.Properties {
         internal static string RepositoryUrl {
             get {
                 return ResourceManager.GetString("RepositoryUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to testing.
-        /// </summary>
-        internal static string RequestedBranch {
-            get {
-                return ResourceManager.GetString("RequestedBranch", resourceCulture);
             }
         }
     }

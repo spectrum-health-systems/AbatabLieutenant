@@ -38,11 +38,11 @@ namespace AbatabLieutenant
                 LogEvent(LogHeader());
                 VerifyDirs();
             }
-            else
-            {
-                Finisher(2, $"Invalid command: \"{args[0]}\". Exiting...");
-            }
-        }
+        //     else
+        //     {
+        //         Finisher(2, $"Invalid command: \"{args[0]}\". Exiting...");
+        //     }
+        // }
 
         internal static void BuildConfig()
         {
@@ -73,25 +73,25 @@ namespace AbatabLieutenant
                 Console.WriteLine(DebugMsg());
         }
 
-        internal static void VerifyDirs()
-        {
-            LogEvent("Verifying directories...", true);
+        // internal static void VerifyDirs()
+        // {
+        //     LogEvent("Verifying directories...", true);
 
-            foreach (var dir in LtntDirs)
-            {
-                if (string.Equals(dir.Key, "logs", StringComparison.OrdinalIgnoreCase))
-                    continue;
+        //     foreach (var dir in LtntDirs)
+        //     {
+        //         if (string.Equals(dir.Key, "logs", StringComparison.OrdinalIgnoreCase))
+        //             continue;
 
-                if (string.Equals(dir.Key, "root", StringComparison.OrdinalIgnoreCase))
-                {
-                    LogEvent($@"  {dir.Value}\", true);
-                    RemoveFiles(dir.Value, ServiceFiles());
-                    continue;
-                }
+        //         if (string.Equals(dir.Key, "root", StringComparison.OrdinalIgnoreCase))
+        //         {
+        //             LogEvent($@"  {dir.Value}\", true);
+        //             RemoveFiles(dir.Value, ServiceFiles());
+        //             continue;
+        //         }
 
-                RefreshDir(dir.Value);
-            }
-        }
+        //         RefreshDir(dir.Value);
+        //     }
+        // }
 
         internal static void DeployService()
         {
@@ -186,14 +186,14 @@ namespace AbatabLieutenant
 
 
 
-        private static void RefreshDir(string dir)
-        {
-            if (Directory.Exists(dir))
-                Directory.Delete(dir, true);
+        // private static void RefreshDir(string dir)
+        // {
+        //     if (Directory.Exists(dir))
+        //         Directory.Delete(dir, true);
 
-            _=Directory.CreateDirectory(dir);
-            LogEvent($"  {dir}", true);
-        }
+        //     _=Directory.CreateDirectory(dir);
+        //     LogEvent($"  {dir}", true);
+        // }
 
         internal static void LogEvent(string msg, bool newline = false)
         {
@@ -201,27 +201,27 @@ namespace AbatabLieutenant
             File.AppendAllText(LogFile, FormatLogContent(msg, newline));
         }
 
-        internal static void Finisher(int code, string msg = "Exiting Abatab Lieutenant.")
-        {
-            switch (code)
-            {
-                case 1:
-                    LogEvent(LogFooter(), true);
-                    Environment.Exit(1);
-                    break;
+        // internal static void Finisher(int code, string msg = "Exiting Abatab Lieutenant.")
+        // {
+        //     switch (code)
+        //     {
+        //         case 1:
+        //             LogEvent(LogFooter(), true);
+        //             Environment.Exit(1);
+        //             break;
 
-                case 2:
-                    Console.WriteLine(msg);
-                    Environment.Exit(2);
-                    break;
+        //         case 2:
+        //             Console.WriteLine(msg);
+        //             Environment.Exit(2);
+        //             break;
 
-                case 0:
-                default:
-                    Console.WriteLine(msg);
-                    Environment.Exit(0);
-                    break;
-            }
-        }
+        //         case 0:
+        //         default:
+        //             Console.WriteLine(msg);
+        //             Environment.Exit(0);
+        //             break;
+        //     }
+        // }
 
         // private static List<string> ServiceFiles() =>
         //     new List<string>

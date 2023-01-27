@@ -5,50 +5,29 @@
  *   https://github.com/spectrum-health-systems/AbatabLieutenant#readme
  *
  * ---------------------------------------------
- * Copyright (c) A Pretty Cool Program
+ * Copyright (c) A Pretty Cool Program 2023
  * See the LICENSE.md file for more information.
  * ---------------------------------------------
  */
 
-// Program.cs b230123.1333
+// AbatabLieutentant.Program.cs
 // The main entry point for Abatab Lieutenant.
-
-using AbatabLieutenant.LtntData;
+// b---
 
 namespace AbatabLieutenant
 {
+    /// <summary>TBD</summary>
     internal class Program
     {
-        public static Session LtntSession { get; set; }
-
+        /// <summary>TBD</summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             Console.Clear();
-            Session lntnSession = new Session();
 
-            if (args[0].Length != 0)
-            {
-                if (string.Equals(args[0], "help", StringComparison.OrdinalIgnoreCase))
-                {
-                    Help.ConsoleDisplay(Properties.Resources.LtntVersion);
-                }
-                else
-                {
-                    Go();
-                }
-            }
-            else
-            {
+            Flightpath.Starter(args);
 
-            }
+            Flightpath.Finisher(0);
         }
-
-        private static void Go()
-        {
-            LtntSession = Session.InitializeSessionDetails();
-            //UpdateSessionDetails();
-        }
-
-
     }
 }
