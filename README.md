@@ -148,6 +148,7 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 
 </div>
 
+<!-- Top row -->
 [GitHubFollowers]: https://img.shields.io/github/followers/spectrum-health-systems?style=social
 [GitHubForks]: https://img.shields.io/github/forks/spectrum-health-systems/AbatabLieutenant?style=social
 [GitHubStars]: https://img.shields.io/github/stars/spectrum-health-systems/AbatabLieutenant?style=social
@@ -156,7 +157,7 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 
 [AbatabUrl]: https://github.com/spectrum-health-systems/Abatab
 [MainBranchUrl]: README.md
-[Logo]: /.github/res/img/logo/RepositoryLogo.png
+[Logo]: ./resources/images/logos/AbatabLieutenantLogo.png
 [Status]: https://img.shields.io/badge/status-active-brightgreen?style=flat
 [License]: https://img.shields.io/badge/license-apache%202.0-brightgreen?style=flat
 [LicenseUrl]: https://www.apache.org/licenses/LICENSE-2.0

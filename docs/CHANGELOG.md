@@ -6,6 +6,10 @@
 
 </div>
 
+# Version 3.x
+
+## v3.0.0 (February x, 2023)
+
 # Version 2.x
 
 ## v2.0.0 (December 8, 2022)
@@ -27,4 +31,4 @@
 
 * `INFO`  Initial v1.x release
 
-[Logo]: /.github/res/img/logo/RepositoryLogo.png
+[Logo]: ../resources/images/logos/AbatabLieutenantLogo.png
