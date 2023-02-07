@@ -1,55 +1,57 @@
-﻿// AbatabLieutenant.Session.cs
-// Abatab Lieutenant session details.
-// b---
-
+﻿// b---
+using AbatabLieutenant.Logger;
 namespace AbatabLieutenant.Session
 {
     /// <summary>TBD</summary>
-    public class SessionData
+    internal class SessionData
     {
+        public string AbatabDeploymentRoot { get; set; }
         public string DebugMode { get; set; }
         public string LtntVersion { get; set; }
         public string LtntRoot { get; set; }
-        public string AbatabDeploymentRoot { get; set; }
         public string RepositoryUrl { get; set; }
         public string RequestedBranch { get; set; }
-        public string TimeStamp { get; set; }
-        public string LogFileName { get; set; }
+        public string RepositoryBranchUrl { get; set; }
+        public string DateTimeStamp { get; set; }
+        public string LogFilePath { get; set; }
         public Dictionary<string, string> LtntDirectories { get; set; }
-        public Dictionary<string, string> DeploymentDirectories { get; set; }
+        public Dictionary<string, string> SessionDirectories { get; set; }
         public Dictionary<string, string> RepositoryDetails { get; set; }
         public List<string> ValidArguments { get; set; }
         public List<string> ServiceFiles { get; set; }
-        //public string LogFileContents { get; set; }
 
-        /// <summary>TBD</summary>
-        /// <param name="requestedBranch"></param>
+        /// <summary>Get the local settings from the AbatabLieutenant.exe.config file.</summary>
         /// <returns></returns>
         public static SessionData Build(string requestedBranch)
         {
-            SessionData ltntSession = GetLocalSettings();
-            ltntSession.RequestedBranch = requestedBranch;
-            ltntSession.TimeStamp = $"{DateTime.Now.ToString("yyMMdd_HHmm")}";
-            ltntSession.LtntDirectories = Data.Catalog.Framework.LtntDirectories(ltntSession.LtntRoot, ltntSession.TimeStamp);
-            ltntSession.DeploymentDirectories = Data.Catalog.Framework.DeploymentDirectories(ltntSession.LtntRoot, ltntSession.TimeStamp);
-            ltntSession.RepositoryDetails = Data.Catalog.GitRepository.RepositoryInformation(ltntSession.TimeStamp, ltntSession.DeploymentDirectories["Staging"], ltntSession.RequestedBranch, ltntSession.RepositoryUrl);
-            ltntSession.ValidArguments = Data.Catalog.CommandLine.ValidArguments();
-            ltntSession.ServiceFiles = Data.Catalog.WebService.ServiceFiles();
-            ltntSession.LogFileName = $@"{ltntSession.LtntDirectories["Logs"]}\{ltntSession.TimeStamp}.ltnt";
-            //ltntSession.LogFileContents = "";
+            SessionData ltntSession = new SessionData()
+            {
+                AbatabDeploymentRoot = Properties.Resources.AbatabDeploymentRoot,
+                DebugMode            = Properties.Resources.DebugMode,
+                LtntVersion          = Properties.Resources.LtntVersion,
+                LtntRoot             = Properties.Resources.LtntRoot,
+                RepositoryUrl        = Properties.Resources.RepositoryUrl
+            };
+
+            GetRuntimeSettings(ltntSession, requestedBranch);
+
+            LogEvent.ToFile(Catalog.LogMessages.LogStart(ltntSession.LtntVersion), ltntSession.LogFilePath);
 
             return ltntSession;
         }
 
         /// <summary>TBD</summary>
-        /// <returns></returns>
-        private static SessionData GetLocalSettings() => new SessionData
+        /// <param name="ltntSession"></param>
+        /// <param name="requestedBranch"></param>
+        private static void GetRuntimeSettings(SessionData ltntSession, string requestedBranch)
         {
-            DebugMode = Properties.Resources.DebugMode,
-            LtntVersion = Properties.Resources.LtntVersion,
-            LtntRoot = Properties.Resources.LtntRoot,
-            AbatabDeploymentRoot = Properties.Resources.AbatabDeploymentRoot,
-            RepositoryUrl = Properties.Resources.RepositoryUrl,
-        };
+            ltntSession.RequestedBranch       = requestedBranch;
+            ltntSession.DateTimeStamp         = $"{DateTime.Now.ToString("yyMMdd-HHmm")}";
+            ltntSession.LtntDirectories       = Catalog.FrameworkCollections.LtntDirectories(ltntSession.LtntRoot);
+            ltntSession.SessionDirectories    = Catalog.FrameworkCollections.SessionDirectories(ltntSession.LtntRoot, ltntSession.AbatabDeploymentRoot);
+            ltntSession.RepositoryBranchUrl   = $"{ltntSession.RepositoryUrl}{requestedBranch}.zip";
+            ltntSession.ServiceFiles          = Catalog.FrameworkCollections.ServiceFiles();
+            ltntSession.LogFilePath           = $"{ltntSession.LtntDirectories["Logs"]}/{ltntSession.DateTimeStamp}.ltnt";
+        }
     }
 }

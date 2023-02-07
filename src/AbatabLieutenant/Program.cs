@@ -1,5 +1,5 @@
-﻿/* Abatab Lieutenant 3.0.0+230130
- * Abatab Lieutenant is a simple utility to help manage your Abatab deployments.
+﻿/* Abatab Lieutenant 3.0.0+230207.1744
+ * Abatab deployment utility.
  *
  * For details on how to use Abatab Lieutenant in your environments, please see the README.md
  *   https://github.com/spectrum-health-systems/AbatabLieutenant#readme
@@ -10,25 +10,22 @@
  * ---------------------------------------------
  */
 
-// AbatabLieutentant.Program.cs
-// The main entry point for Abatab Lieutenant.
 // b---
 
 namespace AbatabLieutenant
 {
-    /// <summary>TBD</summary>
-    internal class Program
+    /// <summary>Main entry point for Abatab Lieutenant.</summary>
+    internal static class Program
     {
-        /// <summary>TBD</summary>
-        /// <param name="args"></param>
-        public static void Main(string[] args)
+        /// <summary>Starts the Abatab Lieutenant processes.</summary>
+        /// <param name="args">The argument(s) passed via the command line.</param>
+        static void Main(string[] args)
         {
             Console.Clear();
 
-            Flightpath.Starter.InitialContact(args);
+            Flightpath.Starter.Launch(args);
 
-            // TODO - need this here anymore?
-            //Flightpath.Finisher.ExitApp(0);
+            Flightpath.Finisher.ExitLtnt(0, $"Exiting Abatab Lieutenant...{Environment.NewLine}");
         }
     }
 }

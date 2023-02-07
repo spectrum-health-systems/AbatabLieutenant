@@ -1,43 +1,43 @@
-﻿using AbatabLieutenant.Session;
+﻿// b---
 
-using System.IO.Compression;
+using AbatabLieutenant.Session;
 
 namespace AbatabLieutenant.Flightpath
 {
-    internal class Starter
+    /// <summary>Abatab Lieutenant startup processes.</summary>
+    internal static class Starter
     {
         /// <summary>TBD</summary>
         /// <param name="args"></param>
-        public static void InitialContact(string[] args)
+        public static void Launch(string[] args)
         {
-            if ((args.Length > 0) && Data.Catalog.CommandLine.ValidArguments().Contains(args[0]))
+            if ((args.Length > 0) && CommandLine.Catalog.ValidArguments().Contains(args[0]))
             {
-                Logger.LogEventToConsole(Data.Catalog.Log.LtntStartMessage(Properties.Resources.LtntVersion));
-
-                SessionData ltntSession = SessionData.Build(args[0]);
-
-                Framework.Initialize(ltntSession.LtntDirectories, ltntSession.AbatabDeploymentRoot, ltntSession.DeploymentDirectories, ltntSession.LogFileName);
-
-                Backup.CurrentDeployment(ltntSession.AbatabDeploymentRoot, ltntSession.DeploymentDirectories["Previous"], ltntSession.LogFileName);
-
-                Deployment.PrepareTarget(ltntSession.AbatabDeploymentRoot, ltntSession.LogFileName);
-
-                Roundhouse.ParseRequest("", "", "", "");
-
+                Run(args[0]);
             }
             else
             {
-                DisplayHelp.ToConsole(Data.Catalog.Help.HelpMsg(Properties.Resources.LtntVersion));
-
+                Console.WriteLine(Helper.Catalog.HelpMsg(Properties.Resources.LtntVersion));
             }
-
-            // TODO - Might want to give both branches their own exit.
-            Flightpath.Finisher.ExitApp(0);
         }
 
-        public static void DeployBranch(SessionData ltntSession)
+        /// <summary>TBD</summary>
+        /// <param name="requestedBranch"></param>
+        private static void Run(string requestedBranch)
         {
-            ZipFile.ExtractToDirectory($@"{ltntSession.DeploymentDirectories["Staging"]}\Abatab-{ltntSession.RequestedBranch}.zip", ltntSession.DeploymentDirectories["Staging"]);
+            SessionData ltntSession = SessionData.Build(requestedBranch);
+
+            Framework.Components.VerifyDirectories(ltntSession.LtntDirectories, ltntSession.LogFilePath);
+
+            Deployment.Prepare.RefreshDirectories(ltntSession.SessionDirectories, ltntSession.LogFilePath);
+
+            Deployment.Download.FromUrl(requestedBranch, ltntSession.RepositoryBranchUrl, ltntSession.SessionDirectories["Temp"], ltntSession.LogFilePath);
+
+            Compressioner.Extractor.BranchArchive($@"{ltntSession.SessionDirectories["Temp"]}\Abatab-{requestedBranch}.zip", ltntSession.SessionDirectories["Staging"], ltntSession.LogFilePath);
+
+            OpSys.Copier.CopyDir($@"{ltntSession.SessionDirectories["Staging"]}\Abatab-{requestedBranch}\src\bin", $@"{ltntSession.SessionDirectories["Deployment"]}\bin", ltntSession.LogFilePath);
+
+            OpSys.Copier.CopyService($@"{ltntSession.SessionDirectories["Staging"]}\Abatab-{requestedBranch}\src", ltntSession.SessionDirectories["Deployment"], ltntSession.ServiceFiles, ltntSession.LogFilePath);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace AbatabLieutenant.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to c:\AvatoolWebService\Abatab_UAT.
+        ///   Looks up a localized string similar to C:\AvatoolWebService\Abatab_UAT.
         /// </summary>
         internal static string AbatabDeploymentRoot {
             get {
