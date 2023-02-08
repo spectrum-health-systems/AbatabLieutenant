@@ -1,1 +1,0 @@
-﻿## Eventually for project resources
