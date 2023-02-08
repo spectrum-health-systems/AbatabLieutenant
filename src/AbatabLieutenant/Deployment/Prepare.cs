@@ -1,4 +1,4 @@
-﻿// b---
+﻿// b230208.0924
 
 namespace AbatabLieutenant.Deployment
 {
@@ -12,7 +12,7 @@ namespace AbatabLieutenant.Deployment
         {
             foreach (var directory in directories)
             {
-                OpSys.Maintenance.RefreshDirectory(directory.Value, logFilePath);
+                SysOp.Maintenance.RefreshDirectory(directory.Value, logFilePath);
             }
         }
     }

@@ -57,17 +57,27 @@ Before you use Abatab Lieutenant, it is recommended that you confirm that the de
 
 The default configuration is:
 
-* DebugMode: `disabled`  
-Debug mode is only used for testing/development of Abatab Lieutenant.
+| Setting           | Description                                     | Default |                                
+| ----------------- | ----------------------------------------------- | ------- |
+| **LtntVersion**   | The current version of Abatab Lieutenant.       | 3.0.0   |
+| **RepositoryUrl** | The base Abatab repository URL that is used to download branches | https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/` |
 
-* LtnRoot: `C:\AbatabData\Lieutenant`  
-The directory where all Abatab Lieutenant related data will be kept.
 
-* LtnVersion: `3.0.0`  
+**LtnVersion
+> Default: `3.0.0`  
 The current version of Abatab Lieutenant.
-
+<br>
+* LtnRoot: `C:\AbatabData\Lieutenant`  
+The directory where all Abatab Lieutenant related data will be kept, including:
+  * Abatab Lieutenant logs
+  * Abatab branch downloads
+  * Deployment staging data  
+<br>
 * RepositoryUrl: `https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/`  
 The Abatab repository base URL.
+
+* CustomBranch: `<empty>`  
+You can specify a *custom branch* that is not included in the default branches.
 
 * AbatabDeploymentRoot: `C:\Abatab\UAT`  
 The location where you want to Abatab Lieutenant to deploy an Abatab branch.
@@ -78,7 +88,12 @@ If any of the default settings will not work at your organization, please make t
 
 ## Default behavior
 
-To use the Abatab Lieutenant, open a terminal and type `AbatabLieutenant.exe`.
+Typing `AbatabLieutenant.exe` will display the help information
+
+
+To use the Abatab Lieutenant, open a terminal and type `AbatabLieutenant.exe %BranchName%`.
+
+For example: `> AbatabLieutenant.exe testing`
 
 Abatab Lieutenant will then:
 

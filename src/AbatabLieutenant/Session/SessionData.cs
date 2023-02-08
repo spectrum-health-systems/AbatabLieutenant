@@ -1,4 +1,4 @@
-﻿// b---
+﻿// b230208.0924
 using AbatabLieutenant.Logger;
 namespace AbatabLieutenant.Session
 {
@@ -35,7 +35,7 @@ namespace AbatabLieutenant.Session
 
             GetRuntimeSettings(ltntSession, requestedBranch);
 
-            LogEvent.ToFile(Catalog.LogMessages.LogStart(ltntSession.LtntVersion), ltntSession.LogFilePath);
+            LogEvent.ToFile(Catalog.Logger.MsgLogStart(ltntSession.LtntVersion), ltntSession.LogFilePath);
 
             return ltntSession;
         }
@@ -47,10 +47,10 @@ namespace AbatabLieutenant.Session
         {
             ltntSession.RequestedBranch       = requestedBranch;
             ltntSession.DateTimeStamp         = $"{DateTime.Now.ToString("yyMMdd-HHmm")}";
-            ltntSession.LtntDirectories       = Catalog.FrameworkCollections.LtntDirectories(ltntSession.LtntRoot);
-            ltntSession.SessionDirectories    = Catalog.FrameworkCollections.SessionDirectories(ltntSession.LtntRoot, ltntSession.AbatabDeploymentRoot);
+            ltntSession.LtntDirectories       = Catalog.Framework.LtntDirectories(ltntSession.LtntRoot);
+            ltntSession.SessionDirectories    = Catalog.Framework.SessionDirectories(ltntSession.LtntRoot, ltntSession.AbatabDeploymentRoot);
             ltntSession.RepositoryBranchUrl   = $"{ltntSession.RepositoryUrl}{requestedBranch}.zip";
-            ltntSession.ServiceFiles          = Catalog.FrameworkCollections.ServiceFiles();
+            ltntSession.ServiceFiles          = Catalog.Framework.ServiceFiles();
             ltntSession.LogFilePath           = $"{ltntSession.LtntDirectories["Logs"]}/{ltntSession.DateTimeStamp}.ltnt";
         }
     }

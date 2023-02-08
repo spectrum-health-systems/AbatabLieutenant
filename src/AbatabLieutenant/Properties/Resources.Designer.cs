@@ -70,11 +70,11 @@ namespace AbatabLieutenant.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to disabled.
+        ///   Looks up a localized string similar to 23.2.
         /// </summary>
-        internal static string DebugMode {
+        internal static string CustomRepository {
             get {
-                return ResourceManager.GetString("DebugMode", resourceCulture);
+                return ResourceManager.GetString("CustomRepository", resourceCulture);
             }
         }
         

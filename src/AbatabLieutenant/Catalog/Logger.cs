@@ -1,16 +1,16 @@
-﻿// b---
+﻿// b230208.0924
 
 using AbatabLieutenant.Session;
 
 namespace AbatabLieutenant.Catalog
 {
     /// <summary>TBD</summary>
-    internal static class LogMessages
+    internal static class Logger
     {
         /// <summary>TBD</summary>
         /// <param name="ltntVersion"></param>
         /// <returns></returns>
-        public static string LogStart(string ltntVersion) =>
+        public static string MsgLogStart(string ltntVersion) =>
             $"{Environment.NewLine}" +
             $"================={Environment.NewLine}" +
             $"Abatab Lieutenant{Environment.NewLine}" +
@@ -21,7 +21,7 @@ namespace AbatabLieutenant.Catalog
         /// <summary>TBD</summary>
         /// <param name="ltntSession"></param>
         /// <returns></returns>
-        public static string SessionDetails(SessionData ltntSession)
+        public static string MsgSessionDetails(SessionData ltntSession)
         {
             var sessionDetails = $"---------------{Environment.NewLine}" +
                                  $"Session details{Environment.NewLine}" +
@@ -35,9 +35,9 @@ namespace AbatabLieutenant.Catalog
                                  $"Log file name:          {ltntSession.LogFilePath}{Environment.NewLine}" +
                                  $"Session timestamp:      {ltntSession.DateTimeStamp}{Environment.NewLine}" +
                                  $"{Environment.NewLine}" +
-                                 $"Session directories {SessionDirectories(ltntSession.LtntDirectories)}{Environment.NewLine}" +
-                                 $"Repository details  {RepositoryInformation(ltntSession.RepositoryDetails)}{Environment.NewLine}" +
-                                 $"Valid arguments     {ValidArguments(ltntSession.ValidArguments)}{Environment.NewLine}" +
+                                 $"Session directories {MsgSessionDirectories(ltntSession.LtntDirectories)}{Environment.NewLine}" +
+                                 $"Repository details  {MsgRepositoryInformation(ltntSession.RepositoryDetails)}{Environment.NewLine}" +
+                                 $"Valid arguments     {MsgValidArguments(ltntSession.ValidArguments)}{Environment.NewLine}" +
                                  $"Service files       {ServiceFiles(ltntSession.ServiceFiles)}";
 
             return sessionDetails;
@@ -46,7 +46,7 @@ namespace AbatabLieutenant.Catalog
         /// <summary>TBD</summary>
         /// <param name="sessionDirectories"></param>
         /// <returns></returns>
-        private static string SessionDirectories(Dictionary<string, string> sessionDirectories)
+        private static string MsgSessionDirectories(Dictionary<string, string> sessionDirectories)
         {
             var directoryList = $"  {Environment.NewLine}";
 
@@ -61,7 +61,7 @@ namespace AbatabLieutenant.Catalog
         /// <summary>TBD</summary>
         /// <param name="sessionRepositoryDetails"></param>
         /// <returns></returns>
-        private static string RepositoryInformation(Dictionary<string, string> sessionRepositoryDetails)
+        private static string MsgRepositoryInformation(Dictionary<string, string> sessionRepositoryDetails)
         {
             var detailsList = $"  {Environment.NewLine}";
 
@@ -76,7 +76,7 @@ namespace AbatabLieutenant.Catalog
         /// <summary>TBD</summary>
         /// <param name="sessionValidArguments"></param>
         /// <returns></returns>
-        private static string ValidArguments(List<string> sessionValidArguments)
+        private static string MsgValidArguments(List<string> sessionValidArguments)
         {
             var validArgumentsList = $"  {Environment.NewLine}";
 

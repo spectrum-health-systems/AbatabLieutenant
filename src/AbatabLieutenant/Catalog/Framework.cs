@@ -1,8 +1,8 @@
-﻿// b---
+﻿// b230208.0924
 
 namespace AbatabLieutenant.Catalog
 {
-    internal static class FrameworkCollections
+    internal static class Framework
     {
         /// <summary>TBD</summary>
         /// <returns></returns>

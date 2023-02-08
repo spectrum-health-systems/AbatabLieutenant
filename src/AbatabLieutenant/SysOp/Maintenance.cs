@@ -1,6 +1,7 @@
-﻿// b---
+﻿// b230208.0924
+
 using AbatabLieutenant.Logger;
-namespace AbatabLieutenant.OpSys
+namespace AbatabLieutenant.SysOp
 {
     internal static class Maintenance
     {

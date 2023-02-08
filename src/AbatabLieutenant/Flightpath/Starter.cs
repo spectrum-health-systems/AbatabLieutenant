@@ -1,4 +1,4 @@
-﻿// b---
+﻿// b230208.0924
 
 using AbatabLieutenant.Session;
 
@@ -7,13 +7,16 @@ namespace AbatabLieutenant.Flightpath
     /// <summary>Abatab Lieutenant startup processes.</summary>
     internal static class Starter
     {
-        /// <summary>TBD</summary>
-        /// <param name="args"></param>
+        /// <summary>Initial launch of Abatab Lieutenant.</summary>
+        /// <param name="args">The arguments passed via the command line.</param>
+        /// <remarks>
+        /// If the user doesn't pass a valid argument, the help information is displayed.
+        /// </remarks>
         public static void Launch(string[] args)
         {
-            if ((args.Length > 0) && CommandLine.Catalog.ValidArguments().Contains(args[0]))
+            if ((args.Length > 0) && Catalog.CommandLine.ValidArguments().Contains(args[0]))
             {
-                Run(args[0]);
+                RunLtnt(args[0]);
             }
             else
             {
@@ -21,23 +24,15 @@ namespace AbatabLieutenant.Flightpath
             }
         }
 
-        /// <summary>TBD</summary>
-        /// <param name="requestedBranch"></param>
-        private static void Run(string requestedBranch)
+        /// <summary>Starts the actual work.</summary>
+        /// <param name="requestedBranch">The requested branch passed via the command line.</param>
+        private static void RunLtnt(string requestedBranch)
         {
             SessionData ltntSession = SessionData.Build(requestedBranch);
 
-            Framework.Components.VerifyDirectories(ltntSession.LtntDirectories, ltntSession.LogFilePath);
+            Framework.Components.Initialize(ltntSession.LtntDirectories, ltntSession.LogFilePath);
 
-            Deployment.Prepare.RefreshDirectories(ltntSession.SessionDirectories, ltntSession.LogFilePath);
-
-            Deployment.Download.FromUrl(requestedBranch, ltntSession.RepositoryBranchUrl, ltntSession.SessionDirectories["Temp"], ltntSession.LogFilePath);
-
-            Compressioner.Extractor.BranchArchive($@"{ltntSession.SessionDirectories["Temp"]}\Abatab-{requestedBranch}.zip", ltntSession.SessionDirectories["Staging"], ltntSession.LogFilePath);
-
-            OpSys.Copier.CopyDir($@"{ltntSession.SessionDirectories["Staging"]}\Abatab-{requestedBranch}\src\bin", $@"{ltntSession.SessionDirectories["Deployment"]}\bin", ltntSession.LogFilePath);
-
-            OpSys.Copier.CopyService($@"{ltntSession.SessionDirectories["Staging"]}\Abatab-{requestedBranch}\src", ltntSession.SessionDirectories["Deployment"], ltntSession.ServiceFiles, ltntSession.LogFilePath);
+            Deployment.Deploy.RequestedBranch(ltntSession);
         }
     }
 }

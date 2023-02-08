@@ -120,8 +120,8 @@
   <data name="AbatabDeploymentRoot" xml:space="preserve">
     <value>C:\AvatoolWebService\Abatab_UAT</value>
   </data>
-  <data name="DebugMode" xml:space="preserve">
-    <value>disabled</value>
+  <data name="CustomRepository" xml:space="preserve">
+    <value>23.2</value>
   </data>
   <data name="LtntRoot" xml:space="preserve">
     <value>C:\AbatabData\Lieutenant</value>

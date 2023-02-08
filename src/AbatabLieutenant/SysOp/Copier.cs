@@ -1,4 +1,4 @@
-﻿namespace AbatabLieutenant.OpSys
+﻿namespace AbatabLieutenant.SysOp
 {
     internal class Copier
     {
@@ -11,7 +11,7 @@
 
         public static void CopyDir(string source, string target, string logFilePath)
         {
-            OpSys.Maintenance.RefreshDirectory(target, logFilePath);
+            SysOp.Maintenance.RefreshDirectory(target, logFilePath);
 
             DirectoryInfo dirToCopy       = new DirectoryInfo(source);
             DirectoryInfo[] subDirsToCopy = GetSubDirs(source, target);
