@@ -57,10 +57,10 @@ Before you use Abatab Lieutenant, it is recommended that you confirm that the de
 
 The default configuration is:
 
-| Setting           | Description                                             | Default |                                
-| ----------------- | ------------------------------------------------------- | ------- |
-| **LtntVersion**   | The current version of Abatab Lieutenant.               | `3.0.0` |
-| **RepositoryUrl** | The base Abatab repository URL that is used to download sdfsdfsdf sdfsdfsd sdfsdf branches | [Link][AbatabBaseUrl] |
+| Setting           | Description                                                                                | Default |
+| ----------------- | ------------------------------------------------------------------------------------------ | ------- |
+| **LtntVersion**   | The current version of Abatab Lieutenant. | `3.0.0` |
+| **RepositoryUrl** | The base Abatab repository URL that is used to download branches. | [Link][AbatabBaseUrl] |
 |
 
 
