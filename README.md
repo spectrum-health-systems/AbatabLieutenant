@@ -57,10 +57,11 @@ Before you use Abatab Lieutenant, it is recommended that you confirm that the de
 
 The default configuration is:
 
-| Setting           | Description                                     | Default |                                
-| ----------------- | ----------------------------------------------- | ------- |
-| **LtntVersion**   | The current version of Abatab Lieutenant.       | `3.0.0` |
-| **RepositoryUrl** | The base Abatab repository URL that is used to download branches | [Link](https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/) |
+| Setting           | Description                                             | Default |                                
+| ----------------- | ------------------------------------------------------- | ------- |
+| **LtntVersion**   | The current version of Abatab Lieutenant.               | `3.0.0` |
+| **RepositoryUrl** | The base Abatab repository URL that is used to download branches | [Link][AbatabBaseUrl] |
+|
 
 
 **LtnVersion
@@ -159,6 +160,8 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 [Changelog]: https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/docs/CHANGELOG.md
 [Roadmap]: https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/docs/ROADMAP.md
 [APrettyCoolProgramUrl]: https://github.com/APrettyCoolProgram
+
+[AbatabBaseUrl]: https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/
 
 [CodeSize]: https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant
 [LinesOfCode]: https://img.shields.io/tokei/lines/github/spectrum-health-systems/AbatabLieutenant
