@@ -59,8 +59,8 @@ The default configuration is:
 
 | Setting           | Description                                     | Default |                                
 | ----------------- | ----------------------------------------------- | ------- |
-| **LtntVersion**   | The current version of Abatab Lieutenant.       | 3.0.0   |
-| **RepositoryUrl** | The base Abatab repository URL that is used to download branches | https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/` |
+| **LtntVersion**   | The current version of Abatab Lieutenant.       | `3.0.0` |
+| **RepositoryUrl** | The base Abatab repository URL that is used to download branches | [Link](https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/) |
 
 
 **LtnVersion
