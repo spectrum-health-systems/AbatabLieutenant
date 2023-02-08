@@ -1,4 +1,4 @@
-﻿// b230208.0924
+﻿// b230208.1510
 
 namespace AbatabLieutenant.Flightpath
 {
@@ -32,13 +32,13 @@ namespace AbatabLieutenant.Flightpath
                 case 1: // Write a message to both the console and a logfile, then exit gracefully.
                     Console.WriteLine($"{Environment.NewLine}{exitMsg}{Environment.NewLine}");
                     // Logging logic
-                    System.Environment.Exit(2);
+                    Environment.Exit(2);
                     break;
 
                 case 0: // Write a message to the console, then exit gracefully.
                 default:
                     Console.WriteLine($"{Environment.NewLine}{exitMsg}{Environment.NewLine}");
-                    System.Environment.Exit(0);
+                    Environment.Exit(0);
                     break;
             }
         }

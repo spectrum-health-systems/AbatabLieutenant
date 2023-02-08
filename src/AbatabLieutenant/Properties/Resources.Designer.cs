@@ -72,9 +72,9 @@ namespace AbatabLieutenant.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 23.2.
         /// </summary>
-        internal static string CustomRepository {
+        internal static string CustomBranch {
             get {
-                return ResourceManager.GetString("CustomRepository", resourceCulture);
+                return ResourceManager.GetString("CustomBranch", resourceCulture);
             }
         }
         

@@ -1,32 +1,32 @@
-﻿// b230208.0924
+﻿// b230208.1510
 
 using AbatabLieutenant.Session;
 
 namespace AbatabLieutenant.Catalog
 {
-    /// <summary>TBD</summary>
+    /// <summary>Data related to logging functionality.</summary>
     internal static class Logger
     {
-        /// <summary>TBD</summary>
-        /// <param name="ltntVersion"></param>
-        /// <returns></returns>
-        public static string MsgLogStart(string ltntVersion) =>
+        /// <summary>Build the log start message.</summary>
+        /// <param name="ltntSession">The Session data</param>
+        /// <returns>A startup message for the log.</returns>
+        public static string MsgLogStart(SessionData ltntSession) =>
             $"{Environment.NewLine}" +
             $"================={Environment.NewLine}" +
             $"Abatab Lieutenant{Environment.NewLine}" +
-            $"==== v{ltntVersion} ====={Environment.NewLine}" +
+            $"==== v{ltntSession.LtntVersion} ====={Environment.NewLine}" +
             $"{Environment.NewLine}" +
+            $"{MsgSessionDetails(ltntSession)}{Environment.NewLine}" +
             $"Building session data...";
 
-        /// <summary>TBD</summary>
-        /// <param name="ltntSession"></param>
-        /// <returns></returns>
-        public static string MsgSessionDetails(SessionData ltntSession)
+        /// <summary>Build session details.</summary>
+        /// <param name="ltntSession">The Session data</param>
+        /// <returns>Session details for the logfile.</returns>
+        private static string MsgSessionDetails(SessionData ltntSession)
         {
             var sessionDetails = $"---------------{Environment.NewLine}" +
                                  $"Session details{Environment.NewLine}" +
                                  $"---------------{Environment.NewLine}" +
-                                 $"Debug mode:             {ltntSession.DebugMode}{Environment.NewLine}" +
                                  $"LtntVersion:            {ltntSession.LtntVersion}{Environment.NewLine}" +
                                  $"LtntRoot:               {ltntSession.LtntRoot}{Environment.NewLine}" +
                                  $"Abatab deployment root: {ltntSession.AbatabDeploymentRoot}{Environment.NewLine}" +
@@ -35,15 +35,15 @@ namespace AbatabLieutenant.Catalog
                                  $"Log file name:          {ltntSession.LogFilePath}{Environment.NewLine}" +
                                  $"Session timestamp:      {ltntSession.DateTimeStamp}{Environment.NewLine}" +
                                  $"{Environment.NewLine}" +
-                                 $"Session directories {MsgSessionDirectories(ltntSession.LtntDirectories)}{Environment.NewLine}" +
-                                 $"Repository details  {MsgRepositoryInformation(ltntSession.RepositoryDetails)}{Environment.NewLine}" +
+                                 $"Required directories {MsgSessionDirectories(ltntSession.LtntDirectories)}{Environment.NewLine}" +
+                                 //$"Repository details  {MsgRepositoryInformation(ltntSession.RepositoryDetails)}{Environment.NewLine}" +
                                  $"Valid arguments     {MsgValidArguments(ltntSession.ValidArguments)}{Environment.NewLine}" +
                                  $"Service files       {ServiceFiles(ltntSession.ServiceFiles)}";
 
             return sessionDetails;
         }
 
-        /// <summary>TBD</summary>
+        /// <summary>Abatab Lieutenant directory information for the logfile.</summary>
         /// <param name="sessionDirectories"></param>
         /// <returns></returns>
         private static string MsgSessionDirectories(Dictionary<string, string> sessionDirectories)
@@ -80,8 +80,11 @@ namespace AbatabLieutenant.Catalog
         {
             var validArgumentsList = $"  {Environment.NewLine}";
 
+            Console.WriteLine("TEST");
+
             foreach (var sessionValidArgument in sessionValidArguments)
             {
+                Console.WriteLine(sessionValidArgument);
                 validArgumentsList += $"  {sessionValidArgument}{Environment.NewLine}";
             }
 

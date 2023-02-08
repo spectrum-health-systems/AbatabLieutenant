@@ -1,4 +1,5 @@
-﻿// b230208.0924
+﻿// b230208.1510
+
 using AbatabLieutenant.Logger;
 namespace AbatabLieutenant.Session
 {
@@ -6,7 +7,6 @@ namespace AbatabLieutenant.Session
     internal class SessionData
     {
         public string AbatabDeploymentRoot { get; set; }
-        public string DebugMode { get; set; }
         public string LtntVersion { get; set; }
         public string LtntRoot { get; set; }
         public string RepositoryUrl { get; set; }
@@ -15,7 +15,6 @@ namespace AbatabLieutenant.Session
         public string DateTimeStamp { get; set; }
         public string LogFilePath { get; set; }
         public Dictionary<string, string> LtntDirectories { get; set; }
-        public Dictionary<string, string> SessionDirectories { get; set; }
         public Dictionary<string, string> RepositoryDetails { get; set; }
         public List<string> ValidArguments { get; set; }
         public List<string> ServiceFiles { get; set; }
@@ -27,7 +26,6 @@ namespace AbatabLieutenant.Session
             SessionData ltntSession = new SessionData()
             {
                 AbatabDeploymentRoot = Properties.Resources.AbatabDeploymentRoot,
-                DebugMode            = Properties.Resources.DebugMode,
                 LtntVersion          = Properties.Resources.LtntVersion,
                 LtntRoot             = Properties.Resources.LtntRoot,
                 RepositoryUrl        = Properties.Resources.RepositoryUrl
@@ -35,9 +33,18 @@ namespace AbatabLieutenant.Session
 
             GetRuntimeSettings(ltntSession, requestedBranch);
 
-            LogEvent.ToFile(Catalog.Logger.MsgLogStart(ltntSession.LtntVersion), ltntSession.LogFilePath);
+            LogEvent.ToFile(Catalog.Logger.MsgLogStart(ltntSession), ltntSession.LogFilePath);
 
             return ltntSession;
+        }
+
+        /// <summary>Gets the optional CustomBranch configuration setting.</summary>
+        /// <returns>The CustomBranch configuration setting.</returns>
+        public static string AddCustomBranch()
+        {
+            return !string.IsNullOrWhiteSpace(Properties.Resources.CustomBranch)
+                ? Properties.Resources.CustomBranch
+                : "";
         }
 
         /// <summary>TBD</summary>
@@ -48,10 +55,10 @@ namespace AbatabLieutenant.Session
             ltntSession.RequestedBranch       = requestedBranch;
             ltntSession.DateTimeStamp         = $"{DateTime.Now.ToString("yyMMdd-HHmm")}";
             ltntSession.LtntDirectories       = Catalog.Framework.LtntDirectories(ltntSession.LtntRoot);
-            ltntSession.SessionDirectories    = Catalog.Framework.SessionDirectories(ltntSession.LtntRoot, ltntSession.AbatabDeploymentRoot);
+            ltntSession.ValidArguments        = Catalog.CommandLine.ValidArguments();
             ltntSession.RepositoryBranchUrl   = $"{ltntSession.RepositoryUrl}{requestedBranch}.zip";
             ltntSession.ServiceFiles          = Catalog.Framework.ServiceFiles();
-            ltntSession.LogFilePath           = $"{ltntSession.LtntDirectories["Logs"]}/{ltntSession.DateTimeStamp}.ltnt";
+            ltntSession.LogFilePath           = $@"{ltntSession.LtntDirectories["Logs"]}\{ltntSession.DateTimeStamp}.ltnt";
         }
     }
 }

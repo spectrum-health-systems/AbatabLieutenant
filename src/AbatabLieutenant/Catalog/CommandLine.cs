@@ -1,26 +1,23 @@
-﻿// b230208.0924
+﻿// b230208.1510
+
+using AbatabLieutenant.Session;
 
 namespace AbatabLieutenant.Catalog
 {
-    /// <summary>TBD</summary>
+    /// <summary>Data related to the command line.</summary>
     internal static class CommandLine
     {
-        /// <summary>TBD</summary>
-        /// <returns></returns>
+        /// <summary>Builds a list of valid command line arguments.</summary>
+        /// <returns>A list of valid command line arguments.</returns>
         public static List<string> ValidArguments()
         {
             var validArguments = new List<string>()
             {
                 "development",
-                "experimental",
                 "main",
                 "testing",
+                SessionData.AddCustomBranch()
             };
-
-            if (!string.IsNullOrWhiteSpace(Properties.Resources.CustomRepository))
-            {
-                validArguments.Add(Properties.Resources.CustomRepository);
-            }
 
             return validArguments;
         }

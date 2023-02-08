@@ -53,37 +53,33 @@ Abatab Lieutenant is a portable application, so it doesn't need to be installed.
 
 # Configuration
 
-Before you use Abatab Lieutenant, it is recommended that you confirm that the default settings in **AbatabLieutenant.exe.config** are correct for your organization.
+Before you use Abatab Lieutenant, it is recommended that you confirm that the default settings in **AbatabLieutenant.exe.config** are correct for your organization, and make any necessary modifications.
 
-The default configuration is:
+These are the default configuration settings:
 
 | Setting           | Description                                                                                | Default |
 | ----------------- | ------------------------------------------------------------------------------------------ | ------- |
-| **LtntVersion**   | The current version of Abatab Lieutenant. | `3.0.0` |
-| **RepositoryUrl** | The base Abatab repository URL that is used to download branches. | [Link][AbatabBaseUrl] |
-|
+| **LtntVersion** | The current version of Abatab Lieutenant | `3.0.0` |
+| **LtntRoot** | All Abatab Lieutenant related data (see [notes][LtntRootNotes]) | `C:\AbatabData\Lieutenant` |
+| **CustomBranch** | An optional branch outside of the standard deployment branches (see [notes][CustomBranchNotes]) | `<empty>` |
+| **RepositoryUrl** | The base Abatab repository URL that is used to download branches | [Link][AbatabBaseUrl] |
+| **AbatabDeploymentRoot** | The location where you want to Abatab Lieutenant to deploy an Abatab branch | `C:\Abatab\UAT`
 
+## LtntRoot
 
-**LtnVersion
-> Default: `3.0.0`  
-The current version of Abatab Lieutenant.
-<br>
-* LtnRoot: `C:\AbatabData\Lieutenant`  
-The directory where all Abatab Lieutenant related data will be kept, including:
-  * Abatab Lieutenant logs
-  * Abatab branch downloads
-  * Deployment staging data  
-<br>
-* RepositoryUrl: `https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/`  
-The Abatab repository base URL.
+The LtntRoot directory contains data the is required by Abatab Lieutentant, such as:
 
-* CustomBranch: `<empty>`  
-You can specify a *custom branch* that is not included in the default branches.
+* Abatab Lieutenant logs
+* Abatab branch downloads
+* Deployment staging data  
 
-* AbatabDeploymentRoot: `C:\Abatab\UAT`  
-The location where you want to Abatab Lieutenant to deploy an Abatab branch.
+## Custom branches
 
-If any of the default settings will not work at your organization, please make the required changes to the configuration file.
+You can use the CustomBranch configuration setting to allow a custom branch to be deployed, and follows these rules:
+
+* The CustomBranch name needs to be the `%filename%` part of `%filename%.zip`.
+* There can only be one custom branch.
+* If you don't require a custom branch, leave the configuration setting blank.
 
 # Using
 
@@ -108,7 +104,6 @@ To deploy a specific branch, open a terminal and type `AbatabLieutenant.exe %Bra
 * development
 * main
 * testing
-* experimental
 
 For example, to deploy the **main** branch, you would type `AbatabLieutenant.exe main`
 
@@ -120,11 +115,6 @@ To display the Abatab Lieutenant help information, type `AbatabLieutenant.exe`
 
 Abatab Lieutenant logs can be found here in **%LtntRoot%\lieutenant\logs\\**.
 
-## Debug logs
-
-When **DebugMode = enabled**, debug information will be written to the console at the start of the log file.
-
-Debug information is not written to log files.
 
 # Additional information
 
@@ -162,6 +152,8 @@ Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl]
 [APrettyCoolProgramUrl]: https://github.com/APrettyCoolProgram
 
 [AbatabBaseUrl]: https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/
+[LtntRootNotes]: #ltntroot
+[CustomBranchNotes]: #custom-notes
 
 [CodeSize]: https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant
 [LinesOfCode]: https://img.shields.io/tokei/lines/github/spectrum-health-systems/AbatabLieutenant

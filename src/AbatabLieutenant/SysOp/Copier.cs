@@ -1,14 +1,9 @@
-﻿namespace AbatabLieutenant.SysOp
+﻿// b230208.1510
+
+namespace AbatabLieutenant.SysOp
 {
     internal class Copier
     {
-        public static void CopyBin(string source, string target, string logFilePath)
-        {
-            //Logger.LogEvent.ToConsoleAndFile(@"Copying bin\...", logFilePath);
-
-            CopyDir(source, $@"{target}\bin", logFilePath);
-        }
-
         public static void CopyDir(string source, string target, string logFilePath)
         {
             SysOp.Maintenance.RefreshDirectory(target, logFilePath);
@@ -45,6 +40,7 @@
                 File.Copy($@"{source}\{file}", $@"{target}\{file}");
             }
         }
+
         private static DirectoryInfo[] GetSubDirs(string source, string target)
         {
             DirectoryInfo dir = new DirectoryInfo(source);
@@ -57,16 +53,5 @@
 
             return dir.GetDirectories();
         }
-
-        private static void RemoveFiles(string root, List<string> files)
-        {
-            foreach (var file in from file in files
-                                 where File.Exists($"{root}/{file}")
-                                 select file)
-            {
-                File.Delete($"{root}/{file}");
-            }
-        }
-
     }
 }

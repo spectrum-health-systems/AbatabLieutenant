@@ -1,4 +1,4 @@
-﻿
+﻿// b230208.1510
 
 using AbatabLieutenant.Logger;
 
@@ -12,7 +12,7 @@ namespace AbatabLieutenant.Compressioner
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <param name="logFilePath"></param>
-        public static void BranchArchive(string source, string target, string logFilePath)
+        public static void BranchArchive(string source, string requestedBranch, string logFilePath)
         {
             var logMsg = $"{Environment.NewLine}" +
                          $"Extracting archive..." +
@@ -20,7 +20,7 @@ namespace AbatabLieutenant.Compressioner
 
             LogEvent.ToFile(logMsg, logFilePath);
 
-            ZipFile.ExtractToDirectory(source, $@"{target}\");
+            ZipFile.ExtractToDirectory($@"{source}\Abatab-{requestedBranch}.zip", $@"{source}");
         }
     }
 }

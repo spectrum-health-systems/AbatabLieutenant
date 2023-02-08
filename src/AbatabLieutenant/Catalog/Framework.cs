@@ -1,28 +1,21 @@
-﻿// b230208.0924
+﻿// b230208.1510
 
 namespace AbatabLieutenant.Catalog
 {
+    /// <summary>Data related to the Abatab Lieutenant framework.</summary>
     internal static class Framework
     {
-        /// <summary>TBD</summary>
-        /// <returns></returns>
+        /// <summary>Builds a list of required by Abatab Lieutenant directories.</summary>
+        /// <returns>A list of required Abatab Lieutenant directories.</returns>
         public static Dictionary<string, string> LtntDirectories(string ltntRoot) => new()
         {
-            { "Root",       $"{ltntRoot}" },
-            { "Logs",       $@"{ltntRoot}\Logs" },
+            { "Root",             $"{ltntRoot}" },
+            { "Logs",             $@"{ltntRoot}\Logs" },
+            { "Staging",          $@"{ltntRoot}\Staging" },
         };
 
-        /// <summary>TBD</summary>
-        /// <returns></returns>
-        public static Dictionary<string, string> SessionDirectories(string ltntRoot, string abatabDeploymentRoot) => new()
-        {
-            { "Deployment", $"{abatabDeploymentRoot}" },
-            { "Staging",    $@"{ltntRoot}\Staging" },
-            { "Temp",       $@"{ltntRoot}\Temp" },
-        };
-
-        /// <summary>TBD</summary>
-        /// <returns></returns>
+        /// <summary>Builds a list of the required Abatab web service files.</summary>
+        /// <returns>A list of the required web service files.</returns>
         public static List<string> ServiceFiles() => new()
         {
             "Abatab.asmx",
