@@ -1,4 +1,4 @@
-﻿/* Abatab Lieutenant 3.0.0-development+230208.1510
+﻿/* Abatab Lieutenant 3.0.0-rc1+230209.0737
  * Abatab deployment utility.
  *
  * For details on how to use Abatab Lieutenant in your environments, please see the README.md
@@ -10,7 +10,7 @@
  * ---------------------------------------------
  */
 
-// b230208.1510
+// b230209.0737
 
 namespace AbatabLieutenant
 {
