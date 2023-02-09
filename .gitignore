@@ -1,4 +1,4 @@
-## ======================================================================== [ bb220525.114456 ]
+## ======================================================================== [ b230209.0752 ]
 ## .gitignore
 ## A generic .gitignore file for GitHub repositories
 ## https://github.com/APrettyCoolProgram/my-development-environment
@@ -32,7 +32,7 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-#[Bb]in/  <- Disabled for Abatab, since we need stuff here
+[Bb]in/
 [Oo]bj/
 #[Ll]og/
 #[Ll]ogs/
