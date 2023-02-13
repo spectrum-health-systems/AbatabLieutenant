@@ -1,4 +1,4 @@
-﻿/* Abatab Lieutenant 3.0.0-rc1+230209.0737
+﻿/* Abatab Lieutenant 3.0.0-rc2+230213.0854
  * Abatab deployment utility.
  *
  * For details on how to use Abatab Lieutenant in your environments, please see the README.md
