@@ -1,4 +1,4 @@
-﻿// b230209.0737
+﻿// b230213.0854
 
 namespace AbatabLieutenant.Helper
 {
@@ -23,7 +23,6 @@ namespace AbatabLieutenant.Helper
             $"Valid commands:{System.Environment.NewLine}" +
             $"{System.Environment.NewLine}" +
             $"     development - Deploy the Abatab development branch{Environment.NewLine}" +
-            $"    experimental - Deploy the Abatab experimental branch{Environment.NewLine}" +
             $"            main - Deploy the Abatab main branch{Environment.NewLine}" +
             $"         testing - Deploy the Abatab testing branch{Environment.NewLine}" +
             $"{Environment.NewLine}" +
@@ -31,9 +30,9 @@ namespace AbatabLieutenant.Helper
             $"Example:{Environment.NewLine}" +
             $"{Environment.NewLine}" +
             $"{Environment.NewLine}" +
-            $"    $ AbatabLieutenant.exe development  <- Deploys the development branch of Abatab{Environment.NewLine}" +
+            $"    $ AbatabLieutenant.exe testing     <- Deploys the testing branch of Abatab{Environment.NewLine}" +
             $"{Environment.NewLine}" +
-            $"    $ AbatabLieutenant.exe experimental <- Deploys the experimental branch of Abatab{Environment.NewLine}" +
+            $"    $ AbatabLieutenant.exe development <- Deploys the development branch of Abatab{Environment.NewLine}" +
             $"{Environment.NewLine}";
     }
 }
