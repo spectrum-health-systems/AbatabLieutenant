@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AbatabDeploymentRoot" xml:space="preserve">
+    <value>C:\AvatoolWebService\Abatab_UAT</value>
+  </data>
+  <data name="CustomBranch" xml:space="preserve">
+    <value>23.2</value>
+  </data>
+  <data name="LtntRoot" xml:space="preserve">
+    <value>C:\AbatabData\Lieutenant</value>
+  </data>
+  <data name="LtntVersion" xml:space="preserve">
+    <value>3.0.0</value>
+  </data>
+  <data name="RepositoryUrl" xml:space="preserve">
+    <value>https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/</value>
+  </data>
 </root>

@@ -59,5 +59,50 @@ namespace AbatabLieutenant.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\AvatoolWebService\Abatab_UAT.
+        /// </summary>
+        internal static string AbatabDeploymentRoot {
+            get {
+                return ResourceManager.GetString("AbatabDeploymentRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 23.2.
+        /// </summary>
+        internal static string CustomBranch {
+            get {
+                return ResourceManager.GetString("CustomBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\AbatabData\Lieutenant.
+        /// </summary>
+        internal static string LtntRoot {
+            get {
+                return ResourceManager.GetString("LtntRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3.0.0.
+        /// </summary>
+        internal static string LtntVersion {
+            get {
+                return ResourceManager.GetString("LtntVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/.
+        /// </summary>
+        internal static string RepositoryUrl {
+            get {
+                return ResourceManager.GetString("RepositoryUrl", resourceCulture);
+            }
+        }
     }
 }
