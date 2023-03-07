@@ -1,42 +1,36 @@
 ﻿/*************************************************************************
- * Abatab Lieutenant v4.0.0-development+230307.0850
+ * Abatab Lieutenant v4.0.0-rc1+230307.1753
  * A command line deployment utility for Abatab
  * https://github.com/spectrum-health-systems/AbatabLieutenant
  ************************************************************************/
 
 // AbatabLieutenant.Program.cs
-// b---------x
+// b230307.1753
 // (c) A Pretty Cool Program
 
 namespace AbatabLieutenant
 {
+    /// <summary>Summary</summary>
     internal static class Program
     {
-        static void Main(string[] args)
+        /// <summary>Summary</summary>
+        /// <param name="commandArguments"></param>
+        static void Main(string[] commandArguments)
         {
-            Utilities.WriteLog("Debug-1...", @"C:\AbatabData\Lieutenant\Logs\debug-1.log");
             Console.Clear();
 
-            var ltntSession = LtntSession.LoadLocalFile("AbatabLieutenantSettings.json");
+            var ltSession = LtSession.LoadLocalSettings("AbatabLieutenant.json");
 
-            Utilities.WriteLog("Debug-2...", @"C:\AbatabData\Lieutenant\Logs\debug-2.log");
-
-            if (args.Length > 0 && ltntSession.ValidBranches.Contains(args[0]))
+            if (commandArguments.Length > 0 && ltSession.ValidBranches.Contains(commandArguments[0]))
             {
-                LtntSession.CreateRuntimeSettings(ltntSession, args[0]);
-                Utilities.WriteLog(Catalog.SessionDetail(ltntSession), @"C:\AbatabData\Lieutenant\Logs\debug-3.log");
-
-                Utilities.VerifyRequirements(ltntSession.AbatabDataRequiredDirectories, ltntSession.LtntLogFilePath);
-
-                Utilities.WriteLog(Catalog.SessionDetail(ltntSession), @"C:\AbatabData\Lieutenant\Logs\debug-4.log");
-
-                Deploy.WebService(ltntSession);
-
-                Utilities.WriteLog(Catalog.SessionDetail(ltntSession), @"C:\AbatabData\Lieutenant\Logs\debug-5.log");
+                LtSession.CreateRuntimeSettings(ltSession, commandArguments);
+                Utilities.VerifyFramework(ltSession.AbatabDataFolders, ltSession.LogPath);
+                Deploy.WebService(ltSession);
+                Utilities.WriteLog($"{Environment.NewLine}Deployment complete!", ltSession.LogPath);
             }
             else
             {
-                Console.WriteLine(Catalog.HelpDetail(ltntSession.LtntVersion, string.Join(", ", ltntSession.ValidBranches)));
+                Console.WriteLine(Catalog.HelpDetail(ltSession.LtVer, string.Join(", ", ltSession.ValidBranches)));
             }
         }
     }

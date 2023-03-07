@@ -1,47 +1,76 @@
-﻿namespace AbatabLieutenant
+﻿// AbatabLieutenant.Deploy.cs
+// b230307.1753
+// (c) A Pretty Cool Program
+
+namespace AbatabLieutenant
 {
+    /// <summary>Summary</summary>
     internal class Deploy
     {
-        public static void WebService(LtntSession ltntSession)
+        /// <summary>Summary</summary>
+        /// <param name="ltSession"></param>
+        public static void WebService(LtSession ltSession)
         {
-            Utilities.WriteLog(Catalog.SessionDetail(ltntSession), @"C:\AbatabData\Lieutenant\Logs\debug-6.log");
+            RefeshDirectories(ltSession.StagingRoot, ltSession.AbServiceRoot, ltSession.LogPath);
 
-            RefeshDeploymentDirectories(ltntSession.LtntStagingDirectory, ltntSession.AbatabWebServiceRoot, ltntSession.LtntLogFilePath);
-            //Utilities.DownloadData(ltntSession.RepositoryBranchUrl, ltntSession.LtntStagingDirectory, ltntSession.LtntLogFilePath);
-
-            Utilities.WriteLog(Catalog.SessionDetail(ltntSession), @"C:\AbatabData\Lieutenant\Logs\debug-7.log");
-
-            var burl = "https://raw.githubusercontent.com/user/repository/branch/filename";
-
-            foreach (var item in ltntSession.WebServiceFiles)
+            if (ltSession.Option == "min")
             {
-                Utilities.WriteLog($"{ltntSession.RequestedBranchRawUrl}{item}", $@"C:\AbatabData\Lieutenant\Logs\debug-8-{item}.log");
-
-                Utilities.DownloadData($"{ltntSession.RequestedBranchRawUrl}{item}", ltntSession.LtntStagingDirectory, ltntSession.LtntLogFilePath);
-                Utilities.WriteLog(Catalog.SessionDetail(ltntSession), @"C:\AbatabData\Lieutenant\Logs\debug-100.log");
+                MinimalDeployment(ltSession);
             }
-
-            Utilities.WriteLog(Catalog.SessionDetail(ltntSession), @"C:\AbatabData\Lieutenant\Logs\debug-9.log");
-
-            //Utilities.ExtractBranch(ltntSession.LtntStagingDirectory, ltntSession.RequestedBranch, ltntSession.LtntLogFilePath);
+            else
+            {
+                FullDeployment(ltSession.AbRepoZipUrl, ltSession.StagingRoot, ltSession.RequestedBranch, ltSession.AbServiceRoot, ltSession.ServiceFiles, ltSession.LogPath);
+            }
         }
 
-        private static void RefeshDeploymentDirectories(string stagingDirectory, string webServiceRoot, string logFilePath)
+        /// <summary>Summary</summary>
+        /// <param name="stagingRoot"></param>
+        /// <param name="serviceRoot"></param>
+        /// <param name="logPath"></param>
+        private static void RefeshDirectories(string stagingRoot, string serviceRoot, string logPath)
         {
-            Utilities.WriteLog("Debug-10", @"C:\AbatabData\Lieutenant\Logs\debug-10.log");
-            Utilities.RefreshDirectory(stagingDirectory, logFilePath);
-            Utilities.WriteLog("Debug-20", @"C:\AbatabData\Lieutenant\Logs\debug-20.log");
-            Utilities.RefreshDirectory(webServiceRoot, logFilePath);
+            Utilities.RefreshDirectory(stagingRoot, logPath);
+            Utilities.RefreshDirectory(serviceRoot, logPath);
+        }
 
-            Utilities.WriteLog("Debug-11", @"C:\AbatabData\Lieutenant\Logs\debug-11.log");
+        /// <summary>Summary</summary>
+        /// <param name="url"></param>
+        /// <param name="staging"></param>
+        /// <param name="branch"></param>
+        /// <param name="target"></param>
+        /// <param name="serviceFiles"></param>
+        /// <param name="logPath"></param>
+        private static void FullDeployment(string url, string staging, string branch, string target, List<string> serviceFiles, string logPath)
+        {
+            Utilities.DownloadZip($@"{url}{branch}.zip", $@"{staging}\Abatab-{branch}.zip", logPath);
+
+            Utilities.ExtractBranch($@"{staging}\Abatab-{branch}.zip", staging, logPath);
+
+            Utilities.CopyDir($@"{staging}\Abatab-{branch}\src\bin", $@"{target}\bin", logPath);
+
+            Utilities.CopyService($@"{staging}\Abatab-{branch}\src\", target, serviceFiles, logPath);
+        }
+
+        /// <summary>Summary</summary>
+        /// <param name="ltSession"></param>
+        private static void MinimalDeployment(LtSession ltSession)
+        {
+            foreach (var item in ltSession.ServiceFiles)
+            {
+                Utilities.DownloadFile($"{ltSession.RequestedBranchRawUrl}{item}", $@"{ltSession.AbServiceRoot}\{item}", ltSession.LogPath);
+            }
+
+            Directory.CreateDirectory($@"{ltSession.AbServiceRoot}\bin\roslyn");
+
+            foreach (var item in ltSession.ServiceBinFiles)
+            {
+                Utilities.DownloadFile($"{ltSession.RequestedBranchRawUrl}{item}", $@"{ltSession.AbServiceRoot}\{item}", ltSession.LogPath);
+            }
+
+            foreach (var item in ltSession.ServiceRoslynFiles)
+            {
+                Utilities.DownloadFile($"{ltSession.RequestedBranchRawUrl}{item}", $@"{ltSession.AbServiceRoot}\{item}", ltSession.LogPath);
+            }
         }
     }
 }
-
-
-//public static void ExtractBranch(string source, string requestedBranch, string logFilePath)
-//{
-//    WriteLog("Extracting archive...", logFilePath);
-
-//    ZipFile.ExtractToDirectory($@"{source}\Abatab-{requestedBranch}.zip", $@"{source}");
-//}

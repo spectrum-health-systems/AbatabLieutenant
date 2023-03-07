@@ -1,32 +1,57 @@
 ﻿// AbatabLieutenant.Utilities.cs
-// b---------x
+// b230307.1753
 // (c) A Pretty Cool Program
 
 using System.IO.Compression;
 
 namespace AbatabLieutenant
 {
+    /// <summary>Summary</summary>
     public static class Utilities
     {
-        public static void DownloadData(string sourceUrl, string destination, string logFilePath)
+        /// <summary>Summary</summary>
+        /// <param name="url"></param>
+        /// <param name="target"></param>
+        /// <param name="logPath"></param>
+        public static void DownloadZip(string url, string target, string logPath)
         {
-            WriteLog($@"Downloading: {sourceUrl}", logFilePath);
+            WriteLog($"{Environment.NewLine}Downloading .ZIP: {url} = TO => {target}", logPath);
+
             System.Net.WebClient webClient = new();
-            webClient.DownloadFile(sourceUrl, destination);
+            webClient.DownloadFile(url, target);
         }
 
-        public static void ExtractBranch(string source, string requestedBranch, string logFilePath)
+        /// <summary>Summary</summary>
+        /// <param name="url"></param>
+        /// <param name="target"></param>
+        /// <param name="logPath"></param>
+        public static void DownloadFile(string url, string target, string logPath)
         {
-            WriteLog("Extracting archive...", logFilePath);
+            WriteLog($"Downloading file: {url} - TO -> {target}", logPath);
 
-            ZipFile.ExtractToDirectory($@"{source}\Abatab-{requestedBranch}.zip", $@"{source}");
+            System.Net.WebClient webClient = new();
+            webClient.DownloadFile(url, target);
         }
 
-        public static void VerifyRequirements(List<string> requiredDirectories, string logFilePath)
+        /// <summary>Summary</summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <param name="logPath"></param>
+        public static void ExtractBranch(string source, string target, string logPath)
+        {
+            WriteLog($"{Environment.NewLine}Extracting archive...", logPath);
+
+            ZipFile.ExtractToDirectory(source, target);
+        }
+
+        /// <summary>Summary</summary>
+        /// <param name="requiredDirectories"></param>
+        /// <param name="logPath"></param>
+        public static void VerifyFramework(List<string> requiredDirectories, string logPath)
         {
             foreach (var requiredDirectory in requiredDirectories)
             {
-                WriteLog($@"Verifying: {requiredDirectory}\...", logFilePath);
+                WriteLog($@"Verifying: {requiredDirectory}\...", logPath);
 
                 if (!Directory.Exists(requiredDirectory))
                 {
@@ -35,68 +60,75 @@ namespace AbatabLieutenant
             }
         }
 
-        public static void RefreshDirectory(string directory, string logFilePath)
+        /// <summary>Summary</summary>
+        /// <param name="directory"></param>
+        /// <param name="logPath"></param>
+        public static void RefreshDirectory(string directory, string logPath)
         {
-            Utilities.WriteLog("Debug-12", @"C:\AbatabData\Lieutenant\Logs\debug-12.log");
-
-            WriteLog($@"Refreshing: {directory}\...", logFilePath);
-
-            Utilities.WriteLog("Debug-13", @"C:\AbatabData\Lieutenant\Logs\debug-13.log");
+            WriteLog($@"Refreshing: {directory}\...", logPath);
 
             if (Directory.Exists(directory))
             {
-                Utilities.WriteLog("Debug-14", @"C:\AbatabData\Lieutenant\Logs\debug-14.log");
                 Directory.Delete(directory, true);
             }
 
-            Utilities.WriteLog($"{directory}", @"C:\AbatabData\Lieutenant\Logs\debug-15.log");
             _=Directory.CreateDirectory(directory);
-            Utilities.WriteLog("Debug-16", @"C:\AbatabData\Lieutenant\Logs\debug-16.log");
         }
 
+        /// <summary>Summary</summary>
+        /// <param name="content"></param>
+        /// <param name="filePath"></param>
         public static void WriteLog(string content, string filePath)
         {
             Console.WriteLine(content);
             File.AppendAllText(filePath, $"{content}{Environment.NewLine}");
         }
 
-        public static void CopyDir(string source, string target, string logFilePath)
+        /// <summary>Summary</summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <param name="logPath"></param>
+        public static void CopyDir(string source, string target, string logPath)
         {
-            RefreshDirectory(target, logFilePath);
+            WriteLog(Environment.NewLine, logPath);
+            RefreshDirectory(target, logPath);
 
             DirectoryInfo dirToCopy       = new DirectoryInfo(source);
             DirectoryInfo[] subDirsToCopy = GetSubDirs(source, target);
 
             foreach (FileInfo file in dirToCopy.GetFiles())
             {
-                WriteLog($"Copying {file.FullName}...", logFilePath);
-
-                string targetPath = Path.Combine(target, file.Name);
-
-                _=file.CopyTo(targetPath);
+                WriteLog($"Copying {file.FullName}...", logPath);
+                _=file.CopyTo(Path.Combine(target, file.Name));
             }
 
             foreach (var (subDir, newTargetDir) in from DirectoryInfo subDir in subDirsToCopy
                                                    let newTargetDir = Path.Combine(target, subDir.Name)
                                                    select (subDir, newTargetDir))
             {
-                CopyDir(subDir.FullName, newTargetDir, logFilePath);
+                WriteLog($@"Copying {subDir}\...", logPath);
+                CopyDir(subDir.FullName, newTargetDir, logPath);
             }
         }
 
+        /// <summary>Summary</summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <param name="serviceFiles"></param>
+        /// <param name="logFilePath"></param>
         public static void CopyService(string source, string target, List<string> serviceFiles, string logFilePath)
         {
             foreach (string file in serviceFiles)
             {
-                //if (File.Exists($@"{target}\{file}"))
-                //    File.Delete($@"{target}\{file}");
-
-                //Logger.LogEvent.ToFile($@"Copying {source} to {target}...", logFilePath);
-
+                WriteLog($"Copying service file: {file}...", logFilePath);
                 File.Copy($@"{source}\{file}", $@"{target}\{file}");
             }
         }
 
+        /// <summary>Summary</summary>v
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
         private static DirectoryInfo[] GetSubDirs(string source, string target)
         {
             DirectoryInfo dir = new DirectoryInfo(source);

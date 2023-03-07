@@ -1,25 +1,39 @@
 ﻿// AbatabLieutenant.Catalog.cs
-// b---------x
+// b230307.1753
 // (c) A Pretty Cool Program
 
 namespace AbatabLieutenant
 {
+    /// <summary>Summary</summary>
     public static class Catalog
     {
-        public static string HelpDetail(string ltntVersion, string validBranches) =>
-            $"{HelpHeader(ltntVersion)}"+
+        /// <summary>Summary</summary>
+        /// <param name="ltVer"></param>
+        /// <param name="validBranches"></param>
+        /// <returns></returns>
+        public static string HelpDetail(string ltVer, string validBranches) =>
+            $"{HelpHeader(ltVer)}"+
             $"{HelpBody(validBranches)}";
 
-        public static string SessionDetail(LtntSession ltntSession) =>
+        /// <summary>Summary</summary>
+        /// <param name="ltSession"></param>
+        /// <returns></returns>
+        public static string SessionDetail(LtSession ltSession) =>
             $"{LogHeader()}" +
-            $"{SessionBody(ltntSession)}";
+            $"{SessionBody(ltSession)}";
 
-        private static string HelpHeader(string ltntVersion) =>
+        /// <summary>Summary</summary>
+        /// <param name="ltVer"></param>
+        /// <returns></returns>
+        private static string HelpHeader(string ltVer) =>
             $"{Environment.NewLine}" +
             $"======================{Environment.NewLine}" +
             $"Abatab Lieutenant Help{Environment.NewLine}" +
-            $"======== v{ltntVersion} ========{Environment.NewLine}";
+            $"======== v{ltVer} ========{Environment.NewLine}";
 
+        /// <summary>Summary</summary>
+        /// <param name="validBranches"></param>
+        /// <returns></returns>
         private static string HelpBody(string validBranches) =>
             $"{Environment.NewLine}" +
             $"Syntax:           $ AbatabLieutenant <branch>{Environment.NewLine}" +
@@ -31,33 +45,41 @@ namespace AbatabLieutenant
             $"More information: https://github.com/spectrum-health-systems/AbatabLieutenant{Environment.NewLine}" +
             $"{Environment.NewLine}";
 
+        /// <summary>Summary</summary>
+        /// <returns></returns>
         private static string LogHeader() =>
             $"{Environment.NewLine}" +
             $"================={Environment.NewLine}" +
             $"Abatab Lieutenant{Environment.NewLine}" +
             $"================={Environment.NewLine}";
 
-        private static string SessionBody(LtntSession ltntSession) =>
-            $"Version:             {ltntSession.LtntVersion}.{ltntSession.LtntBuild}{Environment.NewLine}" +
-            $"Root:                {ltntSession.LtntRoot}{Environment.NewLine}" +
-            $"Staging:             {ltntSession.LtntStagingDirectory}{Environment.NewLine}" +
-            $"Log root:            {ltntSession.LtntLogRoot}{Environment.NewLine}" +
-            $"Log path:            {ltntSession.LtntLogFilePath}{Environment.NewLine}" +
-            $"Web service root:    {ltntSession.AbatabWebServiceRoot}{Environment.NewLine}" +
-            $"Repository URL:      {ltntSession.AbatabRepositoryUrl}{Environment.NewLine}" +
-            $"RepositoryZIP URL:   {ltntSession.AbatabRepositoryZipUrl}{Environment.NewLine}" +
-            $"RepositoryRAW URL:   {ltntSession.AbatabRepositoryRawUrl}{Environment.NewLine}" +
-            $"Branch:              {ltntSession.RequestedBranch}{Environment.NewLine}" +
-            $"Branch URL:          {ltntSession.RequestedBranchUrl}{Environment.NewLine}" +
-            $"BranchZIP URL:       {ltntSession.RequestedBranchZipUrl}{Environment.NewLine}" +
-            $"BranchRaw URL:       {ltntSession.RequestedBranchRawUrl}{Environment.NewLine}" +
-            $"Date/Time:           {ltntSession.Datestamp}-{ltntSession.Timestamp}{Environment.NewLine}" +
-            $"Valid branches:      {string.Join($", ", ltntSession.ValidBranches)}{Environment.NewLine}" +
-            $"Web service files:   {string.Join($", ", ltntSession.WebServiceFiles)}{Environment.NewLine}" +
-            $"Web service folders: {string.Join($", ", ltntSession.WebServiceFolders)}{Environment.NewLine}" +
-            $"{Environment.NewLine}";
+        /// <summary>Summary</summary>
+        /// <param name="ltSession"></param>
+        /// <returns></returns>
+        private static string SessionBody(LtSession ltSession) =>
+            $"Version:                 {ltSession.LtVer}.{ltSession.LtBld}{Environment.NewLine}" +
+            $"Staging:                 {ltSession.StagingRoot}{Environment.NewLine}" +
+            $"Log root:                {ltSession.LogRoot}{Environment.NewLine}" +
+            $"Log path:                {ltSession.LogPath}{Environment.NewLine}" +
+            $"Option:                  {ltSession.Option}{Environment.NewLine}" +
+            $"Web service root:        {ltSession.AbServiceRoot}{Environment.NewLine}" +
+            $"Repository URL:          {ltSession.AbRepoUrl}{Environment.NewLine}" +
+            $"Repository .ZIP URL:     {ltSession.AbRepoZipUrl}{Environment.NewLine}" +
+            $"Repository Raw data URL: {ltSession.AbRepoRawUrl}{Environment.NewLine}" +
+            $"Branch:                  {ltSession.RequestedBranch}{Environment.NewLine}" +
+            $"Branch URL:              {ltSession.RequestedBranchUrl}{Environment.NewLine}" +
+            $"Branch .ZIP URL:         {ltSession.RequestedBranchZipUrl}{Environment.NewLine}" +
+            $"Branch raw data URL:     {ltSession.RequestedBranchRawUrl}{Environment.NewLine}" +
+            $"Date/Time:               {ltSession.Datestamp}-{ltSession.Timestamp}{Environment.NewLine}" +
+            $"Valid branches:          {string.Join(", ", ltSession.ValidBranches)}{Environment.NewLine}" +
+            $"Web service files:       {string.Join(", ", ltSession.ServiceFiles)}{Environment.NewLine}" +
+            $"Web service folders:     {string.Join(", ", ltSession.ServiceFolders)}{Environment.NewLine}";
 
-        private static string LogFooter(string ltntVersion, string ltntBuild) =>
-           $"[ Abatab Lieutentant v{ltntVersion}.{ltntBuild} ]{Environment.NewLine}";
+        /// <summary>Summary</summary>
+        /// <param name="ltVer"></param>
+        /// <param name="ltBld"></param>
+        /// <returns></returns>
+        private static string LogFooter(string ltVer, string ltBld) =>
+           $"[ Abatab Lieutenant v{ltVer}.{ltBld} ]{Environment.NewLine}";
     }
 }
