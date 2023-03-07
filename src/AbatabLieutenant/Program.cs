@@ -1,31 +1,37 @@
-﻿/* Abatab Lieutenant 3.0.0
- * Abatab deployment utility.
- *
- * For details on how to use Abatab Lieutenant in your environments, please see the README.md
- *   https://github.com/spectrum-health-systems/AbatabLieutenant#readme
- *
- * ---------------------------------------------
- * Copyright (c) A Pretty Cool Program 2023
- * See the LICENSE.md file for more information.
- * ---------------------------------------------
- */
+﻿/*************************************************************************
+ * Abatab Lieutenant v4.0.0-rc1+230307.1753
+ * A command line deployment utility for Abatab
+ * https://github.com/spectrum-health-systems/AbatabLieutenant
+ ************************************************************************/
 
-// b230225.1024
+// AbatabLieutenant.Program.cs
+// b230307.1753
+// (c) A Pretty Cool Program
 
 namespace AbatabLieutenant
 {
-    /// <summary>Main entry point for Abatab Lieutenant.</summary>
+    /// <summary>Summary</summary>
     internal static class Program
     {
-        /// <summary>Starts the Abatab Lieutenant processes.</summary>
-        /// <param name="args">The argument(s) passed via the command line.</param>
-        static void Main(string[] args)
+        /// <summary>Summary</summary>
+        /// <param name="commandArguments"></param>
+        static void Main(string[] commandArguments)
         {
             Console.Clear();
 
-            Flightpath.Starter.Launch(args);
+            var ltSession = LtSession.LoadLocalSettings("AbatabLieutenant.json");
 
-            Flightpath.Finisher.ExitLtnt(0, $"Exiting Abatab Lieutenant...{Environment.NewLine}");
+            if (commandArguments.Length > 0 && ltSession.ValidBranches.Contains(commandArguments[0]))
+            {
+                LtSession.CreateRuntimeSettings(ltSession, commandArguments);
+                Utilities.VerifyFramework(ltSession.AbatabDataFolders, ltSession.LogPath);
+                Deploy.WebService(ltSession);
+                Utilities.WriteLog($"{Environment.NewLine}Deployment complete!", ltSession.LogPath);
+            }
+            else
+            {
+                Console.WriteLine(Catalog.HelpDetail(ltSession.LtVer, string.Join(", ", ltSession.ValidBranches)));
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.4.33213.308
+VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbatabLieutenant", "AbatabLieutenant\AbatabLieutenant.csproj", "{97CD125A-A284-4C4F-9395-B9FA73A38F88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbatabLieutenant", "AbatabLieutenant\AbatabLieutenant.csproj", "{FAA02665-9F07-4F7E-B179-555805B28EAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{97CD125A-A284-4C4F-9395-B9FA73A38F88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97CD125A-A284-4C4F-9395-B9FA73A38F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97CD125A-A284-4C4F-9395-B9FA73A38F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97CD125A-A284-4C4F-9395-B9FA73A38F88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAA02665-9F07-4F7E-B179-555805B28EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA02665-9F07-4F7E-B179-555805B28EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA02665-9F07-4F7E-B179-555805B28EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA02665-9F07-4F7E-B179-555805B28EAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B173EDAF-22B2-4A8B-9E8A-16B81D7B7D79}
+		SolutionGuid = {BDCB60FD-77E2-427B-B64A-483DD5105E07}
 	EndGlobalSection
 EndGlobal
