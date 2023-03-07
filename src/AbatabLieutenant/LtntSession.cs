@@ -1,56 +1,79 @@
-﻿using System.Text.Json;
+﻿// AbatabLieutenant.LtntSession.cs
+// b---------x
+// (c) A Pretty Cool Program
+
+using System.Text.Json;
 
 namespace AbatabLieutenant
 {
     public class LtntSession
     {
-        public string AbatabLieutenantVersion { get; set; }
-        public string AbatabLieutenantBuild { get; set; }
-        public string AbatabLieutenantRoot { get; set; }
+        public string LtntVersion { get; set; }
+        public string LtntBuild { get; set; }
+        public string LtntRoot { get; set; }
+        public string LtntStagingDirectory { get; set; }
+        public string LtntLogRoot { get; set; }
+        public string LtntLogFilePath { get; set; }
         public string AbatabWebServiceRoot { get; set; }
         public string AbatabRepositoryUrl { get; set; }
+        public string AbatabRepositoryZipUrl { get; set; }
+        public string AbatabRepositoryRawUrl { get; set; }
         public string RequestedBranch { get; set; }
-        public string RepositoryBranchUrl { get; set; }
+        public string RequestedBranchUrl { get; set; }
+        public string RequestedBranchZipUrl { get; set; }
+        public string RequestedBranchRawUrl { get; set; }
         public string Datestamp { get; set; }
         public string Timestamp { get; set; }
-        public string LogFileRoot { get; set; }
-        public string LogFilePath { get; set; }
         public List<string> AbatabDataRequiredDirectories { get; set; }
         public List<string> ValidBranches { get; set; }
         public List<string> WebServiceFiles { get; set; }
         public List<string> WebServiceFolders { get; set; }
 
-        public static LtntSession Load()
+        public static LtntSession LoadLocalFile(string settingsFile)
         {
-            string settingsString = File.ReadAllText("AbatabLieutenantSettings.json");
+            VerifySettingsFile(settingsFile);
 
-            return JsonSerializer.Deserialize<LtntSession>(settingsString);
+            return JsonSerializer.Deserialize<LtntSession>(File.ReadAllText(settingsFile));
         }
 
-        public static void Update(LtntSession ltntSession, string requestedBranch)
+        public static void VerifySettingsFile(string settingsFile)
         {
-            ltntSession.Datestamp           = $"{DateTime.Now:yyMMdd}";
-            ltntSession.Timestamp           = $"{DateTime.Now:HHmmss}";
-            ltntSession.RequestedBranch     = requestedBranch;
-            ltntSession.RepositoryBranchUrl = $"{ltntSession.AbatabRepositoryUrl}{requestedBranch}";
-            ltntSession.LogFilePath         = $@"{ltntSession.LogFileRoot}\{ltntSession.Datestamp}.{ltntSession.Datestamp}.ltnt";
-        }
-
-        public static void ForceDefaultSettings()
-        {
-            LtntSession defaultSettings = new LtntSession
+            if (!File.Exists(settingsFile))
             {
-                AbatabLieutenantVersion = "4.0",
-                AbatabLieutenantBuild   = "230228.1142",
-                AbatabLieutenantRoot    = @"C:\AbatabData\Lieutenant",
+                RefreshLocalFile(settingsFile);
+            }
+        }
+
+        public static void RefreshLocalFile(string settingsFile)
+        {
+            var jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            File.WriteAllText(settingsFile, JsonSerializer.Serialize(CreateDefaultSettings(), jsonOptions));
+        }
+
+        private static LtntSession CreateDefaultSettings()
+        {
+            return new LtntSession
+            {
+                LtntVersion             = "4.0",
+                LtntBuild               = "230307.1034",
+                LtntRoot                = @"C:\AbatabData\Lieutenant",
+                LtntStagingDirectory    = @"C:\AbatabData\Lieutenant\Staging",
+                LtntLogRoot             = @"C:\AbatabData\Lieutenant\Logs",
+                LtntLogFilePath         = "defined-at-runtime",
                 AbatabWebServiceRoot    = @"C:\AvatoolWebService\Abatab_UAT",
-                AbatabRepositoryUrl     = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/",
+                AbatabRepositoryUrl     = "https://github.com/spectrum-health-systems/Abatab/",
+                AbatabRepositoryZipUrl  = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/",
+                AbatabRepositoryRawUrl  = "https://raw.githubusercontent.com/spectrum-health-systems/Abatab/",
                 RequestedBranch         = "defined-at-runtime",
-                RepositoryBranchUrl     = "defined-at-runtime",
+                RequestedBranchUrl      = "defined-at-runtime",
+                RequestedBranchZipUrl   = "defined-at-runtime",
+                RequestedBranchRawUrl   = "defined-at-runtime",
                 Datestamp               = "defined-at-runtime",
                 Timestamp               = "defined-at-runtime",
-                LogFileRoot             = @"C:\AbatabData\Lieutenant\Logs",
-                LogFilePath             = "defined-at-runtime",
                 AbatabDataRequiredDirectories = new List<string>
                 {
                     @"C:\AbatabData\",
@@ -87,31 +110,16 @@ namespace AbatabLieutenant
                     "bin"
                 }
             };
-
-            var jsonOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-
-            string settingsString = JsonSerializer.Serialize(defaultSettings, jsonOptions);
-
-            File.WriteAllText("AbatabLieutenantSettings.json", settingsString);
         }
 
-        public static void VerifySettingFile()
+        public static void CreateRuntimeSettings(LtntSession ltntSession, string requestedBranch)
         {
-            if (!File.Exists("AbatabLieutenantSettings.json"))
-            {
-                ForceDefaultSettings();
-            }
-        }
-
-        public static void VerifyAbatabRequirements(LtntSession ltntSession)
-        {
-            foreach (var directory in ltntSession.AbatabDataRequiredDirectories)
-            {
-                Utility.VerifyDirectoryExists(directory, ltntSession.LogFilePath);
-            }
+            ltntSession.Datestamp             = $"{DateTime.Now:yyMMdd}";
+            ltntSession.Timestamp             = $"{DateTime.Now:HHmmss}";
+            ltntSession.RequestedBranch       = requestedBranch;
+            ltntSession.RequestedBranchZipUrl = $"{ltntSession.AbatabRepositoryZipUrl}{requestedBranch}";
+            ltntSession.RequestedBranchRawUrl = $@"{ltntSession.AbatabRepositoryRawUrl}{requestedBranch}/";
+            ltntSession.LtntLogFilePath       = $@"{ltntSession.LtntLogRoot}\{ltntSession.Datestamp}.{ltntSession.Datestamp}.ltnt";
         }
     }
 }
