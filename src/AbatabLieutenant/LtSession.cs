@@ -1,5 +1,5 @@
 ﻿// AbatabLieutenant.LtSession.cs
-// b230307.1753
+// b230308.0939
 // (c) A Pretty Cool Program
 
 using System.Text.Json;
@@ -9,77 +9,77 @@ namespace AbatabLieutenant
     /// <summary>Summary</summary>
     public class LtSession
     {
-        /// <summary>Summary</summary>
+        /// <summary>The Abatab Lieutenant version.</summary>
         public string LtVer { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The Abatab Lieutenant build.</summary>
         public string LtBld { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The Abatab Lieutenant root directory.</summary>
         public string LtRoot { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The Abatab Lieutenant staging root directory</summary>
         public string StagingRoot { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The Abatab Lieutenant log root directory.</summary>
         public string LogRoot { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The Abatab Lieutenant log file path.</summary>
         public string LogPath { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>Optional parameter.</summary>
         public string Option { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The Abatab web service root directory.</summary>
         public string AbServiceRoot { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The base Abatab repository URL.</summary>
         public string AbRepoUrl { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The URL to the Abatab branch .zip archive.</summary>
         public string AbRepoZipUrl { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The URL to the Abatab branch raw data.</summary>
         public string AbRepoRawUrl { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The requested branch repository.</summary>
         public string RequestedBranch { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The requested branch URL.</summary>
         public string RequestedBranchUrl { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The URL to the Abatab branch .zip archive.</summary>
         public string RequestedBranchZipUrl { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The URL to the Abatab branch raw data.</summary>
         public string RequestedBranchRawUrl { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The current date.</summary>
         public string Datestamp { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The current time.</summary>
         public string Timestamp { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The list of Abatab date folders.</summary>
         public List<string> AbatabDataFolders { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The list of valid Abatab branches.</summary>
         public List<string> ValidBranches { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The list of required Abatab web service files.</summary>
         public List<string> ServiceFiles { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The list of required Abatab web service bin\ files.</summary>
         public List<string> ServiceBinFiles { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The list of required Abatab web service bin\roslyn\ files.</summary>
         public List<string> ServiceRoslynFiles { get; set; }
 
-        /// <summary>Summary</summary>
+        /// <summary>The list of required Abatab web service folders.</summary>
         public List<string> ServiceFolders { get; set; }
 
-        /// <summary>Summary</summary>
-        /// <param name="settingsFile"></param>
+        /// <summary>Load the local settings from the local settings file.</summary>
+        /// <param name="settingsFile">The name of the local settings file.</param>
         /// <returns></returns>
         public static LtSession LoadLocalSettings(string settingsFile)
         {
@@ -88,19 +88,19 @@ namespace AbatabLieutenant
             return JsonSerializer.Deserialize<LtSession>(File.ReadAllText(settingsFile));
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="settingsFile"></param>
+        /// <summary>Verify the local settings file exists, and create one if it doesn't.</summary>
+        /// <param name="settingsFile">The name of the local settings file.</param>
         public static void VerifySettingsFile(string settingsFile)
         {
             if (!File.Exists(settingsFile))
             {
-                RefreshLocalFile(settingsFile);
+                CreateLocalFile(settingsFile);
             }
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="settingsFile"></param>
-        public static void RefreshLocalFile(string settingsFile)
+        /// <summary>Create a default local settings file.</summary>
+        /// <param name="settingsFile">The name of the local settings file.</param>
+        public static void CreateLocalFile(string settingsFile)
         {
             var jsonOptions = new JsonSerializerOptions
             {
@@ -110,18 +110,18 @@ namespace AbatabLieutenant
             File.WriteAllText(settingsFile, JsonSerializer.Serialize(CreateDefaultSettings(), jsonOptions));
         }
 
-        /// <summary>Summary</summary>
-        /// <returns></returns>
+        /// <summary>Creates the default settings values.</summary>
+        /// <returns>The default setting values.</returns>
         private static LtSession CreateDefaultSettings()
         {
             return new LtSession
             {
                 LtVer                 = "4.0",
-                LtBld                 = "230307.1034",
+                LtBld                 = "230308.0939",
                 StagingRoot           = @"C:\AbatabData\Lieutenant\Staging",
                 LogRoot               = @"C:\AbatabData\Lieutenant\Logs",
                 LogPath               = "defined-at-runtime",
-                AbServiceRoot         = @"C:\AvatoolWebService\Abatab_UAT",
+                AbServiceRoot         = @"C:\AbatabWebService\UAT",
                 AbRepoUrl             = "https://github.com/spectrum-health-systems/Abatab/",
                 AbRepoZipUrl          = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/",
                 AbRepoRawUrl          = "https://raw.githubusercontent.com/spectrum-health-systems/Abatab/",
@@ -240,25 +240,25 @@ namespace AbatabLieutenant
             };
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="ltntSession"></param>
-        /// <param name="args"></param>
-        public static void CreateRuntimeSettings(LtSession ltntSession, string[] args)
+        /// <summary>Create various setting values at runtime.</summary>
+        /// <param name="ltSession">The session object.</param>
+        /// <param name="commandArguments">The arguments passed via the command line.</param>
+        public static void CreateRuntimeSettings(LtSession ltSession, string[] commandArguments)
         {
-            ltntSession.Datestamp             = $"{DateTime.Now:yyMMdd}";
-            ltntSession.Timestamp             = $"{DateTime.Now:HHmm}";
-            ltntSession.RequestedBranch       = args[0];
-            ltntSession.RequestedBranchUrl    = $"https://github.com/spectrum-health-systems/Abatab/tree/development/{ltntSession.RequestedBranch}";
-            ltntSession.RequestedBranchZipUrl = $"{ltntSession.AbRepoZipUrl}{ltntSession.RequestedBranch}.zip";
-            ltntSession.RequestedBranchRawUrl = $@"{ltntSession.AbRepoRawUrl}{ltntSession.RequestedBranch}/src/";
-            ltntSession.LogPath               = $@"{ltntSession.LogRoot}\{ltntSession.Datestamp}.{ltntSession.Timestamp}.ltnt";
+            ltSession.Datestamp             = $"{DateTime.Now:yyMMdd}";
+            ltSession.Timestamp             = $"{DateTime.Now:HHmm}";
+            ltSession.RequestedBranch       = commandArguments[0];
+            ltSession.RequestedBranchUrl    = $"https://github.com/spectrum-health-systems/Abatab/tree/development/{ltSession.RequestedBranch}";
+            ltSession.RequestedBranchZipUrl = $"{ltSession.AbRepoZipUrl}{ltSession.RequestedBranch}.zip";
+            ltSession.RequestedBranchRawUrl = $@"{ltSession.AbRepoRawUrl}{ltSession.RequestedBranch}/src/";
+            ltSession.LogPath               = $@"{ltSession.LogRoot}\{ltSession.Datestamp}.{ltSession.Timestamp}.ltnt";
 
-            if (args.Length == 2)
+            if (commandArguments.Length == 2)
             {
-                ltntSession.Option = args[1];
+                ltSession.Option = commandArguments[1];
             }
 
-            Utilities.WriteLog(Catalog.SessionDetail(ltntSession), ltntSession.LogPath);
+            Utilities.WriteLog(Catalog.SessionDetail(ltSession), ltSession.LogPath);
         }
     }
 }
