@@ -1,18 +1,18 @@
 ﻿// AbatabLieutenant.Utilities.cs
-// b230307.1753
+// b230308.0939
 // (c) A Pretty Cool Program
 
 using System.IO.Compression;
 
 namespace AbatabLieutenant
 {
-    /// <summary>Summary</summary>
+    /// <summary>Various Abatab Lieutenant utilities.</summary>
     public static class Utilities
     {
-        /// <summary>Summary</summary>
-        /// <param name="url"></param>
-        /// <param name="target"></param>
-        /// <param name="logPath"></param>
+        /// <summary>Download a .zip archive.</summary>
+        /// <param name="url">The URL of the .zip archive.</param>
+        /// <param name="target">The target download location.</param>
+        /// <param name="logPath">The path to the log file.</param>
         public static void DownloadZip(string url, string target, string logPath)
         {
             WriteLog($"{Environment.NewLine}Downloading .ZIP: {url} = TO => {target}", logPath);
@@ -21,10 +21,10 @@ namespace AbatabLieutenant
             webClient.DownloadFile(url, target);
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="url"></param>
-        /// <param name="target"></param>
-        /// <param name="logPath"></param>
+        /// <summary>Download a file.</summary>
+        /// <param name="url">The URL of the file.</param>
+        /// <param name="target">The target download location.</param>
+        /// <param name="logPath">The path to the log file.</param>
         public static void DownloadFile(string url, string target, string logPath)
         {
             WriteLog($"Downloading file: {url} - TO -> {target}", logPath);
@@ -33,10 +33,10 @@ namespace AbatabLieutenant
             webClient.DownloadFile(url, target);
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <param name="logPath"></param>
+        /// <summary>Extract a .zip archive.</summary>
+        /// <param name="source">The path to the .zip archive</param>
+        /// <param name="target">The target extraction location.</param>
+        /// <param name="logPath">The path to the log file.</param>
         public static void ExtractBranch(string source, string target, string logPath)
         {
             WriteLog($"{Environment.NewLine}Extracting archive...", logPath);
@@ -44,9 +44,9 @@ namespace AbatabLieutenant
             ZipFile.ExtractToDirectory(source, target);
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="requiredDirectories"></param>
-        /// <param name="logPath"></param>
+        /// <summary>Verify Abatab Lieutenant framework components</summary>
+        /// <param name="requiredDirectories">The list of Abatab Lieutenant required directories."</param>
+        /// <param name="logPath">The path to the log file.</param>
         public static void VerifyFramework(List<string> requiredDirectories, string logPath)
         {
             foreach (var requiredDirectory in requiredDirectories)
@@ -60,9 +60,9 @@ namespace AbatabLieutenant
             }
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="directory"></param>
-        /// <param name="logPath"></param>
+        /// <summary>Refresh a directory.</summary>
+        /// <param name="directory">The directory to refresh.</param>
+        /// <param name="logPath">The path to the log file.</param>
         public static void RefreshDirectory(string directory, string logPath)
         {
             WriteLog($@"Refreshing: {directory}\...", logPath);
@@ -75,19 +75,19 @@ namespace AbatabLieutenant
             _=Directory.CreateDirectory(directory);
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="content"></param>
-        /// <param name="filePath"></param>
+        /// <summary>Write a log file, and display the contents on screen.</summary>
+        /// <param name="content">The content to write/display.</param>
+        /// <param name="logPath">The path to the log file.</param>
         public static void WriteLog(string content, string filePath)
         {
             Console.WriteLine(content);
             File.AppendAllText(filePath, $"{content}{Environment.NewLine}");
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <param name="logPath"></param>
+        /// <summary>Copy a directory.</summary>
+        /// <param name="source">The directory to copy from.</param>
+        /// <param name="target">The directory to copy to. </param>
+        /// <param name="logPath">The path to the log file.</param>
         public static void CopyDir(string source, string target, string logPath)
         {
             WriteLog(Environment.NewLine, logPath);
@@ -111,24 +111,24 @@ namespace AbatabLieutenant
             }
         }
 
-        /// <summary>Summary</summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <param name="serviceFiles"></param>
-        /// <param name="logFilePath"></param>
-        public static void CopyService(string source, string target, List<string> serviceFiles, string logFilePath)
+        /// <summary>Copy required Abatab web service files.</summary>
+        /// <param name="source">The file to copy.</param>
+        /// <param name="target">The location to copy to.</param>
+        /// <param name="serviceFiles">The list of required Abatab web service files.</param>
+        /// <param name="logPath">The path to the log file.</param>
+        public static void CopyService(string source, string target, List<string> serviceFiles, string logPath)
         {
             foreach (string file in serviceFiles)
             {
-                WriteLog($"Copying service file: {file}...", logFilePath);
+                WriteLog($"Copying service file: {file}...", logPath);
                 File.Copy($@"{source}\{file}", $@"{target}\{file}");
             }
         }
 
-        /// <summary>Summary</summary>v
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
+        /// <summary>Get the sub-directories of a directory.</summary>v
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>I'm tired of commenting stuff.</returns>
         private static DirectoryInfo[] GetSubDirs(string source, string target)
         {
             DirectoryInfo dir = new DirectoryInfo(source);

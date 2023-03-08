@@ -6,9 +6,17 @@
 
 </div>
 
+# Version 4.x
+
+## v4.0.0 (March 8, 2023)
+
+* `INFO` Initial v4.x release
+
 # Version 3.x
 
-## v3.0.0 (February x, 2023)
+## v3.0.0 (February 13, 2023)
+
+* `INFO` Initial v3.x release
 
 # Version 2.x
 

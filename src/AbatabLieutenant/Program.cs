@@ -1,19 +1,19 @@
 ﻿/*************************************************************************
- * Abatab Lieutenant v4.0.0-rc1+230307.1753
- * A command line deployment utility for Abatab
+ * Abatab Lieutenant v4.0.0+230308.0939
+ * A command line deployment utility for Abatab.
  * https://github.com/spectrum-health-systems/AbatabLieutenant
  ************************************************************************/
 
 // AbatabLieutenant.Program.cs
-// b230307.1753
+// b230308.0939
 // (c) A Pretty Cool Program
 
 namespace AbatabLieutenant
 {
-    /// <summary>Summary</summary>
+    /// <summary>Entry point for Abatab Lieutenant</summary>
     internal static class Program
     {
-        /// <summary>Summary</summary>
+        /// <summary>The magic starts here!</summary>
         /// <param name="commandArguments"></param>
         static void Main(string[] commandArguments)
         {
