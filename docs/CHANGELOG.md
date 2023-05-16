@@ -6,6 +6,8 @@
 
 </div>
 
+* Added Abatab.Core.Messaging.dll to ServiceBinFiles.
+
 # Version 4.x
 
 ## v4.0.0 (March 8, 2023)

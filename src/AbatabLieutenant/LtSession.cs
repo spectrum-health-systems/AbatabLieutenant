@@ -1,12 +1,10 @@
-﻿// AbatabLieutenant.LtSession.cs
-// b230308.0939
-// (c) A Pretty Cool Program
+﻿// b230516.0955
 
 using System.Text.Json;
 
 namespace AbatabLieutenant
 {
-    /// <summary>Summary</summary>
+    /// <summary>The Session object for AbatabLieutenant.</summary>
     public class LtSession
     {
         /// <summary>The Abatab Lieutenant version.</summary>
@@ -69,33 +67,25 @@ namespace AbatabLieutenant
         /// <summary>The list of required Abatab web service files.</summary>
         public List<string> ServiceFiles { get; set; }
 
-        /// <summary>The list of required Abatab web service bin\ files.</summary>
-        public List<string> ServiceBinFiles { get; set; }
-
-        /// <summary>The list of required Abatab web service bin\roslyn\ files.</summary>
-        public List<string> ServiceRoslynFiles { get; set; }
-
         /// <summary>The list of required Abatab web service folders.</summary>
         public List<string> ServiceFolders { get; set; }
 
         /// <summary>Load the local settings from the local settings file.</summary>
-        /// <param name="settingsFile">The name of the local settings file.</param>
+        /// <remarks>
+        /// * If the local settings file does not exist, a local settings file
+        ///   will be created with default values.
+        /// </remarks>
         /// <returns></returns>
-        public static LtSession LoadLocalSettings(string settingsFile)
+        public static LtSession LoadLocalSettings()
         {
-            VerifySettingsFile(settingsFile);
+            var settingsFile = "AbatabLieutenant.json";
 
-            return JsonSerializer.Deserialize<LtSession>(File.ReadAllText(settingsFile));
-        }
-
-        /// <summary>Verify the local settings file exists, and create one if it doesn't.</summary>
-        /// <param name="settingsFile">The name of the local settings file.</param>
-        public static void VerifySettingsFile(string settingsFile)
-        {
             if (!File.Exists(settingsFile))
             {
                 CreateLocalFile(settingsFile);
             }
+
+            return JsonSerializer.Deserialize<LtSession>(File.ReadAllText(settingsFile));
         }
 
         /// <summary>Create a default local settings file.</summary>
@@ -107,7 +97,9 @@ namespace AbatabLieutenant
                 WriteIndented = true
             };
 
-            File.WriteAllText(settingsFile, JsonSerializer.Serialize(CreateDefaultSettings(), jsonOptions));
+            LtSession defaultSettings = CreateDefaultSettings();
+
+            File.WriteAllText(settingsFile, JsonSerializer.Serialize(defaultSettings, jsonOptions));
         }
 
         /// <summary>Creates the default settings values.</summary>
@@ -116,8 +108,8 @@ namespace AbatabLieutenant
         {
             return new LtSession
             {
-                LtVer                 = "4.0",
-                LtBld                 = "230308.0939",
+                LtVer                 = "5.0",
+                LtBld                 = "230516.1001",
                 StagingRoot           = @"C:\AbatabData\Lieutenant\Staging",
                 LogRoot               = @"C:\AbatabData\Lieutenant\Logs",
                 LogPath               = "defined-at-runtime",
@@ -140,6 +132,7 @@ namespace AbatabLieutenant
                     @"C:\AbatabData\Lieutenant\Staging\",
                     @"C:\AbatabData\Primeval\",
                     @"C:\AbatabData\Public\",
+                    @"C:\AbatabData\Public\Alerts\",
                     @"C:\AbatabData\Public\Warnings\",
                     @"C:\AbatabData\SBOX\",
                     @"C:\AbatabData\SBOX\Warnings\",
@@ -150,8 +143,7 @@ namespace AbatabLieutenant
                 {
                     "development",
                     "main",
-                    "testing",
-                    "23.2"
+                    "testing"
                 },
                 ServiceFiles = new List<string>
                 {
@@ -161,77 +153,6 @@ namespace AbatabLieutenant
                     "Web.config",
                     "Web.Debug.config",
                     "Web.Release.config"
-                },
-                ServiceBinFiles = new List<string>
-                {
-                    "bin/Abatab.dll",
-                    "bin/Abatab.Core.Catalog.dll",
-                    "bin/Abatab.Core.DataExport.dll",
-                    "bin/Abatab.Core.Framework.dll",
-                    "bin/Abatab.Core.Logger.dll",
-                    //"bin/Abatab.Core.OptionObject.dll",
-                    //"bin/Abatab.Core.OS.dll",
-                    "bin/Abatab.Core.Session.dll",
-                    "bin/Abatab.Core.Utilities.dll",
-                    "bin/Abatab.Module.ProgressNote.dll",
-                    "bin/Abatab.Module.Prototype.dll",
-                    "bin/Abatab.Module.QuickMedicationOrder.dll",
-                    "bin/Abatab.Module.Testing.dll",
-                    "bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll",
-                    "bin/Newtonsoft.Json.dll",
-                    "bin/ScriptLinkStandard.dll",
-                },
-                ServiceRoslynFiles = new List<string>
-                {
-                    "bin/roslyn/csc.exe",
-                    "bin/roslyn/csc.exe.config",
-                    "bin/roslyn/csc.rsp",
-                    "bin/roslyn/csi.exe",
-                    "bin/roslyn/csi.exe.config",
-                    "bin/roslyn/csi.rsp",
-                    "bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll",
-                    "bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll",
-                    "bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll",
-                    "bin/roslyn/Microsoft.CodeAnalysis.dll",
-                    "bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll",
-                    "bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll",
-                    "bin/roslyn/Microsoft.CSharp.Core.targets",
-                    "bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll",
-                    "bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll",
-                    "bin/roslyn/Microsoft.Managed.Core.targets",
-                    "bin/roslyn/Microsoft.VisualBasic.Core.targets",
-                    "bin/roslyn/Microsoft.Win32.Primitives.dll",
-                    "bin/roslyn/System.AppContext.dll",
-                    "bin/roslyn/System.Collections.Immutable.dll",
-                    "bin/roslyn/System.Console.dll",
-                    "bin/roslyn/System.Diagnostics.DiagnosticSource.dll",
-                    "bin/roslyn/System.Diagnostics.FileVersionInfo.dll",
-                    "bin/roslyn/System.Diagnostics.StackTrace.dll",
-                    "bin/roslyn/System.Globalization.Calendars.dll",
-                    "bin/roslyn/System.IO.Compression.dll",
-                    "bin/roslyn/System.IO.Compression.ZipFile.dll",
-                    "bin/roslyn/System.IO.FileSystem.dll",
-                    "bin/roslyn/System.IO.FileSystem.Primitives.dll",
-                    "bin/roslyn/System.Net.Http.dll",
-                    "bin/roslyn/System.Net.Sockets.dll",
-                    "bin/roslyn/System.Reflection.Metadata.dll",
-                    "bin/roslyn/System.Runtime.InteropServices.RuntimeInformation.dll",
-                    "bin/roslyn/System.Security.Cryptography.Algorithms.dll",
-                    "bin/roslyn/System.Security.Cryptography.Encoding.dll",
-                    "bin/roslyn/System.Security.Cryptography.Primitives.dll",
-                    "bin/roslyn/System.Security.Cryptography.X509Certificates.dll",
-                    "bin/roslyn/System.Text.Encoding.CodePages.dll",
-                    "bin/roslyn/System.Threading.Tasks.Extensions.dll",
-                    "bin/roslyn/System.ValueTuple.dll",
-                    "bin/roslyn/System.Xml.ReaderWriter.dll",
-                    "bin/roslyn/System.Xml.XmlDocument.dll",
-                    "bin/roslyn/System.Xml.XPath.dll",
-                    "bin/roslyn/System.Xml.XPath.XDocument.dll",
-                    "bin/roslyn/vbc.exe",
-                    "bin/roslyn/vbc.exe.config",
-                    "bin/roslyn/vbc.rsp",
-                    "bin/roslyn/VBCSCompiler.exe",
-                    "bin/roslyn/VBCSCompiler.exe.config"
                 },
                 ServiceFolders = new List<string>
                 {

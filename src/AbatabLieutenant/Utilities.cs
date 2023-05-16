@@ -1,6 +1,4 @@
-﻿// AbatabLieutenant.Utilities.cs
-// b230308.0939
-// (c) A Pretty Cool Program
+﻿// b230516.0955
 
 using System.IO.Compression;
 
