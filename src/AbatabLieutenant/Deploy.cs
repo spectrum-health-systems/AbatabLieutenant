@@ -1,4 +1,4 @@
-﻿// b230516.0955
+﻿// b230705.1117
 
 namespace AbatabLieutenant
 {
@@ -39,9 +39,9 @@ namespace AbatabLieutenant
 
             Utilities.ExtractBranch($@"{stagingDir}\Abatab-{branch}.zip", stagingDir, logPath);
 
-            Utilities.CopyDir($@"{stagingDir}\Abatab-{branch}\src\bin", $@"{serviceDir}\bin", logPath);
+            Utilities.CopyDir($@"{stagingDir}\Abatab-{branch}\src\Abatab\bin", $@"{serviceDir}\bin", logPath);
 
-            Utilities.CopyService($@"{stagingDir}\Abatab-{branch}\src\", serviceDir, serviceFiles, logPath);
+            Utilities.CopyService($@"{stagingDir}\Abatab-{branch}\src\Abatab", serviceDir, serviceFiles, logPath);
         }
     }
 }
