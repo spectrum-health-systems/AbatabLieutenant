@@ -1,12 +1,14 @@
-﻿/*************************************************************************
- * Abatab Lieutenant v4.1.0+230516
- * A command line deployment utility for Abatab.
- * https://github.com/spectrum-health-systems/AbatabLieutenant
- ************************************************************************/
+﻿/* =============================================================================
+ * Abatab Lieutenant: A command line deployment utility for Abatab.
+ * v4.2.0.0
+ * https://github.com/spectrum-health-systems/AbatabLieutenant)
+ * -----------------------------------------------------------------------------
+ * Developed by A Pretty Cool Program (https://github.com/APrettyCoolProgram)
+ * Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.html)
+ * =============================================================================
+ */
 
-// AbatabLieutenant.Program.cs
-// b230516.0955
-// (c) A Pretty Cool Program
+// b230705.1029
 
 namespace AbatabLieutenant
 {

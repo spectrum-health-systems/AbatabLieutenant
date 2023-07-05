@@ -49,7 +49,6 @@ The following are valid branch names:
 * development
 * main
 * testing
-* 23.2
 
 # Logging
 
@@ -61,7 +60,7 @@ If you are curious as to what Abatab Lieutenant does while it's working, you can
 
 # Deploying an Abatab branch to the instance available to LIVE
 
-By default, deploying Abatb branches to the instance available to LIVE must be done manually. This is by design, and ensures the Abatab instance available to LIVE is not impacted by testing development branches of Abatab.
+By default, deploying Abatab branches to the instance available to LIVE must be done manually. This is by design, and ensures the Abatab instance available to LIVE is not impacted by testing development branches of Abatab.
 
 Deploying an Abatab branch to the instance available to LIVE should be done when users are not in the system. Your options are:
 
