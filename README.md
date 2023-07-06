@@ -1,3 +1,5 @@
+<!-- Last updated: 230706 -->
+
 <div align="center">
 
 ![AbatabLogo](/resources/images/logos/AbatabLieutenantLogo.png)
@@ -13,10 +15,10 @@ Current version: 4.2 (released July 5, 2023)
 
   ### CONTENTS
   [About](#about)  
-  [Getting started](#getting-started)  
-  [Using](#using)  
-  [Logs](#logs)  
-  [Additional information](#additional-information)  
+  [Configuration](#configuration)  
+  [Deploying the Abatab testing branch](#deploying-the-abatab-testing-branch)  
+  [Logging](#logging)  
+  [The Abatab Lieutenant process](#the-abatab-lieutenant-process)  
 
 </td>
 </tr>
@@ -26,9 +28,9 @@ Current version: 4.2 (released July 5, 2023)
 
 [Abatab Lieutenant](https://github.com/spectrum-health-systems/AbatabLieutenant) is a deployment manager for Abatab.
 
-**By default, Abatab Lieutenant will only deploy branches to the Abatab instance available to UAT.**
-
-**Deploying branches to the Abatab instance available to LIVE should be done manually.**
+>***By default, Abatab Lieutenant will only deploy branches to the Abatab instance available to UAT.***  
+>
+>***Deploying branches to the Abatab instance available to LIVE should be done manually.***
 
 # Configuration
 
@@ -45,38 +47,38 @@ If you want to deploy a branch that is not "main" or "testing", you can add it t
 
 # Deploying the Abatab testing branch
 
->By default, Abatab Lieutenant will only deploy branches to the Abatab instance available to UAT.  
+>***By default, Abatab Lieutenant will only deploy branches to the Abatab instance available to UAT.***  
 >
->Deploying branches to the Abatab instance available to LIVE should be done manually.
+>***Deploying branches to the Abatab instance available to LIVE should be done manually.***
 
-## XX. Update Settings.settings
+## 1. Update Settings.settings
 
 Using Visual Studio:
 
 * Update `AbatabVersion` to the current version
 * Update `AbatabBuild` to the current build
 
-### XX. Rebuild Abatab
+### 2. Rebuild Abatab
 
 Using Visual Studio:
 
 * Clean the Abatab solution
 * Rebuild the Abatb solution
 
-## XX. Commit to development branch
+## 3. Commit to development branch
 
 Using GitHub Desktop (or your prefered Git client/method):
 
 * Commit changes to the current development branch.
 
-## XX. Create a pull request for the testing branch
+## 4. Create a pull request for the testing branch
 
 Using GitHub.com:
 
 * Create a pull request from the development branch to the testing branch
 * Merge branches
 
-## XX. Deploy the testing branch to the web server
+## 5. Deploy the testing branch to the web server
 
 Login to the web server that hosts Abatab and:
 
@@ -85,7 +87,7 @@ Login to the web server that hosts Abatab and:
 * Type `AbatabLieutenant`, and a simple help screen should pop up
 * Type `AbatabLieutenant testing`
 
-## XX. Update Web.config
+## 6. Update Web.config
 
 Find the `Web.config` file for the Abatab deployment and:
 
