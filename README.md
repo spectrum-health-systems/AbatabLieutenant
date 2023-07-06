@@ -18,7 +18,7 @@ Current version: 4.2 (released July 5, 2023)
   [Configuration](#configuration)  
   [Deploying the Abatab testing branch](#deploying-the-abatab-testing-branch)  
   [Logging](#logging)  
-  [Deploying an Abatab branch to the instance available to LIVE](#deploying-an-abatab-branch-to-the-instance-available-to-live)
+  [Deploying an Abatab branch to the instance available to LIVE](#deploying-an-abatab-branch-to-the-instance-available-to-live)  
   [The Abatab Lieutenant process](#the-abatab-lieutenant-process)  
 
 </td>
