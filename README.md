@@ -18,6 +18,7 @@ Current version: 4.2 (released July 5, 2023)
   [Configuration](#configuration)  
   [Deploying the Abatab testing branch](#deploying-the-abatab-testing-branch)  
   [Logging](#logging)  
+  [Deploying an Abatab branch to the instance available to LIVE](#deploying-an-abatab-branch-to-the-instance-available-to-live)
   [The Abatab Lieutenant process](#the-abatab-lieutenant-process)  
 
 </td>
@@ -115,6 +116,22 @@ To deploy a custom Abatab branch:
 
 Abatab Lieutenant will display log information to the console, as well as a log file located in **%LtntRoot%\Logs\\**
 
+# Deploying an Abatab branch to the instance available to LIVE
+
+By default, deploying Abatab branches to the instance available to LIVE must be done manually. This is by design, and ensures the Abatab instance available to LIVE is not impacted by testing development branches of Abatab.
+
+Deploying an Abatab branch to the instance available to LIVE should be done when users are not in the system. Your options are:
+
+1. Deploy after hours (e.g., 11PM on a Saturday) when users most likely won't be in the system
+2. Deploy during Avatar scheduled maintenance
+3. Disable all ScriptLink calls from within Avatar (very time consuming, don't do this)
+
+Once you are ready to deploy:
+
+1. Remove all files from `C:\AvatoolWebService\Abatab_LIVE`
+2. Copy all files from `C:\AvatoolWebService\Abatab_UAT` to `C:\AvatoolWebService\Abatab_LIVE`
+3. Make the necessary configuration setting changes in Web.config
+
 # The Abatab Lieutenant process
 
 <div align="center">
@@ -134,21 +151,5 @@ Abatab Lieutenant will display log information to the console, as well as a log 
       DeployBranch --> ExitLtnt
   ```
 </div>
-
-# Deploying an Abatab branch to the instance available to LIVE
-
-By default, deploying Abatab branches to the instance available to LIVE must be done manually. This is by design, and ensures the Abatab instance available to LIVE is not impacted by testing development branches of Abatab.
-
-Deploying an Abatab branch to the instance available to LIVE should be done when users are not in the system. Your options are:
-
-1. Deploy after hours (e.g., 11PM on a Saturday) when users most likely won't be in the system
-2. Deploy during Avatar scheduled maintenance
-3. Disable all ScriptLink calls from within Avatar (very time consuming, don't do this)
-
-Once you are ready to deploy:
-
-1. Remove all files from `C:\AvatoolWebService\Abatab_LIVE`
-2. Copy all files from `C:\AvatoolWebService\Abatab_UAT` to `C:\AvatoolWebService\Abatab_LIVE`
-3. Make the necessary configuration setting changes in Web.config
 
 [AbatabLieutenantLogo]: ../../resources/images/logos/AbatabLieutenantLogo.png
