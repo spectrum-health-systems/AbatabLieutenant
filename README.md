@@ -1,6 +1,6 @@
 <div align="center">
 
-![AbatabLogo](AbatabLieutenantLogo.png)
+![AbatabLogo](/resources/images/logos/AbatabLieutenantLogo.png)
 
 Current version: 4.2 (released July 5, 2023)
 
