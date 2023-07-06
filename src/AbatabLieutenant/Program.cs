@@ -1,12 +1,14 @@
-﻿/*************************************************************************
- * Abatab Lieutenant v4.0.0+230308.0939
- * A command line deployment utility for Abatab.
- * https://github.com/spectrum-health-systems/AbatabLieutenant
- ************************************************************************/
+﻿/* =============================================================================
+ * Abatab Lieutenant: A command line deployment utility for Abatab.
+ * v4.2.0.0
+ * https://github.com/spectrum-health-systems/AbatabLieutenant)
+ * -----------------------------------------------------------------------------
+ * Developed by A Pretty Cool Program (https://github.com/APrettyCoolProgram)
+ * Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.html)
+ * =============================================================================
+ */
 
-// AbatabLieutenant.Program.cs
-// b230308.0939
-// (c) A Pretty Cool Program
+// b230705.1029
 
 namespace AbatabLieutenant
 {
@@ -19,13 +21,16 @@ namespace AbatabLieutenant
         {
             Console.Clear();
 
-            var ltSession = LtSession.LoadLocalSettings("AbatabLieutenant.json");
+            var ltSession = LtSession.LoadLocalSettings();
 
             if (commandArguments.Length > 0 && ltSession.ValidBranches.Contains(commandArguments[0]))
             {
                 LtSession.CreateRuntimeSettings(ltSession, commandArguments);
+
                 Utilities.VerifyFramework(ltSession.AbatabDataFolders, ltSession.LogPath);
+
                 Deploy.WebService(ltSession);
+
                 Utilities.WriteLog($"{Environment.NewLine}Deployment complete!", ltSession.LogPath);
             }
             else

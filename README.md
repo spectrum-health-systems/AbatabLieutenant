@@ -1,10 +1,10 @@
+<!-- Last updated: 230706 -->
+
 <div align="center">
 
-[![Logo][Logo]][MainBranchUrl]
+![AbatabLogo](/resources/images/logos/AbatabLieutenantLogo.png)
 
-# A command line deployment utility for Abatab
-
-![Status][Status]&nbsp;&nbsp;&nbsp;[![License][License]][LicenseUrl]&nbsp;&nbsp;&nbsp;![.NET][DotNet]&nbsp;&nbsp;&nbsp;![Release][Release]&nbsp;&nbsp;&nbsp;![Issues][Issues]&nbsp;&nbsp;&nbsp;![PullRequests][PullRequests]
+Current version: 4.2 (released July 5, 2023)
 
 </div>
 
@@ -15,10 +15,11 @@
 
   ### CONTENTS
   [About](#about)  
-  [Getting started](#getting-started)  
-  [Using](#using)  
-  [Logs](#logs)  
-  [Additional information](#additional-information)  
+  [Configuration](#configuration)  
+  [Deploying the Abatab testing branch](#deploying-the-abatab-testing-branch)  
+  [Logging](#logging)  
+  [Deploying an Abatab branch to the instance available to LIVE](#deploying-an-abatab-branch-to-the-instance-available-to-live)  
+  [The Abatab Lieutenant process](#the-abatab-lieutenant-process)  
 
 </td>
 </tr>
@@ -26,135 +27,129 @@
 
 # About
 
-Abatab Lieutenant is a simple utility that deploys repository branches of [Abatab][AbatabUrl] to the server where where Abatab is hosted.
+[Abatab Lieutenant](https://github.com/spectrum-health-systems/AbatabLieutenant) is a deployment manager for Abatab.
 
-Abatab Lieutenant is intended to be used with non-production installations of Abatab.
+>***By default, Abatab Lieutenant will only deploy branches to the Abatab instance available to UAT.***  
+>
+>***Deploying branches to the Abatab instance available to LIVE should be done manually.***
 
-## Features
+# Configuration
 
-* Cross-platform
-* Highly configurable via local configuration file
+Configuration settings for Abatab Lieutenant can be found in the local `AbatabLieutenant.json` file.
 
-## Requirements
+There are only two settings that should be modified:
 
-* [.Net 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) runtime
-* Works best with respositories hosted on [GitHub](https://github.com/)
+* **AbServiceRoot**  
+The root directory where your Abatab installation is located for your organization.  
+Keep in mind that this should be the location of Abatab for your *UAT* environment, and *not* production.
 
-# Getting started
+* **ValidBranches**  
+If you want to deploy a branch that is not "main" or "testing", you can add it to this list.
 
-## Installing
+# Deploying the Abatab testing branch
 
-Abatab Lieutenant is a portable application, so it doesn't need to be installed. All you need to do is:
+>***By default, Abatab Lieutenant will only deploy branches to the Abatab instance available to UAT.***  
+>
+>***Deploying branches to the Abatab instance available to LIVE should be done manually.***
 
-1. Download the latest [release][ReleaseUrl], then...
-2. Extract the .zip archive to a location on the server where Abatab is hosted
+## 1. Update Settings.settings
 
-# Using
+Using Visual Studio:
 
-## Deploying to LIVE
+* Update `AbatabVersion` to the current version
+* Update `AbatabBuild` to the current build
 
-By default, Abatab Lieutenant will only deploy Abatab branches to a UAT environment. This is by design, to ensure that LIVE environments are not modified in any way.
+### 2. Rebuild Abatab
 
-**It is recommended that you deploy Abatab to your production/LIVE environments manually.**
+Using Visual Studio:
 
-## Configuration and settings
+* Clean the Abatab solution
+* Rebuild the Abatb solution
 
-The first time you execute Abatab Lieutenant, a default AbatabLieutenant.json, which contains all of the necessary settings for Abatab Lieutenant, will be created.
+## 3. Commit to development branch
 
-Assuming that you have installed Abatab per the instructions, you shouldn't need to modify any of the settings.
+Using GitHub Desktop (or your prefered Git client/method):
 
-## Displaying help information
+* Commit changes to the current development branch.
 
-To display the help information, open a terminal and type:
+## 4. Create a pull request for the testing branch
 
-    `$ AbatabLieutenant`
+Using GitHub.com:
 
-## Deploying an Abatab branch
+* Create a pull request from the development branch to the testing branch
+* Merge branches
 
-To deploy a specific branch of Abatab, open a terminal and type:
+## 5. Deploy the testing branch to the web server
 
-    `$ AbatabLieutenant.exe %BranchName%`.
+Login to the web server that hosts Abatab and:
 
-For example:
+* Open a Command Prompt as Administrator
+* Type `cd ../../IT/Abatab Lieutenant`
+* Type `AbatabLieutenant`, and a simple help screen should pop up
+* Type `AbatabLieutenant testing`
 
-    `$ AbatabLieutenant.exe testing`
+## 6. Update Web.config
 
-### Valid Abatab branches
+Find the `Web.config` file for the Abatab deployment and:
 
-The following Abatab branches are available for deployment via Abatab Lieutenant:
+* Verify `LoggerMode` is set to `enabled`
+* Verify `LoggerTypes` is set to `all`
+* Update `AvatarEnvironment`
+* Update `AbatabEmailPassword`
+* Verify `DebugglerMode` is set to `disabled`
 
-* development
-* main
-* testing
+### Deploying a custom branch
 
-## Minimal Deployment Mode (experimental)
+To deploy a custom Abatab branch:
 
-**THIS IS AN EXPERIMENTAL FEATURE, AND SHOULD NOT BE USED!**
+1. Modify the `ValidBranches` entry in the `AbatabLieutenant.json` file to include the custom branch:
 
-By default, Abatab Lieutenant downloads the entire requested Abatab branch, which is not the most efficient way of doing things (but it works!).
+```csharp
+  "ValidBranches": [
+    "main",
+    "testing",
+    "MyCustomBranch"
+  ],
+```
 
-By adding the `min` option, you can use the experimental "Minimal Deployment Mode", which only downloads the necessary files.
+# Logging
 
-You can do this by opening a terminal and typing:
+Abatab Lieutenant will display log information to the console, as well as a log file located in **%LtntRoot%\Logs\\**
 
-    `$ AbatabLieutenant.exe testing min`
+# Deploying an Abatab branch to the instance available to LIVE
 
-# How it works/what it does
+By default, deploying Abatab branches to the instance available to LIVE must be done manually. This is by design, and ensures the Abatab instance available to LIVE is not impacted by testing development branches of Abatab.
 
-Abatab Lieutenant:
+Deploying an Abatab branch to the instance available to LIVE should be done when users are not in the system. Your options are:
 
-1. Downloads the latest *%BranchName%* branch of Abatab, as a .zip archive, to the "*C:\AbatabData\Lieutnant\Staging*\\" staging folder.
-2. Extracts the contents of the .zip archive to "*C:\AbatabData\Lieutnant\Staging\\%BranchName%*\\" folder.
-3. Copies the necessary web service files to "*C:\AbatabWebService\UAT*\\" (the Abatab web service deployment for UAT)
-4. Copies everything in "*C:\AbatabData\Lieutnant\Staging\\%BranchName%\bin*\\" folder. to "*C:\AbatabWebService\UAT\bin\*\\"
+1. Deploy after hours (e.g., 11PM on a Saturday) when users most likely won't be in the system
+2. Deploy during Avatar scheduled maintenance
+3. Disable all ScriptLink calls from within Avatar (very time consuming, don't do this)
 
-# Logs
+Once you are ready to deploy:
 
-Abatab Lieutenant logs can be found here in *AbatabData\Lieutenant\Logs\\*.
+1. Remove all files from `C:\AvatoolWebService\Abatab_LIVE`
+2. Copy all files from `C:\AvatoolWebService\Abatab_UAT` to `C:\AvatoolWebService\Abatab_LIVE`
+3. Make the necessary configuration setting changes in Web.config
 
-# Additional information
-
-Please see the [changelog][Changelog] for a history of changes, and the [roadmap][Roadmap] for any upcoming features/fixes.
-
-***
-
-<br>
+# The Abatab Lieutenant process
 
 <div align="center">
 
-  ![LastCommit][LastCommit]&nbsp;&nbsp;&nbsp;![CodeSize][CodeSize]&nbsp;&nbsp;&nbsp;![LinesOfCode][LinesOfCode]&nbsp;&nbsp;&nbsp;![RepoFileCount][RepoFileCount]&nbsp;&nbsp;&nbsp;![RepoSize][RepoSize]
-  <br>
-  <br>
+  ```mermaid
+  graph TD
 
-  Abatab Lieutenant is developed by [A Pretty Cool Program][APrettyCoolProgramUrl].
+      AbatabLieutenant.exe([AbatabLieutenant.exe]) --> PassedArgumentCheck{"More than one argument passed <br> AND <br> argument is valid"}
+      
+      PassedArgumentCheck -- No --> DisplayHelp.cs(Display help <br> to console)
+      DisplayHelp.cs --> ExitLtnt([Exit])
 
+      PassedArgumentCheck -- Yes --> InitializeFramework(Initialize <br> Abatab Lieutenant <br>framework)
+      InitializeFramework --> BackupCurrent(Backup <br>current deployment)
+      BackupCurrent --> PrepareTarget(Prepare <br>deployment target)
+      PrepareTarget --> DeployBranch(Deploy <br> requested branch)
+      DeployBranch --> ExitLtnt
+  ```
 </div>
 
-[DotNet]: https://img.shields.io/badge/.NET-6.0-blueviolet
-
-[AbatabUrl]: https://github.com/spectrum-health-systems/Abatab
-[MainBranchUrl]: README.md
-[Logo]: ./resources/images/logos/AbatabLieutenantLogo_V4.png
-[Status]: https://img.shields.io/badge/status-active-brightgreen?style=flat
-[License]: https://img.shields.io/badge/license-apache%202.0-brightgreen?style=flat
-[LicenseUrl]: https://www.apache.org/licenses/LICENSE-2.0
-[Release]: https://img.shields.io/github/v/release/spectrum-health-systems/AbatabLieutenant?style=flat
-[ReleaseUrl]: https://github.com/spectrum-health-systems/AbatabLieutenant/releases
-
-[AbatabCommanderUrl]: https://github.com/spectrum-health-systems/AbatabCommander
-[Changelog]: https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/docs/CHANGELOG.md
-[Roadmap]: https://github.com/spectrum-health-systems/AbatabLieutenant/blob/main/docs/ROADMAP.md
-[APrettyCoolProgramUrl]: https://github.com/APrettyCoolProgram
-
-[AbatabBaseUrl]: https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/
-[LtntRootNotes]: #ltntroot
-[CustomBranchNotes]: #deploying-a-custom-branch-of-abatab
-
-[CodeSize]: https://img.shields.io/github/languages/code-size/spectrum-health-systems/AbatabLieutenant
-[LinesOfCode]: https://img.shields.io/tokei/lines/github/spectrum-health-systems/AbatabLieutenant
-[RepoFileCount]: https://img.shields.io/github/directory-file-count/spectrum-health-systems/AbatabLieutenant
-[RepoSize]: https://img.shields.io/github/repo-size/spectrum-health-systems/AbatabLieutenant
-[AllReleases]: https://img.shields.io/github/downloads/spectrum-health-systems/AbatabLieutenant/total
-[Issues]: https://img.shields.io/github/issues/spectrum-health-systems/AbatabLieutenant
-[PullRequests]: https://img.shields.io/github/issues-pr/spectrum-health-systems/AbatabLieutenant
-[LastCommit]: https://img.shields.io/github/last-commit/spectrum-health-systems/AbatabLieutenant
+[AbatabLieutenantLogo]: ../../resources/images/logos/AbatabLieutenantLogo.png
