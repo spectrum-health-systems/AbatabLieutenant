@@ -1,0 +1,204 @@
+c0819dd (HEAD -> development, origin/development) Update repository
+c1a7abc Merge branch 'main' into development
+aa3ab6e Create ROADMAP.md
+4c22636 Update README.md
+a74ad8a Update README.md
+9f5a98b Update README.md
+b7e95d1 Update README.md
+e5a9c29 Update .gitignore
+69c6ebb v4.2.0.0
+1f6328f b230705
+93a9b52 5.0-development
+c8506ee Merge pull request #20 from spectrum-health-systems/development
+a3e7bcd v4.0.0+230308.0939
+9ec2555 Create AbatabLieutenantLogo_v4.png
+fc2b21a Merge pull request #19 from spectrum-health-systems/development
+174050a Remove depreciated code
+4f619f0 Merge pull request #18 from spectrum-health-systems/development
+0277584 v4.0.0-rc1+230307.1753
+fbe76ee v4.0.0-development+230307.1255
+0d9f11d 23.2.0-development+230301.0737
+f835bb3 Update ROADMAP.md
+2f2b911 (tag: v3.0.0) Merge pull request #17 from spectrum-health-systems/development
+166a458 v3.0.0
+91751f1 Update ROADMAP.md
+a7e9d61 (tag: v3.0.0-rc2) Merge pull request #16 from spectrum-health-systems/development
+55fe7e8 3.0.0-rc2+230213.0854
+82225d7 (tag: v3.0.0-rc1) Merge pull request #15 from spectrum-health-systems/development
+47b4aea Update .gitignore
+bf316d9 3.0.0-rc1+230209.0737
+0a8a425 3.0.0-development+230208.1510
+303e803 Update README.md
+22df8bb Update README.md
+8ce4298 Update README.md
+38239ec Update README.md
+d62079b 3.0.0+230208.0924
+a0ed260 Remove archived development code
+ea57056 3.0.0+230207.1744
+9d4083b Update documentation
+2bcc19c v3.0.0+230207.1121
+efd77b9  v3.0.0+230207.1121
+8969b7f Repository resources
+4449c2d Documentation
+b295d90 Development resources
+070f391 .gitignore
+8174135 LICENSE
+5b10569 README
+e7fcb18 Refresh repository
+daca09a v3.0.0+230207.1059
+bd9d6e0 v3.0.0+230207.1058
+6b77284 Update documentation
+ff5a64f Development resources
+a9370cd .github
+dad51b9 Documentation
+7eeffbb Repository resources
+cedaf1d .gitignore
+1e16015 LICENSE
+01aac37 README
+2ee547e Refresh repository
+9bf54e9 Merge branch 'development' of https://github.com/spectrum-health-systems/AbatabLieutenant into development
+36a8153 Merge branch 'development' of https://github.com/spectrum-health-systems/AbatabLieutenant into development
+17cf558 Update logos
+29707ce 3.0.0+230127.0728
+d367a91 v3 development
+44c47c9 (tag: v2.0.0) Merge pull request #14 from spectrum-health-systems/development
+d31acfb v2.0
+1f275cb Update documentation
+312733c Merge pull request #13 from spectrum-health-systems/development
+eaf2a72 Documentation
+074e06d Repository resources
+e0587fc Merge pull request #12 from spectrum-health-systems/development
+1575839 Refresh repository
+c0ca22c Merge pull request #11 from spectrum-health-systems/development
+c405fa9 .gitignore
+3470853 LICENSE
+ab939a2 Merge pull request #10 from spectrum-health-systems/development
+01406e7 v2.0
+3f3488d Documentation
+6f27569 .gitignore
+73d7e14 LICENSE
+0228bcc README
+f0c6b2b Repository resources
+5fb5769 Refresh repository
+6244780 Refresh repository
+02b92ab Update README.md
+b3bfc69 Update README.md
+28723b3 Update README.md
+c2a46e5 Update README.md
+1054c56 Update README.md
+6335170 Update README.md
+5473f73 Update README.md
+2f1f4bc Merge pull request #9 from spectrum-health-systems/development
+3d1fc9b Update README.md
+59c6257 Merge pull request #8 from spectrum-health-systems/development
+9ac2b3e Update documentation
+aeb3228 Update documentation
+1c31d4c Update README.md
+91c6ecb Update README.md
+3751ae6 Update README.md
+88335b4 Update README.md
+354b73f Update README.md
+a5beb9a Update README.md
+749cc56 Update README.md
+1a55895 Update README.md
+8017e70 Update README.md
+0348467 Update README.md
+ad43934 Update README.md
+1d3a068 Update README.md
+f487ad1 Update README.md
+deb1659 Update README.md
+0613ed4 Update README.md
+6d1ff59 Update README.md
+18da8ec Update README.md
+3debf1f Update README.md
+6ac67ae Update README.md
+74a4af4 Update README.md
+9abef25 Update README.md
+60d984c Update README.md
+c72b806 Update README.md
+03d0d2b Update README.md
+a4b1147 Update README.md
+30a7efb Update README.md
+9a1b129 Update README.md
+672d17c Update README.md
+38c3a07 2.0+221207.1019
+d4b9b0d Create RepositoryLogo.png
+cf68813 2.0+221206.1214
+a55f0e6 Merge pull request #7 from spectrum-health-systems/development
+035d8d7 2.0.0.0
+14f1248 2.0.0.0-devbuild+221201.1246
+38904bd 2.0.0.0-devbuild-221201.1224
+c10bd69 2.0.0.0-development+b221201.0852
+ab82c43 2.0.0-development+221130.1456
+130baec Update .suo
+c435ac3 v1.0.1
+4f860db Update .suo
+0222f01 Merge pull request #6 from spectrum-health-systems/development
+d7d1e8b Update README.md
+3240a5d Merge pull request #5 from spectrum-health-systems/development
+5d769b9 Update README.md
+82d8e74 Merge pull request #4 from spectrum-health-systems/development
+7805d24 v1.0.0
+425c59d (tag: v1.0.0) Merge pull request #3 from spectrum-health-systems/development
+a068a3e v1.0.0
+0cd8c8f v1.0.0
+0f14794 v1.0.0
+0262b7a v1.0.0
+e05f9cc v1.0.0
+7f5bdbe v1.0.0
+1317947 v1.0.0
+80e29d1 v1.0.0
+a2ad2f2 v1.0.0
+46b07af v1.0.0
+f4d414e v1.0.0
+a4bb38f v1.0.0
+e28e43d v1.0.0
+acd2c9d v1.0.0
+f12e64f v1.0.0
+5ecc3ea v1.0.0
+2ce414a v1.0.0
+41b95d8 v1.0.0
+8925c36 v1.0.0
+c66ad3f Merge pull request #2 from spectrum-health-systems/development
+5645958 v1.0.0
+159e977 Merge pull request #1 from spectrum-health-systems/development
+c647a14 v1.0.0
+36784da Refresh repository
+bb4b97a Update
+5f90799 Update
+44d942d Update
+d77f9be Update
+8fa61ed Update
+0c79900 Update
+480b4e2 Update
+b5b15ab Update
+5c9c7dc Update
+5dd7487 Update
+e083645 Update
+5e9a014 Update
+00be2ac Update
+3282552 Update
+f0b1fa8 Update
+6712d06 Update
+d194133 Update
+3c5f8b4 Update
+e947fa8 Update
+1b074b8 Update
+8d5487c Update
+fbe9cf4 Update
+e25b67a Update
+1ed2e8e Update
+65b1680 Update
+45bf469 Update
+2026cfd Update
+3de8dbf Update
+c9aacad Update
+84db2e6 Update
+0dfd582 Update
+993a070 Update
+2dea7ee Update
+b1c7b40 Update
+1d30250 Update
+30087f9 Update
+10fc63d Initial commit
+4bd273d Initial commit
