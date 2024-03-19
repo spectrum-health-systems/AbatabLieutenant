@@ -1,4 +1,4 @@
-﻿// b230516.0955
+﻿// b240319.0914
 
 using System.Text.Json;
 
@@ -78,7 +78,7 @@ namespace AbatabLieutenant
         /// <returns></returns>
         public static LtSession LoadLocalSettings()
         {
-            var settingsFile = "AbatabLieutenant.json";
+            const string settingsFile = "AbatabLieutenant.json";
 
             if (!File.Exists(settingsFile))
             {
@@ -108,22 +108,22 @@ namespace AbatabLieutenant
         {
             return new LtSession
             {
-                LtVer = "4.2",
-                LtBld = "230705.1114",
-                StagingRoot = @"C:\AbatabData\Lieutenant\Staging",
-                LogRoot = @"C:\AbatabData\Lieutenant\Logs",
-                LogPath = "defined-at-runtime",
-                AbServiceRoot = @"C:\AbatabWebService\UAT",
-                AbRepoUrl = "https://github.com/spectrum-health-systems/Abatab/",
-                AbRepoZipUrl = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/",
-                AbRepoRawUrl = "https://raw.githubusercontent.com/spectrum-health-systems/Abatab/",
-                RequestedBranch = "defined-at-runtime",
-                RequestedBranchUrl = "defined-at-runtime",
+                LtVer                 = "4.2.1",
+                LtBld                 = "240319",
+                StagingRoot           = @"C:\AbatabData\Lieutenant\Staging",
+                LogRoot               = @"C:\AbatabData\Lieutenant\Logs",
+                LogPath               = "defined-at-runtime",
+                AbServiceRoot         = @"C:\AbatabWebService\UAT",
+                AbRepoUrl             = "https://github.com/spectrum-health-systems/Abatab/",
+                AbRepoZipUrl          = "https://github.com/spectrum-health-systems/Abatab/archive/refs/heads/",
+                AbRepoRawUrl          = "https://raw.githubusercontent.com/spectrum-health-systems/Abatab/",
+                RequestedBranch       = "defined-at-runtime",
+                RequestedBranchUrl    = "defined-at-runtime",
                 RequestedBranchZipUrl = "defined-at-runtime",
                 RequestedBranchRawUrl = "defined-at-runtime",
-                Datestamp = "defined-at-runtime",
-                Timestamp = "defined-at-runtime",
-                AbatabDataFolders = new List<string>
+                Datestamp             = "defined-at-runtime",
+                Timestamp             = "defined-at-runtime",
+                AbatabDataFolders     = new List<string>
                 {
                     @"C:\AbatabData\",
                     @"C:\AbatabData\Debuggler\",
@@ -165,13 +165,13 @@ namespace AbatabLieutenant
         /// <param name="commandArguments">The arguments passed via the command line.</param>
         public static void CreateRuntimeSettings(LtSession ltSession, string[] commandArguments)
         {
-            ltSession.Datestamp = $"{DateTime.Now:yyMMdd}";
-            ltSession.Timestamp = $"{DateTime.Now:HHmm}";
-            ltSession.RequestedBranch = commandArguments[0];
-            ltSession.RequestedBranchUrl = $"https://github.com/spectrum-health-systems/Abatab/tree/development/{ltSession.RequestedBranch}";
+            ltSession.Datestamp             = $"{DateTime.Now:yyMMdd}";
+            ltSession.Timestamp             = $"{DateTime.Now:HHmm}";
+            ltSession.RequestedBranch       = commandArguments[0];
+            ltSession.RequestedBranchUrl    = $"https://github.com/spectrum-health-systems/Abatab/tree/development/{ltSession.RequestedBranch}";
             ltSession.RequestedBranchZipUrl = $"{ltSession.AbRepoZipUrl}{ltSession.RequestedBranch}.zip";
             ltSession.RequestedBranchRawUrl = $@"{ltSession.AbRepoRawUrl}{ltSession.RequestedBranch}/src/";
-            ltSession.LogPath = $@"{ltSession.LogRoot}\{ltSession.Datestamp}.{ltSession.Timestamp}.ltnt";
+            ltSession.LogPath               = $@"{ltSession.LogRoot}\{ltSession.Datestamp}.{ltSession.Timestamp}.ltnt";
 
             if (commandArguments.Length == 2)
             {

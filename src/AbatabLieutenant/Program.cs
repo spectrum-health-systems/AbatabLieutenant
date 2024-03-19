@@ -1,14 +1,14 @@
-﻿/* =============================================================================
- * Abatab Lieutenant: A command line deployment utility for Abatab.
- * v4.2.0.0
- * https://github.com/spectrum-health-systems/AbatabLieutenant)
- * -----------------------------------------------------------------------------
- * Developed by A Pretty Cool Program (https://github.com/APrettyCoolProgram)
- * Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.html)
- * =============================================================================
- */
+﻿// =============================== Version 4.3.0 ===============================
+// Abatab Lieutenant: A command line deployment utility for Abatab.
+// https://github.com/spectrum-health-systems/AbatabLieutenant
+// Copyright (c) A Pretty Cool Program. All rights reserved.
+// Licensed under the Apache 2.0 license.
+//
+// For details about this release, please see the local Source Code README.md:
+//   Abatab/README.md
+// =============================================================================
 
-// b230705.1029
+// b240319.0913
 
 namespace AbatabLieutenant
 {
@@ -16,7 +16,7 @@ namespace AbatabLieutenant
     internal static class Program
     {
         /// <summary>The magic starts here!</summary>
-        /// <param name="commandArguments"></param>
+        /// <param name="commandArguments">The arguments sent via the command line.</param>
         static void Main(string[] commandArguments)
         {
             Console.Clear();
