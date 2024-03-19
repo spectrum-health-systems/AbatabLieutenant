@@ -1,10 +1,10 @@
-<!-- Last updated: 230706 -->
+<!-- Last updated: 240319 -->
 
 <div align="center">
 
 ![AbatabLogo](/resources/images/logos/AbatabLieutenantLogo.png)
 
-Current version: 4.2 (released July 5, 2023)
+  ![BranchWarning](https://img.shields.io/badge/VERSION-4.3-white?style=for-the-badge)
 
 </div>
 

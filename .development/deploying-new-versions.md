@@ -1,6 +1,6 @@
 # Deploying new versions of AbatabLieutenant
 
-1. Change the version numbers in `AbatabLieutenant.csproj`
+## Update `AbatabLieutenant.csproj`
    
 Before:
 
@@ -16,7 +16,7 @@ After:
 <FileVersion>4.3.0.0</FileVersion>
 ```
 
-2. Change the version/build numbers in AbatabLieutenant.LtSession.CreateDefaultSettings()
+## Update `AbatabLieutenant.LtSession.CreateDefaultSettings()`
 
 Before:
 
